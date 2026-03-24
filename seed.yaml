@@ -1,0 +1,29 @@
+schema_version: "1.0"
+organ: III
+organ_name: Commerce
+repo: content-engine--asset-amplifier
+org: organvm-iii-ergon
+
+metadata:
+  implementation_status: SKELETON
+  tier: standard
+  promotion_status: LOCAL
+  last_validated: "2026-03-23"
+  generated: "2026-03-23"
+  sprint: null
+
+agents:
+  - name: ci
+    trigger: on_push
+    workflow: .github/workflows/ci.yml
+    description: "Continuous integration pipeline"
+
+produces:
+  - type: service
+    description: AI content repurposing and social distribution platform
+    consumers: []
+
+subscriptions:
+  - event: governance.updated
+    source: ORGAN-IV
+    action: Check compliance with updated governance rules

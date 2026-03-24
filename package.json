@@ -1,0 +1,21 @@
+{
+  "name": "content-engine--asset-amplifier",
+  "version": "0.0.1",
+  "description": "AI content repurposing and distribution platform for premium brands",
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'TBD — skeleton only'",
+    "build": "echo 'TBD — skeleton only'",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "content-engine",
+    "social-media",
+    "ai",
+    "video-processing",
+    "organvm"
+  ],
+  "author": "Anthony Padavano + Scott Lefler",
+  "license": "MIT"
+}
