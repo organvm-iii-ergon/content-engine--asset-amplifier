@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronus Metabolus — Agency Sales</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #050510; --glass: rgba(255,255,255,0.025); --glass-border: rgba(255,255,255,0.07);
+    --glass-hover: rgba(255,255,255,0.045); --text: #e8e8f0; --text-dim: #7a7a8e;
+    --text-muted: #4a4a5e; --accent: #4f7df5; --accent2: #22d3a8;
+    --grad: linear-gradient(135deg, #4f7df5, #22d3a8); --font: 'Inter', -apple-system, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: var(--font); overflow: hidden; }
+
+  .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; perspective: 800px; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(100px); will-change: transform; }
+  .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(79,125,245,0.18), transparent 70%); top: -15%; left: -10%; animation: d1 28s ease-in-out infinite; }
+  .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(34,211,168,0.12), transparent 70%); bottom: -10%; right: -8%; animation: d2 34s ease-in-out infinite; }
+  .orb-3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(124,77,255,0.10), transparent 70%); top: 40%; left: 55%; animation: d3 40s ease-in-out infinite; }
+  @keyframes d1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(60px,40px) scale(1.05); } 66% { transform: translate(-30px,70px) scale(0.95); } }
+  @keyframes d2 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-50px,-30px) scale(1.08); } 66% { transform: translate(40px,-60px) scale(0.92); } }
+  @keyframes d3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-80px,50px) scale(1.1); } }
+
+  .orbit { position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; }
+  .orbit-ring { border-radius: 50%; border: 1px solid rgba(255,255,255,0.03); position: absolute; top: 50%; left: 50%; }
+  .orbit-1 { transform: translate(-50%,-50%) rotateX(72deg); } .orbit-1 .orbit-ring { width: 600px; height: 600px; transform: translate(-50%,-50%); animation: spin 80s linear infinite; }
+  .orbit-2 { transform: translate(-50%,-50%) rotateX(65deg) rotateY(20deg); } .orbit-2 .orbit-ring { width: 460px; height: 460px; transform: translate(-50%,-50%); animation: spin 55s linear infinite reverse; border-color: rgba(79,125,245,0.04); }
+  .orbit-3 { transform: translate(-50%,-50%) rotateX(80deg) rotateY(-15deg); } .orbit-3 .orbit-ring { width: 340px; height: 340px; transform: translate(-50%,-50%); animation: spin 70s linear infinite; border-color: rgba(34,211,168,0.03); }
+  @keyframes spin { to { transform: translate(-50%,-50%) rotateZ(360deg); } }
+
+  .reveal-viewport { background: transparent !important; }
+  .reveal { font-family: var(--font); color: var(--text); font-size: 20px; }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { background: transparent !important; padding: 32px 52px; }
+  .reveal .slide-number { font-family: var(--font); font-size: 10px; color: var(--text-muted); background: transparent; font-weight: 300; }
+  .reveal .controls { color: rgba(79,125,245,0.4); }
+  .reveal .progress span { background: var(--grad); }
+
+  .reveal h1,.reveal h2,.reveal h3 { font-family: var(--font); letter-spacing: -0.03em; line-height: 1.08; text-transform: none; }
+  .reveal h1 { font-size: 2.6em; font-weight: 200; }
+  .reveal h2 { font-size: 1.5em; font-weight: 300; margin-bottom: 0.5em; letter-spacing: -0.02em; }
+  .reveal h3 { font-size: 0.65em; font-weight: 500; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3em; }
+  .reveal p { line-height: 1.5; font-size: 0.78em; font-weight: 300; color: var(--text-dim); }
+  .grad { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .light { font-weight: 200; color: var(--text-muted); }
+
+  .glass { background: var(--glass); backdrop-filter: blur(24px) saturate(120%); -webkit-backdrop-filter: blur(24px) saturate(120%); border: 1px solid var(--glass-border); border-radius: 14px; transition: transform 0.5s cubic-bezier(0.23,1,0.32,1), background 0.3s ease, border-color 0.3s ease; }
+  .glass:hover { background: var(--glass-hover); border-color: rgba(255,255,255,0.1); transform: translateY(-2px) translateZ(4px); }
+
+  .reveal section .enter { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.23,1,0.32,1); }
+  .reveal section.present .enter { opacity: 1; transform: translateY(0); }
+  .reveal section.present .enter:nth-child(2) { transition-delay: 0.08s; }
+  .reveal section.present .enter:nth-child(3) { transition-delay: 0.16s; }
+  .reveal section.present .enter:nth-child(4) { transition-delay: 0.24s; }
+  .reveal section.present .enter:nth-child(5) { transition-delay: 0.32s; }
+  .reveal section .enter-title { opacity: 0; transform: translateY(12px); transition: opacity 0.7s ease 0.05s, transform 0.7s cubic-bezier(0.23,1,0.32,1) 0.05s; }
+  .reveal section.present .enter-title { opacity: 1; transform: translateY(0); }
+
+  .stat-row { display: flex; gap: 14px; margin: 0.6em 0; }
+  .stat { padding: 14px 16px; flex: 1; text-align: center; }
+  .stat-val { font-size: 1.6em; font-weight: 700; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.2; }
+  .stat-lbl { font-size: 0.48em; color: var(--text-muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 400; }
+  .flow { display: flex; align-items: center; justify-content: center; gap: 0; margin: 0.8em 0; }
+  .flow-node { padding: 9px 16px; font-size: 0.68em; font-weight: 400; text-align: center; }
+  .flow-arr { color: var(--accent); font-size: 0.75em; padding: 0 6px; opacity: 0.5; animation: pulse 3s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+  .cols { display: grid; gap: 12px; margin: 0.5em 0; }
+  .cols-2 { grid-template-columns: 1fr 1fr; } .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .col { padding: 16px; }
+  .col-label { font-size: 0.48em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; }
+  .col-label.accent { color: var(--accent2); }
+  .col h4 { font-size: 0.72em; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+  .col p { font-size: 0.56em; color: var(--text-dim); line-height: 1.45; font-weight: 300; margin: 0; }
+  .stack { display: flex; flex-direction: column; gap: 5px; margin: 0.5em 0; }
+  .stack-row { padding: 8px 16px; display: flex; align-items: center; gap: 12px; font-size: 0.68em; font-weight: 400; border-radius: 10px; }
+  .stack-num { font-size: 0.7em; font-weight: 600; color: var(--accent); opacity: 0.6; width: 16px; text-align: center; }
+  .stack-dim { color: var(--text-muted); margin-left: auto; font-size: 0.85em; font-weight: 300; }
+  .big { font-size: 1.7em; font-weight: 200; line-height: 1.15; text-align: center; }
+  .tag { display: inline-block; font-size: 0.5em; font-weight: 400; color: var(--accent2); border: 1px solid rgba(34,211,168,0.25); border-radius: 4px; padding: 3px 10px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
+  .note { font-size: 0.52em; color: var(--text-muted); font-weight: 300; }
+  .reveal blockquote { background: transparent; border-left: 1px solid rgba(79,125,245,0.3); padding: 6px 16px; font-size: 0.7em; font-weight: 300; color: var(--text-dim); font-style: normal; margin: 0.5em 0; width: auto; box-shadow: none; }
+  .reveal ul { list-style: none; padding: 0; margin: 0.3em 0; }
+  .reveal ul li { padding: 3px 0 3px 16px; position: relative; font-size: 0.68em; color: var(--text-dim); font-weight: 300; }
+  .reveal ul li::before { content: ''; position: absolute; left: 0; top: 11px; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.4; }
+  .pricing { display: flex; flex-direction: column; gap: 4px; margin: 0.5em 0; }
+  .pricing-row { padding: 9px 16px; display: flex; align-items: center; gap: 14px; font-size: 0.68em; font-weight: 400; border-radius: 10px; }
+  .pricing-row.hi { border-color: rgba(79,125,245,0.15); }
+  .pricing-lbl { flex: 1; } .pricing-val { font-weight: 600; } .pricing-note { font-size: 0.8em; color: var(--text-muted); font-weight: 300; }
+  .centered { text-align: center; } .reveal .slides section.centered { text-align: center; }
+</style>
+</head>
+<body>
+<div class="ambient">
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  <div class="orbit orbit-1"><div class="orbit-ring"></div></div>
+  <div class="orbit orbit-2"><div class="orbit-ring"></div></div>
+  <div class="orbit orbit-3"><div class="orbit-ring"></div></div>
+</div>
+<div class="reveal"><div class="slides">
+
+<section class="centered">
+  <h1 class="enter-title"><span class="grad">Cronus Metabolus</span></h1>
+  <p class="enter-title" style="font-size:0.88em;color:var(--text-dim);margin-top:0.3em;font-weight:200;">Turn every project into a recurring revenue stream</p>
+  <div class="enter-title" style="margin-top:1.4em;"><span class="tag">Agency Sales Deck</span></div>
+  <p class="enter-title note" style="margin-top:2em;">Padavano &times; Lefler Design</p>
+</section>
+
+<section>
+  <h3 class="enter">Your Clients' Problem</h3>
+  <h2 class="enter">They spend big, <span class="light">then waste it</span></h2>
+  <div class="stat-row enter">
+    <div class="stat glass"><div class="stat-val">$20&ndash;50K</div><div class="stat-lbl">Content Investment</div></div>
+    <div class="stat glass"><div class="stat-val">1&ndash;2</div><div class="stat-lbl">Posts Per Asset</div></div>
+    <div class="stat glass"><div class="stat-val">$5&ndash;10K</div><div class="stat-lbl">Monthly on Socials</div></div>
+  </div>
+  <ul class="enter">
+    <li>Premium assets sit unused after launch week</li>
+    <li>Social content is manual, inconsistent, unattributed</li>
+    <li>Clients can&rsquo;t see ROI &mdash; so they question the retainer</li>
+  </ul>
+</section>
+
+<section>
+  <h3 class="enter">The Pitch to Your Clients</h3>
+  <h2 class="enter">Project &rarr; retainer. <span class="grad">Video &rarr; content system.</span></h2>
+  <div class="cols cols-2 enter">
+    <div class="col glass">
+      <div class="col-label">What You Sell Today</div>
+      <h4>One-off projects</h4>
+      <ul><li>Hero video or shoot</li><li>Maybe a social package</li><li>Relationship ends at delivery</li></ul>
+    </div>
+    <div class="col glass" style="border-color:rgba(79,125,245,0.12);">
+      <div class="col-label accent">What You Sell With This</div>
+      <h4>Ongoing content system</h4>
+      <ul><li>Same project, 10&times; the output</li><li>30&ndash;90 days of managed content</li><li>Monthly retainer, measurable ROI</li></ul>
+    </div>
+  </div>
+  <blockquote class="enter">Every deliverable becomes a recurring revenue engine.</blockquote>
+</section>
+
+<section>
+  <h3 class="enter">How It Works</h3>
+  <h2 class="enter">Upload &rarr; generate &rarr; schedule &rarr; report</h2>
+  <div class="flow enter">
+    <div class="flow-node glass">Client asset</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node glass">10&ndash;15 clips</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node glass">30&ndash;90 posts</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node glass">Weekly report</div>
+  </div>
+  <div class="cols cols-3 enter">
+    <div class="col glass" style="text-align:center;"><h4>Brand-Safe</h4><p>Identity constraint matches client voice and aesthetic</p></div>
+    <div class="col glass" style="text-align:center;"><h4>Multi-Platform</h4><p>Instagram, LinkedIn, TikTok, YouTube, X &mdash; native formats</p></div>
+    <div class="col glass" style="text-align:center;"><h4>Hands-Off</h4><p>Automated scheduling, rate-limit handling, optimal timing</p></div>
+  </div>
+</section>
+
+<section>
+  <h3 class="enter">Client Value</h3>
+  <h2 class="enter">One asset becomes <span class="grad">an entire quarter</span></h2>
+  <div class="cols cols-2 enter">
+    <div class="col glass" style="text-align:center;"><div class="col-label">What They Get Today</div><p style="font-size:1.2em;font-weight:500;color:var(--text-muted);margin:0.4em 0;">1 video &rarr; 1 post</p></div>
+    <div class="col glass" style="text-align:center;border-color:rgba(79,125,245,0.12);"><div class="col-label accent">With You</div><p style="font-size:1.2em;font-weight:500;margin:0.4em 0;">1 video &rarr; <span class="grad">90 days</span></p></div>
+  </div>
+  <div class="stat-row enter">
+    <div class="stat glass"><div class="stat-val">+40%</div><div class="stat-lbl">Engagement</div></div>
+    <div class="stat glass"><div class="stat-val">&minus;20 hrs</div><div class="stat-lbl">Weekly Saved</div></div>
+    <div class="stat glass"><div class="stat-val">100%</div><div class="stat-lbl">Attribution</div></div>
+  </div>
+</section>
+
+<section>
+  <h3 class="enter">Why This Beats Alternatives</h3>
+  <h2 class="enter">Not scheduling &mdash; <span class="grad">creation</span></h2>
+  <div class="cols cols-2 enter">
+    <div class="col glass"><div class="col-label">Buffer / Hootsuite / Later</div><p style="font-size:0.68em;">Help you <em>schedule</em> posts. You still create everything manually.</p><p style="font-size:0.5em;color:var(--text-muted);margin-top:0.8em;">Distribution layer</p></div>
+    <div class="col glass" style="border-color:rgba(79,125,245,0.12);"><div class="col-label accent">Cronus Metabolus</div><p style="font-size:0.68em;color:var(--text);"><em>Creates</em> the posts FROM client content. Schedules, publishes, reports automatically.</p><p style="font-size:0.5em;color:var(--accent2);margin-top:0.8em;opacity:0.7;">Content yield infrastructure</p></div>
+  </div>
+</section>
+
+<section>
+  <h3 class="enter">Your Revenue Model</h3>
+  <h2 class="enter">Margin expansion, <span class="light">every client</span></h2>
+  <div class="pricing enter">
+    <div class="pricing-row glass"><div class="pricing-lbl">Hero project (existing)</div><div class="pricing-val">$20&ndash;50K</div><div class="pricing-note">one-time</div></div>
+    <div class="pricing-row glass hi"><div class="pricing-lbl">+ Content system retainer</div><div class="pricing-val"><span class="grad">$2&ndash;5K/mo</span></div><div class="pricing-note">recurring</div></div>
+    <div class="pricing-row glass"><div class="pricing-lbl">Automation cost per client</div><div class="pricing-val">Minimal</div><div class="pricing-note">AI + compute</div></div>
+    <div class="pricing-row glass hi"><div class="pricing-lbl">Net new margin per client</div><div class="pricing-val"><span class="grad">$20&ndash;55K/yr</span></div><div class="pricing-note">high-margin</div></div>
+  </div>
+  <blockquote class="enter">10 clients on retainer = $200&ndash;550K ARR at 80%+ margin.</blockquote>
+</section>
+
+<section>
+  <h3 class="enter">Scale Without Hiring</h3>
+  <h2 class="enter">White-label deployment</h2>
+  <div class="cols cols-3 enter">
+    <div class="col glass"><h4>Your Brand</h4><p>Clients see your agency name. System runs invisibly behind deliverables.</p></div>
+    <div class="col glass"><h4>Your Dashboard</h4><p>Manage all clients from one interface. Reports auto-generated, branded to you.</p></div>
+    <div class="col glass"><h4>Your Margin</h4><p>No new hires. System scales linearly with client count.</p></div>
+  </div>
+  <blockquote class="enter">Sell it as your own. Because it is.</blockquote>
+</section>
+
+<section>
+  <h3 class="enter">Retention Through Proof</h3>
+  <h2 class="enter">Show clients what their content earns</h2>
+  <div class="stack enter">
+    <div class="stack-row glass"><span class="stack-num">01</span><strong>Asset uploaded</strong><span class="stack-dim">hero video from your shoot</span></div>
+    <div class="stack-row glass"><span class="stack-num">02</span><strong>Fragments extracted</strong><span class="stack-dim">12 clips, 8 stills, 6 hooks</span></div>
+    <div class="stack-row glass"><span class="stack-num">03</span><strong>Posts generated</strong><span class="stack-dim">45 platform-native posts</span></div>
+    <div class="stack-row glass"><span class="stack-num">04</span><strong>Published + tracked</strong><span class="stack-dim">engagement, reach, conversions</span></div>
+    <div class="stack-row glass" style="border-color:rgba(79,125,245,0.15);"><span class="stack-num">05</span><strong>Weekly ROI report</strong><span class="stack-dim" style="color:var(--accent2);">revenue to original asset</span></div>
+  </div>
+  <p class="enter" style="font-size:0.68em;margin-top:0.5em;">Clients who see ROI don&rsquo;t churn. They increase budget.</p>
+</section>
+
+<section>
+  <h3 class="enter">Getting Started</h3>
+  <h2 class="enter">Three steps to launch</h2>
+  <div class="cols cols-3 enter">
+    <div class="col glass" style="text-align:center;"><div style="font-size:1.4em;font-weight:700;margin-bottom:4px;"><span class="grad">1</span></div><h4>Pick One Client</h4><p>Take an existing deliverable. Upload the hero asset.</p></div>
+    <div class="col glass" style="text-align:center;"><div style="font-size:1.4em;font-weight:700;margin-bottom:4px;"><span class="grad">2</span></div><h4>Show the Output</h4><p>Present 30&ndash;90 days of generated content.</p></div>
+    <div class="col glass" style="text-align:center;"><div style="font-size:1.4em;font-weight:700;margin-bottom:4px;"><span class="grad">3</span></div><h4>Close the Retainer</h4><p>Monthly management. Ongoing reports. Recurring revenue.</p></div>
+  </div>
+</section>
+
+<section class="centered">
+  <div class="enter-title big">Every project becomes a<br><span class="grad">recurring revenue stream</span></div>
+  <div class="stat-row enter" style="margin-top:0.8em;max-width:550px;margin-left:auto;margin-right:auto;">
+    <div class="stat glass"><div class="stat-val">10&times;</div><div class="stat-lbl">Output</div></div>
+    <div class="stat glass"><div class="stat-val">80%+</div><div class="stat-lbl">Margin</div></div>
+    <div class="stat glass"><div class="stat-val">0</div><div class="stat-lbl">New Hires</div></div>
+  </div>
+</section>
+
+<section class="centered">
+  <div class="enter-title big">
+    <span class="light">Stop selling projects.</span><br>
+    <span class="grad">Start selling systems.</span>
+  </div>
+  <div class="enter-title" style="margin-top:1.2em;padding-top:12px;border-top:1px solid rgba(79,125,245,0.2);display:inline-block;">
+    <p style="font-size:0.75em;color:var(--text-dim);font-weight:300;">Your clients already invested in the content. Now make it compound.</p>
+  </div>
+  <p class="enter-title note" style="margin-top:1.5em;">padavano.anthony@gmail.com</p>
+</section>
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({ hash:true, slideNumber:'c/t', width:1280, height:720, margin:0.05, transition:'none', center:true, controls:true, progress:true, keyboard:true, touch:true });
+</script>
+</body>
+</html>

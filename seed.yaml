@@ -5,10 +5,10 @@ repo: content-engine--asset-amplifier
 org: organvm-iii-ergon
 
 metadata:
-  implementation_status: SKELETON
+  implementation_status: ACTIVE
   tier: standard
   promotion_status: LOCAL
-  last_validated: "2026-03-23"
+  last_validated: "2026-03-25"
   generated: "2026-03-23"
   sprint: null
 

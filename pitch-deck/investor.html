@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronus Metabolus — Investor Pitch</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #050510;
+    --glass: rgba(255,255,255,0.025);
+    --glass-border: rgba(255,255,255,0.07);
+    --glass-hover: rgba(255,255,255,0.045);
+    --text: #e8e8f0;
+    --text-dim: #7a7a8e;
+    --text-muted: #4a4a5e;
+    --accent: #4f7df5;
+    --accent2: #22d3a8;
+    --grad: linear-gradient(135deg, #4f7df5, #22d3a8);
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: var(--font); overflow: hidden; }
+
+  /* ── AMBIENT 3D BACKGROUND ── */
+  .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; perspective: 800px; }
+
+  .orb { position: absolute; border-radius: 50%; filter: blur(100px); will-change: transform; }
+  .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(79,125,245,0.18), transparent 70%); top: -15%; left: -10%; animation: drift1 28s ease-in-out infinite; }
+  .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(34,211,168,0.12), transparent 70%); bottom: -10%; right: -8%; animation: drift2 34s ease-in-out infinite; }
+  .orb-3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(124,77,255,0.10), transparent 70%); top: 40%; left: 55%; animation: drift3 40s ease-in-out infinite; }
+
+  @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(60px,40px) scale(1.05); } 66% { transform: translate(-30px,70px) scale(0.95); } }
+  @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-50px,-30px) scale(1.08); } 66% { transform: translate(40px,-60px) scale(0.92); } }
+  @keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-80px,50px) scale(1.1); } }
+
+  /* ── ORBITAL RINGS ── */
+  .orbit { position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; }
+  .orbit-ring { border-radius: 50%; border: 1px solid rgba(255,255,255,0.03); position: absolute; top: 50%; left: 50%; }
+  .orbit-1 { transform: translate(-50%,-50%) rotateX(72deg); }
+  .orbit-1 .orbit-ring { width: 600px; height: 600px; transform: translate(-50%,-50%); animation: spin 80s linear infinite; }
+  .orbit-2 { transform: translate(-50%,-50%) rotateX(65deg) rotateY(20deg); }
+  .orbit-2 .orbit-ring { width: 460px; height: 460px; transform: translate(-50%,-50%); animation: spin 55s linear infinite reverse; border-color: rgba(79,125,245,0.04); }
+  .orbit-3 { transform: translate(-50%,-50%) rotateX(80deg) rotateY(-15deg); }
+  .orbit-3 .orbit-ring { width: 340px; height: 340px; transform: translate(-50%,-50%); animation: spin 70s linear infinite; border-color: rgba(34,211,168,0.03); }
+
+  @keyframes spin { to { transform: translate(-50%,-50%) rotateZ(360deg); } }
+
+  /* ── REVEAL OVERRIDES ── */
+  .reveal-viewport { background: transparent !important; }
+  .reveal { font-family: var(--font); color: var(--text); font-size: 20px; }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { background: transparent !important; padding: 32px 52px; }
+  .reveal .slide-number { font-family: var(--font); font-size: 10px; color: var(--text-muted); background: transparent; font-weight: 300; }
+  .reveal .controls { color: rgba(79,125,245,0.4); }
+  .reveal .progress span { background: var(--grad); }
+
+  /* ── TYPOGRAPHY ── */
+  .reveal h1,.reveal h2,.reveal h3 { font-family: var(--font); letter-spacing: -0.03em; line-height: 1.08; text-transform: none; }
+  .reveal h1 { font-size: 2.6em; font-weight: 200; }
+  .reveal h2 { font-size: 1.5em; font-weight: 300; margin-bottom: 0.5em; letter-spacing: -0.02em; }
+  .reveal h3 { font-size: 0.65em; font-weight: 500; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3em; }
+  .reveal p { line-height: 1.5; font-size: 0.78em; font-weight: 300; color: var(--text-dim); }
+
+  .grad { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .light { font-weight: 200; color: var(--text-muted); }
+
+  /* ── GLASSMORPHISM ── */
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(24px) saturate(120%);
+    -webkit-backdrop-filter: blur(24px) saturate(120%);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    transition: transform 0.5s cubic-bezier(0.23,1,0.32,1), background 0.3s ease, border-color 0.3s ease;
+  }
+  .glass:hover {
+    background: var(--glass-hover);
+    border-color: rgba(255,255,255,0.1);
+    transform: translateY(-2px) translateZ(4px);
+  }
+
+  /* ── ENTRANCE ANIMATIONS ── */
+  .reveal section .enter { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.23,1,0.32,1); }
+  .reveal section.present .enter { opacity: 1; transform: translateY(0); }
+  .reveal section.present .enter:nth-child(2) { transition-delay: 0.08s; }
+  .reveal section.present .enter:nth-child(3) { transition-delay: 0.16s; }
+  .reveal section.present .enter:nth-child(4) { transition-delay: 0.24s; }
+  .reveal section.present .enter:nth-child(5) { transition-delay: 0.32s; }
+  .reveal section.present .enter:nth-child(6) { transition-delay: 0.40s; }
+  .reveal section.present .enter:nth-child(7) { transition-delay: 0.48s; }
+
+  .reveal section .enter-title { opacity: 0; transform: translateY(12px); transition: opacity 0.7s ease 0.05s, transform 0.7s cubic-bezier(0.23,1,0.32,1) 0.05s; }
+  .reveal section.present .enter-title { opacity: 1; transform: translateY(0); }
+
+  /* ── LAYOUT COMPONENTS ── */
+  .stat-row { display: flex; gap: 14px; margin: 0.6em 0; }
+  .stat { padding: 14px 16px; flex: 1; text-align: center; }
+  .stat-val { font-size: 1.6em; font-weight: 700; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.2; }
+  .stat-lbl { font-size: 0.48em; color: var(--text-muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 400; }
+
+  .flow { display: flex; align-items: center; justify-content: center; gap: 0; margin: 0.8em 0; }
+  .flow-node { padding: 9px 16px; font-size: 0.68em; font-weight: 400; text-align: center; }
+  .flow-arr { color: var(--accent); font-size: 0.75em; padding: 0 6px; opacity: 0.5; animation: pulse 3s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+
+  .cols { display: grid; gap: 12px; margin: 0.5em 0; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .col { padding: 16px; }
+  .col-label { font-size: 0.48em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; }
+  .col-label.accent { color: var(--accent2); }
+  .col h4 { font-size: 0.72em; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+  .col p { font-size: 0.56em; color: var(--text-dim); line-height: 1.45; font-weight: 300; margin: 0; }
+
+  .stack { display: flex; flex-direction: column; gap: 5px; margin: 0.5em 0; }
+  .stack-row { padding: 8px 16px; display: flex; align-items: center; gap: 12px; font-size: 0.68em; font-weight: 400; border-radius: 10px; }
+  .stack-num { font-size: 0.7em; font-weight: 600; color: var(--accent); opacity: 0.6; width: 16px; text-align: center; }
+  .stack-dim { color: var(--text-muted); margin-left: auto; font-size: 0.85em; font-weight: 300; }
+
+  .formula { font-family: 'JetBrains Mono', monospace, var(--font); font-size: 0.62em; color: var(--accent2); opacity: 0.7; padding: 8px 16px; display: inline-block; margin-top: 0.4em; border-radius: 8px; font-weight: 400; }
+
+  .timeline { display: flex; align-items: flex-start; gap: 0; margin: 0.8em 0; position: relative; }
+  .timeline::before { content: ''; position: absolute; top: 10px; left: 5%; right: 5%; height: 1px; background: var(--grad); opacity: 0.2; }
+  .tl-node { flex: 1; text-align: center; position: relative; padding-top: 26px; }
+  .tl-node::before { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--grad); border: 2px solid var(--bg); }
+  .tl-phase { font-size: 0.44em; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); opacity: 0.7; margin-bottom: 3px; }
+  .tl-label { font-size: 0.52em; color: var(--text-dim); line-height: 1.35; font-weight: 300; }
+
+  .states { display: flex; align-items: center; justify-content: center; gap: 0; margin: 0.6em 0; }
+  .state { padding: 6px 14px; border-radius: 20px; font-size: 0.58em; font-weight: 400; white-space: nowrap; }
+  .state.hi { border-color: rgba(79,125,245,0.25); background: rgba(79,125,245,0.06); }
+  .state-arr { color: var(--accent); font-size: 0.55em; padding: 0 4px; opacity: 0.4; }
+
+  .vgraph { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .vg-node { padding: 5px 22px; font-size: 0.62em; font-weight: 400; min-width: 130px; text-align: center; border-radius: 8px; }
+  .vg-node.hi { border-color: rgba(79,125,245,0.2); background: rgba(79,125,245,0.04); }
+  .vg-arr { color: var(--accent); font-size: 0.55em; opacity: 0.4; }
+
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { padding: 4px 10px; border-radius: 6px; font-size: 0.52em; font-weight: 400; color: var(--text-dim); }
+
+  .big { font-size: 1.7em; font-weight: 200; line-height: 1.15; text-align: center; }
+  .tag { display: inline-block; font-size: 0.5em; font-weight: 400; color: var(--accent2); border: 1px solid rgba(34,211,168,0.25); border-radius: 4px; padding: 3px 10px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
+  .note { font-size: 0.52em; color: var(--text-muted); font-weight: 300; }
+
+  .reveal blockquote { background: transparent; border-left: 1px solid rgba(79,125,245,0.3); padding: 6px 16px; font-size: 0.7em; font-weight: 300; color: var(--text-dim); font-style: normal; margin: 0.5em 0; width: auto; box-shadow: none; }
+  .reveal ul { list-style: none; padding: 0; margin: 0.3em 0; }
+  .reveal ul li { padding: 3px 0 3px 16px; position: relative; font-size: 0.68em; color: var(--text-dim); font-weight: 300; }
+  .reveal ul li::before { content: ''; position: absolute; left: 0; top: 11px; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.4; }
+
+  .centered { text-align: center; }
+  .reveal .slides section.centered { text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- AMBIENT 3D SCENE -->
+<div class="ambient">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orbit orbit-1"><div class="orbit-ring"></div></div>
+  <div class="orbit orbit-2"><div class="orbit-ring"></div></div>
+  <div class="orbit orbit-3"><div class="orbit-ring"></div></div>
+</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- 1 — TITLE -->
+<section class="centered">
+  <h1 class="enter-title" style="font-weight:200;"><span class="grad">Cronus Metabolus</span></h1>
+  <p class="enter-title" style="font-size:0.88em;color:var(--text-dim);margin-top:0.3em;font-weight:200;">One premium asset &rarr; continuous content &rarr; measurable yield</p>
+  <div class="enter-title" style="margin-top:1.4em;"><span class="tag">Multi-Tenant Content Yield Engine</span></div>
+  <p class="enter-title note" style="margin-top:2em;">Padavano &times; Lefler Design</p>
+</section>
+
+<!-- 2 — PROBLEM -->
+<section>
+  <h3 class="enter">The Problem</h3>
+  <h2 class="enter">High Spend, Low Yield, <span class="light">Zero Compounding</span></h2>
+  <div class="stat-row enter">
+    <div class="stat glass"><div class="stat-val">$15&ndash;50K</div><div class="stat-lbl">Per Hero Asset</div></div>
+    <div class="stat glass"><div class="stat-val">1&ndash;2</div><div class="stat-lbl">Posts Per Asset</div></div>
+    <div class="stat glass"><div class="stat-val">$5&ndash;10K</div><div class="stat-lbl">Monthly Content Labor</div></div>
+  </div>
+  <ul class="enter">
+    <li>CAPEX (hero content) decoupled from yield</li>
+    <li>OPEX (content teams) non-scalable</li>
+    <li>No system ties content &rarr; audience &rarr; revenue</li>
+  </ul>
+</section>
+
+<!-- 3 — CATEGORY -->
+<section>
+  <h3 class="enter">Category Creation</h3>
+  <h2 class="enter">Not a scheduling tool.</h2>
+  <div class="cols cols-2 enter">
+    <div class="col glass">
+      <div class="col-label">Current Tools</div>
+      <h4>Buffer / Hootsuite</h4>
+      <p>Distribution layer only</p>
+      <div class="flow" style="margin-top:0.6em;justify-content:flex-start;">
+        <div class="flow-node glass" style="opacity:0.5;">Content</div>
+        <div class="flow-arr">&rarr;</div>
+        <div class="flow-node glass" style="opacity:0.5;">Post</div>
+        <div class="flow-arr">&rarr;</div>
+        <div class="flow-node glass" style="opacity:0.3;">Forget</div>
+      </div>
+    </div>
+    <div class="col glass" style="border-color:rgba(79,125,245,0.12);">
+      <div class="col-label accent">This System</div>
+      <h4>Content Yield Infrastructure</h4>
+      <p>Extraction &rarr; generation &rarr; distribution &rarr; learning</p>
+      <div class="flow" style="margin-top:0.6em;justify-content:flex-start;">
+        <div class="flow-node glass">Content</div>
+        <div class="flow-arr">&rarr;</div>
+        <div class="flow-node glass">Audience</div>
+        <div class="flow-arr">&rarr;</div>
+        <div class="flow-node glass">Revenue</div>
+      </div>
+    </div>
+  </div>
+  <blockquote class="enter">Analogous to Snowflake for data, Stripe for payments. This &rarr; <strong style="font-weight:500;color:var(--text);">content-to-revenue infrastructure.</strong></blockquote>
+</section>
+
+<!-- 4 — CORE PRODUCT -->
+<section>
+  <h3 class="enter">Core Product</h3>
+  <h2 class="enter">The irreducible closed loop</h2>
+  <div class="flow enter">
+    <div class="flow-node glass"><strong>1</strong> asset</div>
+    <div class="flow-arr">&rarr;</div>
+    <div class="flow-node glass"><strong>10&ndash;15</strong> fragments</div>
+    <div class="flow-arr">&rarr;</div>
+    <div class="flow-node glass"><strong>30&ndash;90</strong> posts</div>
+    <div class="flow-arr">&rarr;</div>
+    <div class="flow-node glass">Performance report</div>
+  </div>
+  <div class="cols cols-3 enter">
+    <div class="col glass"><h4>Extract</h4><p>Multimodal extraction from video, renders, text</p></div>
+    <div class="col glass"><h4>Generate</h4><p>Platform-native formatting, brand-consistent captions</p></div>
+    <div class="col glass"><h4>Optimize</h4><p>Automated scheduling, metrics, feedback loop</p></div>
+  </div>
+</section>
+
+<!-- 5 — ENGINE -->
+<section>
+  <h3 class="enter">System Architecture</h3>
+  <h2 class="enter">Stateful system, <span class="light">not a pipeline</span></h2>
+  <div class="stack enter">
+    <div class="stack-row glass"><span class="stack-num">01</span><strong>Asset Ingestion</strong><span class="stack-dim">video, renders, photography</span></div>
+    <div class="stack-row glass"><span class="stack-num">02</span><strong>Fragment Extraction</strong><span class="stack-dim">high-energy moments</span></div>
+    <div class="stack-row glass"><span class="stack-num">03</span><strong>Identity Constraint</strong><span class="stack-dim">Natural Center enforcement</span></div>
+    <div class="stack-row glass"><span class="stack-num">04</span><strong>Content Generation</strong><span class="stack-dim">platform-native output</span></div>
+    <div class="stack-row glass"><span class="stack-num">05</span><strong>Distribution</strong><span class="stack-dim">scheduling, rate limits, timing</span></div>
+    <div class="stack-row glass"><span class="stack-num">06</span><strong>Analytics &amp; Learning</strong><span class="stack-dim">attribution, adaptation</span></div>
+  </div>
+  <div class="formula glass enter">content = f(asset, identity, platform_state)</div>
+</section>
+
+<!-- 6 — DIFFERENTIATOR -->
+<section>
+  <h3 class="enter">Structural Innovation</h3>
+  <h2 class="enter">Identity as a computable constraint</h2>
+  <div class="cols cols-2 enter">
+    <div class="col glass">
+      <div class="col-label">Generic AI Tools</div>
+      <p style="font-size:0.68em;">Produce volume. Degrade brand. No coherence.</p>
+      <p style="font-size:0.5em;color:var(--text-muted);margin-top:0.8em;">Post-level optimization</p>
+    </div>
+    <div class="col glass" style="border-color:rgba(79,125,245,0.12);">
+      <div class="col-label accent">Natural Center</div>
+      <p style="font-size:0.68em;color:var(--text);">Every output &ge; identity threshold</p>
+      <div class="pills" style="margin-top:0.6em;">
+        <div class="pill glass">Thematic</div>
+        <div class="pill glass">Aesthetic</div>
+        <div class="pill glass">Tonal</div>
+        <div class="pill glass">Symbolic</div>
+        <div class="pill glass">Negative-space</div>
+      </div>
+      <p style="font-size:0.5em;color:var(--accent2);margin-top:0.6em;opacity:0.7;">Asset-level yield optimization</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 — MULTIPLIER -->
+<section>
+  <h3 class="enter">Output Multiplier</h3>
+  <h2 class="enter">One $30K asset &rarr; <span class="grad">90-day content system</span></h2>
+  <div class="cols cols-2 enter">
+    <div class="col glass" style="text-align:center;">
+      <div class="col-label">Before</div>
+      <p style="font-size:1.2em;font-weight:500;color:var(--text-muted);margin:0.4em 0;">1 video &rarr; 1 post</p>
+    </div>
+    <div class="col glass" style="text-align:center;border-color:rgba(79,125,245,0.12);">
+      <div class="col-label accent">After</div>
+      <p style="font-size:1.2em;font-weight:500;margin:0.4em 0;">1 video &rarr; <span class="grad">30&ndash;90</span> posts</p>
+    </div>
+  </div>
+  <div class="stat-row enter">
+    <div class="stat glass"><div class="stat-val">+40%</div><div class="stat-lbl">Engagement</div></div>
+    <div class="stat glass"><div class="stat-val">&minus;20 hrs</div><div class="stat-lbl">Weekly Manual</div></div>
+    <div class="stat glass"><div class="stat-val">24/7</div><div class="stat-lbl">Presence</div></div>
+  </div>
+</section>
+
+<!-- 8 — ATTRIBUTION -->
+<section>
+  <h3 class="enter">Why This Wins</h3>
+  <h2 class="enter">Full-lineage attribution</h2>
+  <div style="display:flex;gap:28px;align-items:flex-start;" class="enter">
+    <div class="vgraph" style="flex:0 0 auto;">
+      <div class="vg-node glass">Asset</div>
+      <div class="vg-arr">&darr;</div>
+      <div class="vg-node glass">Fragment</div>
+      <div class="vg-arr">&darr;</div>
+      <div class="vg-node glass">Content Unit</div>
+      <div class="vg-arr">&darr;</div>
+      <div class="vg-node glass">Performance</div>
+      <div class="vg-arr">&darr;</div>
+      <div class="vg-node glass hi">Revenue</div>
+    </div>
+    <div style="padding-top:0.3em;flex:1;">
+      <p style="font-size:0.68em;margin-bottom:0.6em;">Most systems stop at &ldquo;likes.&rdquo;<br>This tracks the complete causal chain.</p>
+      <div class="pills" style="flex-direction:column;gap:5px;">
+        <div class="pill glass">Time-decayed value scoring</div>
+        <div class="pill glass">Platform normalization</div>
+        <div class="pill glass">Multi-touch attribution</div>
+      </div>
+      <p style="font-size:0.6em;color:var(--accent2);margin-top:0.8em;opacity:0.7;">ROI per asset becomes measurable</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9 — AUDIENCE ENGINE -->
+<section>
+  <h3 class="enter">The Real Product</h3>
+  <h2 class="enter">Content engine &rarr; <span class="grad">audience formation engine</span></h2>
+  <p class="enter" style="font-size:0.68em;margin-bottom:0.6em;">Not just content &mdash; state transitions.</p>
+  <div class="states enter">
+    <div class="state glass">Viewer</div><div class="state-arr">&rarr;</div>
+    <div class="state glass">Engaged</div><div class="state-arr">&rarr;</div>
+    <div class="state glass hi">Follower</div><div class="state-arr">&rarr;</div>
+    <div class="state glass">Returning</div><div class="state-arr">&rarr;</div>
+    <div class="state glass hi">Converted</div><div class="state-arr">&rarr;</div>
+    <div class="state glass">Advocate</div>
+  </div>
+  <div class="cols cols-3 enter">
+    <div class="col glass" style="text-align:center;"><h4>Retention</h4><p>Identity-consistent content keeps audiences returning</p></div>
+    <div class="col glass" style="text-align:center;"><h4>Recognition</h4><p>Compounding brand identity across platforms</p></div>
+    <div class="col glass" style="text-align:center;"><h4>Conversion</h4><p>Optimized pathways from viewer to revenue</p></div>
+  </div>
+</section>
+
+<!-- 10 — MARKET -->
+<section>
+  <h3 class="enter">Go-to-Market</h3>
+  <h2 class="enter">Three immediate buyers</h2>
+  <div class="cols cols-3 enter">
+    <div class="col glass"><h4>Existing Clients</h4><p>Agency upsell &mdash; convert one-off projects into retainers. Immediate pipeline from Lefler Design client base.</p></div>
+    <div class="col glass"><h4>Agencies</h4><p>White-label deployment. Agencies sell the system as their own, expanding reach without direct sales.</p></div>
+    <div class="col glass"><h4>DTC Brands</h4><p>Replace manual content operations. Direct integration for brands spending $5K+/month on content labor.</p></div>
+  </div>
+</section>
+
+<!-- 11 — ROADMAP -->
+<section>
+  <h3 class="enter">System Expansion</h3>
+  <h2 class="enter">Content loop &rarr; <span class="light">adaptive OS</span></h2>
+  <div class="timeline enter">
+    <div class="tl-node"><div class="tl-phase">Phase 1</div><div class="tl-label"><strong style="font-weight:500;">Content Loop</strong><br>Extract, generate, publish, report</div></div>
+    <div class="tl-node"><div class="tl-phase">Phase 2</div><div class="tl-label"><strong style="font-weight:500;">Attribution</strong><br>Scoring, lineage, ROI per asset</div></div>
+    <div class="tl-node"><div class="tl-phase">Phase 3</div><div class="tl-label"><strong style="font-weight:500;">Audience Engine</strong><br>State transitions, retention</div></div>
+    <div class="tl-node"><div class="tl-phase">Phase 4</div><div class="tl-label"><strong style="font-weight:500;">Experimentation</strong><br>Causal optimization, A/B</div></div>
+    <div class="tl-node"><div class="tl-phase">Phase 5</div><div class="tl-label"><strong style="font-weight:500;">Multi-Tenant OS</strong><br>Control + orchestration</div></div>
+  </div>
+  <blockquote class="enter" style="margin-top:0.8em;">Lock-in via identity data + attribution graph + learned audience models</blockquote>
+</section>
+
+<!-- 12 — CLOSE -->
+<section class="centered">
+  <div class="enter-title big" style="margin-top:0.2em;">
+    <span class="light">Content &rarr; cost center</span><br>
+    <span style="font-size:0.65em;color:var(--text-muted);font-weight:300;">becomes</span><br>
+    <span class="grad">Content &rarr; compounding asset</span>
+  </div>
+  <div class="enter-title" style="margin-top:1.2em;padding-top:12px;border-top:1px solid rgba(79,125,245,0.2);display:inline-block;">
+    <p style="font-size:0.75em;color:var(--text-dim);font-weight:300;">Not a tool. A system that converts media into audience and revenue.</p>
+  </div>
+  <p class="enter-title note" style="margin-top:1.5em;">padavano.anthony@gmail.com</p>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true, slideNumber: 'c/t', width: 1280, height: 720, margin: 0.05,
+  transition: 'none', center: true,
+  controls: true, controlsLayout: 'bottom-right',
+  progress: true, keyboard: true, touch: true,
+});
+</script>
+</body>
+</html>

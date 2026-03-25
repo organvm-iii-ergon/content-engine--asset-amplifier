@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronus Metabolus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap');
+  :root { --bg: #050510; --glass: rgba(255,255,255,0.025); --glass-border: rgba(255,255,255,0.07); --text: #e8e8f0; --text-dim: #7a7a8e; --text-muted: #4a4a5e; --accent: #4f7df5; --accent2: #22d3a8; --grad: linear-gradient(135deg, #4f7df5, #22d3a8); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: 'Inter', -apple-system, sans-serif; color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; overflow: hidden; }
+
+  .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; perspective: 800px; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(100px); }
+  .orb-1 { width: 450px; height: 450px; background: radial-gradient(circle, rgba(79,125,245,0.15), transparent 70%); top: -12%; left: -8%; animation: d1 28s ease-in-out infinite; }
+  .orb-2 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(34,211,168,0.10), transparent 70%); bottom: -8%; right: -6%; animation: d2 34s ease-in-out infinite; }
+  @keyframes d1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(40px,50px); } }
+  @keyframes d2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px,-40px); } }
+  .orbit { position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; transform: translate(-50%,-50%) rotateX(72deg); }
+  .orbit-ring { width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.025); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: spin 70s linear infinite; }
+  @keyframes spin { to { transform: translate(-50%,-50%) rotateZ(360deg); } }
+
+  .content { position: relative; z-index: 1; text-align: center; }
+  h1 { font-size: 2.6em; font-weight: 200; letter-spacing: -0.03em; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.15em; }
+  .sub { font-size: 0.95em; font-weight: 200; color: var(--text-dim); margin-bottom: 3em; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 860px; width: 100%; }
+  .card { background: var(--glass); backdrop-filter: blur(24px) saturate(120%); -webkit-backdrop-filter: blur(24px) saturate(120%); border: 1px solid var(--glass-border); border-radius: 16px; padding: 32px 24px; text-decoration: none; color: inherit; transition: transform 0.5s cubic-bezier(0.23,1,0.32,1), border-color 0.3s ease, background 0.3s ease; display: flex; flex-direction: column; }
+  .card:hover { border-color: rgba(79,125,245,0.2); transform: translateY(-4px) translateZ(8px); background: rgba(255,255,255,0.04); }
+  .card-tag { font-size: 0.6em; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent2); margin-bottom: 10px; opacity: 0.7; }
+  .card h2 { font-size: 1.2em; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .card p { font-size: 0.78em; color: var(--text-dim); line-height: 1.55; flex: 1; font-weight: 300; }
+  .card-meta { font-size: 0.65em; color: var(--text-muted); margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--glass-border); font-weight: 300; }
+
+  .footer { position: relative; z-index: 1; margin-top: 3em; font-size: 0.7em; color: var(--text-muted); font-weight: 300; }
+  @media (max-width: 768px) { .cards { grid-template-columns: 1fr; max-width: 360px; } h1 { font-size: 1.8em; } }
+</style>
+</head>
+<body>
+<div class="ambient">
+  <div class="orb orb-1"></div><div class="orb orb-2"></div>
+  <div class="orbit"><div class="orbit-ring"></div></div>
+</div>
+<div class="content">
+  <h1>Cronus Metabolus</h1>
+  <p class="sub">Auto-Content Multiplex Engine</p>
+  <div class="cards">
+    <a class="card" href="investor.html">
+      <div class="card-tag">Variant A</div>
+      <h2>Investor Pitch</h2>
+      <p>System architecture, category creation, defensibility, expansion surface. For capital conversations.</p>
+      <div class="card-meta">12 slides &bull; Systems &amp; scale</div>
+    </a>
+    <a class="card" href="agency.html">
+      <div class="card-tag">Variant B</div>
+      <h2>Agency Sales</h2>
+      <p>Revenue mechanics, margin expansion, white-label deployment, recurring revenue model.</p>
+      <div class="card-meta">12 slides &bull; Revenue &amp; leverage</div>
+    </a>
+    <a class="card" href="product.html">
+      <div class="card-tag">Variant C</div>
+      <h2>Product Landing</h2>
+      <p>Upload &rarr; generate &rarr; track. Plain language, visual-first, clear value proposition.</p>
+      <div class="card-meta">8 slides &bull; Output &amp; ease</div>
+    </a>
+  </div>
+</div>
+<div class="footer">Padavano &times; Lefler Design</div>
+</body>
+</html>
