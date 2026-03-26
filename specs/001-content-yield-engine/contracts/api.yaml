@@ -1,0 +1,648 @@
+openapi: "3.1.0"
+info:
+  title: Cronus Metabolus API
+  version: 0.1.0
+  description: Content Yield Engine — asset-to-content transformation, scheduling, and attribution
+
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local development
+
+paths:
+  # ── BRAND ──────────────────────────────────────────────
+  /brands:
+    post:
+      operationId: createBrand
+      summary: Create a new brand
+      tags: [brands]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                description: { type: string }
+                tone_description: { type: string }
+                consistency_threshold: { type: number, default: 0.75, minimum: 0, maximum: 1 }
+                agency_id: { type: string, format: uuid }
+      responses:
+        "201":
+          description: Brand created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Brand" }
+
+    get:
+      operationId: listBrands
+      summary: List brands (filtered by agency if applicable)
+      tags: [brands]
+      parameters:
+        - name: agency_id
+          in: query
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Brand" }
+
+  /brands/{brandId}:
+    get:
+      operationId: getBrand
+      tags: [brands]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Brand" }
+
+  # ── NATURAL CENTER ─────────────────────────────────────
+  /brands/{brandId}/natural-center:
+    get:
+      operationId: getNaturalCenter
+      summary: Get brand identity profile
+      tags: [natural-center]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/NaturalCenter" }
+        "404":
+          description: No identity profile derived yet
+
+    post:
+      operationId: deriveNaturalCenter
+      summary: Derive or re-derive brand identity from uploaded assets
+      tags: [natural-center]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                asset_ids:
+                  type: array
+                  items: { type: string, format: uuid }
+                  description: Specific assets to derive from. If empty, uses all brand assets.
+                tone_description: { type: string }
+                brand_guidelines_text: { type: string }
+      responses:
+        "202":
+          description: Derivation started (async)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_id: { type: string, format: uuid }
+                  status: { type: string, enum: [processing] }
+
+    patch:
+      operationId: refineNaturalCenter
+      summary: Adjust specific dimensions of the identity profile
+      tags: [natural-center]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adjustments:
+                  type: object
+                  description: "Key-value pairs for dimension adjustments, e.g. { tonal_vector: 'more playful' }"
+      responses:
+        "202":
+          description: Refinement started (async)
+
+  # ── ASSETS ─────────────────────────────────────────────
+  /brands/{brandId}/assets:
+    post:
+      operationId: uploadAsset
+      summary: Upload a source asset (video, image, design)
+      tags: [assets]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                media_type:
+                  type: string
+                  enum: [video, image, image_set, design]
+      responses:
+        "201":
+          description: Asset uploaded, processing started
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Asset" }
+
+    get:
+      operationId: listAssets
+      summary: List assets for a brand
+      tags: [assets]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Asset" }
+
+  /brands/{brandId}/assets/{assetId}:
+    get:
+      operationId: getAsset
+      summary: Get asset with fragment count and processing status
+      tags: [assets]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: assetId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Asset" }
+
+  # ── FRAGMENTS ──────────────────────────────────────────
+  /brands/{brandId}/assets/{assetId}/fragments:
+    get:
+      operationId: listFragments
+      summary: List fragments extracted from an asset
+      tags: [fragments]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: assetId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Fragment" }
+
+  # ── CONTENT GENERATION ─────────────────────────────────
+  /brands/{brandId}/generate:
+    post:
+      operationId: generateContent
+      summary: Generate platform-native posts from extracted fragments
+      tags: [content]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [asset_id]
+              properties:
+                asset_id: { type: string, format: uuid }
+                platforms:
+                  type: array
+                  items:
+                    type: string
+                    enum: [instagram_feed, instagram_story, instagram_reels, linkedin, tiktok, youtube_shorts, x]
+                  default: [instagram_feed, instagram_reels, linkedin, x]
+                posts_per_fragment:
+                  type: integer
+                  default: 3
+                  minimum: 1
+                  maximum: 10
+      responses:
+        "202":
+          description: Generation started (async)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_id: { type: string, format: uuid }
+                  estimated_count: { type: integer }
+
+  /brands/{brandId}/content:
+    get:
+      operationId: listContentUnits
+      summary: List generated content units with approval status
+      tags: [content]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: asset_id
+          in: query
+          schema: { type: string, format: uuid }
+        - name: approval_status
+          in: query
+          schema: { type: string, enum: [pending, approved, rejected, flagged] }
+        - name: platform
+          in: query
+          schema: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/ContentUnit" }
+
+  /brands/{brandId}/content/{contentUnitId}/approve:
+    post:
+      operationId: approveContentUnit
+      summary: Approve a content unit for scheduling
+      tags: [content]
+      responses:
+        "200":
+          description: Approved
+
+  /brands/{brandId}/content/{contentUnitId}/reject:
+    post:
+      operationId: rejectContentUnit
+      summary: Reject a content unit
+      tags: [content]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason: { type: string }
+      responses:
+        "200":
+          description: Rejected
+
+  # ── SCHEDULING ─────────────────────────────────────────
+  /brands/{brandId}/schedule:
+    post:
+      operationId: scheduleContent
+      summary: Schedule approved content for publishing
+      tags: [scheduling]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content_unit_ids:
+                  type: array
+                  items: { type: string, format: uuid }
+                strategy:
+                  type: string
+                  enum: [optimal, evenly_distributed, manual]
+                  default: optimal
+                start_date: { type: string, format: date }
+                end_date: { type: string, format: date }
+      responses:
+        "201":
+          description: Posts scheduled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scheduled_count: { type: integer }
+                  publish_events:
+                    type: array
+                    items: { $ref: "#/components/schemas/PublishEvent" }
+
+  /brands/{brandId}/calendar:
+    get:
+      operationId: getContentCalendar
+      summary: Get content calendar with all scheduled/published posts
+      tags: [scheduling]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: start_date
+          in: query
+          schema: { type: string, format: date }
+        - name: end_date
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/PublishEvent" }
+
+  # ── ANALYTICS & ATTRIBUTION ────────────────────────────
+  /brands/{brandId}/reports/weekly:
+    get:
+      operationId: getWeeklyReport
+      summary: Get weekly performance report with asset-level attribution
+      tags: [analytics]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: week_of
+          in: query
+          schema: { type: string, format: date }
+          description: Any date within the target week
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/WeeklyReport" }
+
+  /brands/{brandId}/assets/{assetId}/attribution:
+    get:
+      operationId: getAssetAttribution
+      summary: Full attribution for a single asset
+      tags: [analytics]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: assetId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AssetAttribution" }
+
+  # ── PLATFORM CONNECTIONS ───────────────────────────────
+  /brands/{brandId}/platforms:
+    get:
+      operationId: listPlatformConnections
+      tags: [platforms]
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/PlatformConnection" }
+
+  /brands/{brandId}/platforms/connect/{platform}:
+    get:
+      operationId: initPlatformOAuth
+      summary: Start OAuth flow for a platform
+      tags: [platforms]
+      parameters:
+        - name: platform
+          in: path
+          required: true
+          schema: { type: string, enum: [instagram, linkedin, tiktok, youtube, x] }
+      responses:
+        "302":
+          description: Redirect to platform OAuth
+
+  # ── DESIGN RESIZING ────────────────────────────────────
+  /brands/{brandId}/resize:
+    post:
+      operationId: resizeDesign
+      summary: Generate multi-format variants from a single design asset
+      tags: [resize]
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file, target_formats]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                target_formats:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - instagram_feed_1080x1080
+                      - instagram_story_1080x1920
+                      - facebook_feed_1200x628
+                      - linkedin_1200x627
+                      - x_1600x900
+                      - youtube_thumb_1280x720
+                      - display_300x250
+                      - display_728x90
+                      - display_160x600
+      responses:
+        "202":
+          description: Resizing started (async)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_id: { type: string, format: uuid }
+                  target_count: { type: integer }
+
+  # ── JOBS ───────────────────────────────────────────────
+  /jobs/{jobId}:
+    get:
+      operationId: getJobStatus
+      summary: Check status of an async job
+      tags: [jobs]
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string, format: uuid }
+                  type: { type: string }
+                  status: { type: string, enum: [queued, processing, completed, failed] }
+                  progress: { type: number, minimum: 0, maximum: 1 }
+                  result: { type: object }
+                  error: { type: string }
+                  created_at: { type: string, format: date-time }
+
+components:
+  schemas:
+    Brand:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        slug: { type: string }
+        description: { type: string }
+        consistency_threshold: { type: number }
+        status: { type: string }
+        has_natural_center: { type: boolean }
+        asset_count: { type: integer }
+        created_at: { type: string, format: date-time }
+
+    NaturalCenter:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        brand_id: { type: string, format: uuid }
+        version: { type: integer }
+        thematic_core: { type: object }
+        aesthetic_signature: { type: object }
+        tonal_vector: { type: object }
+        narrative_bias: { type: object }
+        symbolic_markers: { type: object }
+        negative_space: { type: object }
+        confidence_scores: { type: object }
+        overall_confidence: { type: number }
+        created_at: { type: string, format: date-time }
+
+    Asset:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        brand_id: { type: string, format: uuid }
+        media_type: { type: string }
+        original_filename: { type: string }
+        file_size_bytes: { type: integer }
+        duration_seconds: { type: number }
+        processing_status: { type: string }
+        fragment_count: { type: integer }
+        created_at: { type: string, format: date-time }
+
+    Fragment:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        asset_id: { type: string, format: uuid }
+        type: { type: string }
+        description: { type: string }
+        quality_score: { type: number }
+        nc_alignment_score: { type: number }
+        created_at: { type: string, format: date-time }
+
+    ContentUnit:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        fragment_id: { type: string, format: uuid }
+        platform: { type: string }
+        caption: { type: string }
+        media_type: { type: string }
+        nc_score: { type: number }
+        nc_score_breakdown: { type: object }
+        approval_status: { type: string }
+        created_at: { type: string, format: date-time }
+
+    PublishEvent:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        content_unit_id: { type: string, format: uuid }
+        platform_post_url: { type: string }
+        scheduled_at: { type: string, format: date-time }
+        published_at: { type: string, format: date-time }
+        status: { type: string }
+
+    PlatformConnection:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        platform: { type: string }
+        platform_account_name: { type: string }
+        status: { type: string }
+
+    WeeklyReport:
+      type: object
+      properties:
+        brand_id: { type: string, format: uuid }
+        week_start: { type: string, format: date }
+        week_end: { type: string, format: date }
+        total_posts_published: { type: integer }
+        total_views: { type: integer }
+        total_engagement: { type: integer }
+        engagement_rate: { type: number }
+        top_performing_fragments:
+          type: array
+          items: { $ref: "#/components/schemas/Fragment" }
+        asset_attributions:
+          type: array
+          items: { $ref: "#/components/schemas/AssetAttribution" }
+
+    AssetAttribution:
+      type: object
+      properties:
+        asset_id: { type: string, format: uuid }
+        original_filename: { type: string }
+        content_units_generated: { type: integer }
+        posts_published: { type: integer }
+        total_views: { type: integer }
+        total_engagement: { type: integer }
+        engagement_rate: { type: number }
+        content_yield_ratio: { type: number }
+        fragments_used: { type: integer }
