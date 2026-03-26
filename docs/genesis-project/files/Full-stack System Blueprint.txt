@@ -1,0 +1,832 @@
+```bash
+$MODE="full-stack system (multi-service, production-grade)"
+$NEXT_ARTIFACT="FULL_STACK_IMPLEMENTATION_BLUEPRINT"
+$SYSTEM_NAME="cronus-metabolus"
+$PRODUCT_SURFACE="auto-content-cannibal"
+$SYSTEM_CLASS="multi-tenant temporal content yield and audience formation operating system"
+$ARCHITECTURE_STYLE="control-plane + orchestration-plane + execution-plane + research-plane"
+```
+
+Below is the canonical implementation blueprint. It is the production-grade closure of the source set: full-stack blueprint, operator-grade system map, multi-tenant SaaS expansion, Natural Center computability, unified scoring, attribution, and research-runtime integration. fileciteturn0file0 fileciteturn0file1 fileciteturn0file15 fileciteturn0file21 fileciteturn0file26 fileciteturn0file27
+
+# I. SYSTEM PURPOSE
+
+```bash
+$PRIMARY_GOAL="convert premium source assets into platform-native outputs with measurable audience and economic yield"
+$SECONDARY_GOAL="maintain identity coherence under scale"
+$TERTIARY_GOAL="adapt policy and generation to time-varying platform state"
+$QUATERNARY_GOAL="turn all optimization into experimentally legible learning"
+```
+
+The irreducible system law is:
+
+```text
+asset → fragments → Natural Center / Brand Embedding → generation → publishing → analytics → attribution → learning
+```
+
+This is already fixed by the source corpus and should be treated as binding. fileciteturn0file0 fileciteturn0file1 fileciteturn0file21
+
+# II. OPERATING LAWS
+
+```text
+Law 1: Every output must inherit from a Natural Center.
+Law 2: Every generated unit must preserve lineage to one or more source fragments and assets.
+Law 3: Every publish event must generate telemetry.
+Law 4: Every score must be versioned.
+Law 5: Every platform assumption must be time-bounded.
+Law 6: Every update to identity or policy must be bounded and reviewable.
+Law 7: Every tenant action and workflow must execute under explicit policy context.
+```
+
+These laws are consistent with the repo architecture, proof bridge, axiom registry, and NC scoring layer. fileciteturn0file21 fileciteturn0file24 fileciteturn0file25 fileciteturn0file27
+
+# III. DEPLOYMENT PHASES
+
+## PHASE 0 — Foundation
+
+```bash
+$PHASE_0="foundation"
+$OBJECTIVE_0="stand up contracts, storage, identity, workflow, observability"
+```
+
+Deliver exactly:
+
+```text
+repo scaffold
+environment contract
+Postgres
+Redis
+object storage
+workflow engine
+event bus
+auth
+baseline observability
+```
+
+This phase comes directly from the implementation blueprint. fileciteturn0file0
+
+## PHASE 1 — Closed Production Loop
+
+```bash
+$PHASE_1="core production loop"
+$OBJECTIVE_1="asset in → generated units out → publish → metrics back"
+```
+
+Stand up:
+
+```text
+asset-ingestion
+media-analysis
+natural-center
+brand-embedding
+generation-orchestrator
+publishing-connectors
+analytics-ingestion
+reporting-dashboard
+```
+
+This is the first closed production system. fileciteturn0file0 fileciteturn0file1
+
+## PHASE 2 — Attribution + Scoring Closure
+
+```bash
+$PHASE_2="measurement closure"
+$OBJECTIVE_2="make value legible from asset to outcome"
+```
+
+Stand up:
+
+```text
+attribution-engine
+unified-score-spec
+nc-score-api
+nc-metric-registry
+```
+
+This closes the identity-measurement and value-accounting gap. fileciteturn0file14 fileciteturn0file26 fileciteturn0file27
+
+## PHASE 3 — Audience + Experimentation
+
+```bash
+$PHASE_3="audience formation and causal optimization"
+$OBJECTIVE_3="move from content metrics to audience state transitions and causal lift"
+```
+
+Stand up:
+
+```text
+audience-engine
+identity-binding
+cta-engine
+retention-engine
+experimentation-engine
+research-registry
+```
+
+This reflects the system shift from content tool to audience formation engine. fileciteturn0file9 fileciteturn0file21
+
+## PHASE 4 — Platform Intelligence + SaaS Scale
+
+```bash
+$PHASE_4="adaptive multi-tenant platform"
+$OBJECTIVE_4="support multi-tenant execution under evolving platform conditions"
+```
+
+Stand up:
+
+```text
+tenant-management
+billing-metering
+platform-intelligence
+policy-engine
+notification-service
+audit-log-service
+evidence-store-indexer
+```
+
+This is the full production OS threshold. fileciteturn0file15 fileciteturn0file21
+
+# IV. CANONICAL REPOSITORY
+
+```text
+cronus-metabolus-os/
+├── apps/
+├── services/
+├── packages/
+├── infra/
+├── data/
+├── research/
+├── clients/
+├── contracts/
+├── docs/
+├── scripts/
+├── tests/
+├── .github/
+├── .env.example
+├── .env.research.example
+├── .env.staging.example
+├── .env.production.example
+├── docker-compose.yml
+├── Makefile
+├── pnpm-workspace.yaml
+├── turbo.json
+├── README.md
+├── ARCHITECTURE.md
+├── ONTOLOGY.md
+├── ENVIRONMENT_VARIABLES.md
+├── EVENT_CATALOG.md
+├── METRIC_CATALOG.md
+├── EXPERIMENT_POLICY.md
+├── PLATFORM_EVOLUTION_POLICY.md
+├── NATURAL_CENTER_POLICY.md
+└── REPO_GOVERNANCE.md
+```
+
+This is the hardened monorepo shape required by the current corpus. fileciteturn0file21
+
+# V. APPLICATIONS
+
+```text
+apps/
+├── gateway-api/
+├── operator-console/
+├── tenant-admin-console/
+├── reporting-dashboard/
+├── research-console/
+└── public-docs-site/
+```
+
+`gateway-api` is the system edge.  
+`operator-console` is the human operating surface.  
+`tenant-admin-console` is the SaaS admin surface.  
+`reporting-dashboard` is the asset-yield and audience surface.  
+`research-console` is the hypothesis / evidence / experiment surface. fileciteturn0file21
+
+# VI. SERVICES
+
+```text
+services/
+├── auth-identity/
+├── tenant-management/
+├── billing-metering/
+├── asset-ingestion/
+├── media-analysis/
+├── natural-center/
+├── brand-embedding/
+├── generation-orchestrator/
+├── platform-intelligence/
+├── scheduling-engine/
+├── publishing-connectors/
+├── analytics-ingestion/
+├── audience-engine/
+├── identity-binding/
+├── cta-engine/
+├── retention-engine/
+├── attribution-engine/
+├── experimentation-engine/
+├── research-registry/
+├── model-registry/
+├── policy-engine/
+├── notification-service/
+├── audit-log-service/
+├── evidence-store-indexer/
+└── alerting-observability/
+```
+
+This service map is the exact production-grade completion of the earlier blueprints. fileciteturn0file1 fileciteturn0file15 fileciteturn0file21
+
+# VII. ORCHESTRATION-FIRST EXECUTION
+
+```bash
+$WORKFLOW_ENGINE="Temporal"
+$EXECUTION_SPINE="orchestration-first"
+```
+
+Services should be stateless workers where possible. Durable state transitions belong to workflows, not controller code. That is an explicit upgrade in the repo-architecture update. fileciteturn0file15 fileciteturn0file21
+
+Required workflow families:
+
+```text
+asset-pipeline
+publish-pipeline
+analytics-pipeline
+attribution-pipeline
+experiment-pipeline
+platform-intelligence-pipeline
+policy-revalidation-pipeline
+```
+
+Canonical execution sequences:
+
+```text
+asset.uploaded
+→ asset.normalized
+→ fragments.extracted
+→ natural_center.derived_or_loaded
+→ brand_embedding.encoded
+→ candidate_units.generated
+→ candidate_units.scored
+→ approval.requested_or_auto_passed
+→ publish.plan.created
+→ post.published
+→ analytics.ingested
+→ attribution.recomputed
+→ audience_transitions.updated
+→ report.materialized
+```
+
+This is the required runtime skeleton. fileciteturn0file0 fileciteturn0file21
+
+# VIII. DATA PLANES
+
+```bash
+$DATA_PLANES="source_plane operational_plane experimental_plane evolutionary_plane audience_plane"
+```
+
+## SOURCE_PLANE
+
+Stores hero assets, render sets, transcripts, brand corpus, prior posts.
+
+## OPERATIONAL_PLANE
+
+Stores fragments, generated units, schedules, publish events, connector logs.
+
+## EXPERIMENTAL_PLANE
+
+Stores hypotheses, treatments, controls, assignments, significance outputs.
+
+## EVOLUTIONARY_PLANE
+
+Stores platform profiles, documentation deltas, schema shifts, policy deltas, performance regime changes.
+
+## AUDIENCE_PLANE
+
+Stores audience state transitions, retention metrics, conversion ladders, cohort summaries.
+
+This structure is already implied across the operator-grade and platform-evolution artifacts. fileciteturn0file1 fileciteturn0file3 fileciteturn0file21
+
+# IX. CANONICAL DOMAIN OBJECTS
+
+```text
+Tenant
+Workspace
+TenantUser
+BrandProfile
+BrandConnection
+Asset
+Fragment
+NaturalCenterV2
+BrandEmbedding
+GeneratedUnit
+CaptionVariant
+CTAVariant
+SchedulePolicy
+PublishEvent
+PerformanceObservation
+AudienceStateTransition
+Experiment
+Hypothesis
+EvidenceRecord
+Conclusion
+PlatformProfile
+PlatformChangeEvent
+WorkflowRun
+PolicySnapshot
+Campaign
+Report
+```
+
+These are the minimum stable ontology at full-stack scope. fileciteturn0file21
+
+# X. MINIMAL DATABASE CONTRACT
+
+```sql
+CREATE TABLE tenants (...);
+CREATE TABLE workspaces (...);
+CREATE TABLE brand_profiles (...);
+CREATE TABLE assets (...);
+CREATE TABLE fragments (...);
+CREATE TABLE natural_centers (...);
+CREATE TABLE brand_embeddings (...);
+CREATE TABLE generated_units (...);
+CREATE TABLE unit_fragment_map (...);
+CREATE TABLE publish_events (...);
+CREATE TABLE performance_observations (...);
+CREATE TABLE audience_state_transitions (...);
+CREATE TABLE experiments (...);
+CREATE TABLE hypotheses (...);
+CREATE TABLE platform_profiles (...);
+CREATE TABLE platform_change_events (...);
+CREATE TABLE policy_snapshots (...);
+CREATE TABLE workflow_runs (...);
+CREATE TABLE evidence_records (...);
+```
+
+Non-negotiable keys:
+
+```text
+generated_units.fragment_id OR unit_fragment_map
+fragments.asset_id
+generated_units.nc_version
+generated_units.platform_profile_id
+publish_events.unit_id
+performance_observations.publish_id
+all tenant-bound objects: tenant_id, workspace_id, brand_id where applicable
+```
+
+This preserves lineage, identity binding, and platform-state binding. fileciteturn0file14 fileciteturn0file25
+
+# XI. ENVIRONMENT CONTRACT
+
+```bash
+$NODE_ENV
+$APP_ENV
+$LOG_LEVEL
+
+$POSTGRES_URI
+$POSTGRES_DB
+$REDIS_URI
+
+$OBJECT_STORE_URI
+$OBJECT_STORE_BUCKET_RAW
+$OBJECT_STORE_BUCKET_DERIVED
+$OBJECT_STORE_BUCKET_REPORTS
+
+$TEMPORAL_ADDRESS
+$TEMPORAL_NAMESPACE
+$EVENT_BUS_URI
+
+$OPENAI_API_KEY
+$EMBEDDING_MODEL_ID
+$VISION_MODEL_ID
+$TRANSCRIPTION_MODEL_ID
+
+$JWT_SECRET
+$SESSION_SECRET
+$ENCRYPTION_KEY
+
+$YOUTUBE_CLIENT_ID
+$YOUTUBE_CLIENT_SECRET
+$TIKTOK_CLIENT_ID
+$TIKTOK_CLIENT_SECRET
+$LINKEDIN_CLIENT_ID
+$LINKEDIN_CLIENT_SECRET
+
+$WAREHOUSE_URI
+$OTEL_EXPORTER_OTLP_ENDPOINT
+$SENTRY_DSN
+
+$NC_SCORE_VERSION
+$UNIFIED_SCORE_VERSION
+$PLATFORM_PROFILE_VERSION
+$POLICY_BASELINE_VERSION
+
+$TENANT_OBJECT_PREFIX_TEMPLATE
+$REPORT_MATERIALIZATION_CRON
+$ANALYTICS_POLL_CRON
+$PLATFORM_REFRESH_CRON
+```
+
+This extends the phase-0 environment contract into full production scope. fileciteturn0file0 fileciteturn0file21
+
+# XII. NATURAL CENTER ENGINE V2
+
+Natural Center is no longer descriptive metadata. It is a stateful, measurable, versioned identity engine. fileciteturn0file19 fileciteturn0file26
+
+Canonical object:
+
+```yaml
+NaturalCenterV2:
+  nc_id: string
+  tenant_id: string
+  workspace_id: string
+  brand_id: string
+  version: int
+  thematic_core: list
+  aesthetic_signature: dict
+  tonal_vector: dict
+  narrative_bias: dict
+  symbolic_markers: list
+  negative_space: list
+  invariants: list
+  mutation_bounds: dict
+  embedding:
+    semantic_vector: vector
+    visual_vector: vector
+    tonal_vector: vector
+    narrative_vector: vector
+    symbolic_vector: vector
+    negative_vector: vector
+    fused_vector: vector
+  metrics:
+    nc_coherence: float
+    nc_consistency: float
+    nc_drift: float
+    nc_recognition: float|null
+  confidence_score: float
+  review_status: draft|reviewed|approved
+  effective_from: timestamp
+  effective_to: timestamp|null
+```
+
+Core APIs:
+
+```python
+def derive_natural_center_v2(corpus): ...
+def encode_natural_center_v2(nc): ...
+def nc_score(candidate, nc, mode="unit"): ...
+def nc_metric_surface(outputs, nc): ...
+def update_natural_center_v2(nc, evidence): ...
+```
+
+This is the correct closure of the Natural Center subsystem. fileciteturn0file16 fileciteturn0file19 fileciteturn0file26
+
+# XIII. BRAND EMBEDDING
+
+Brand Embedding is the computational interface of identity. It should remain multi-vector, not monolithic. fileciteturn0file17
+
+```yaml
+BrandEmbedding:
+  semantic_vector: ℝ^d_s
+  visual_vector: ℝ^d_v
+  tonal_vector: ℝ^d_t
+  narrative_vector: ℝ^d_n
+  symbolic_vector: ℝ^d_sym
+  negative_vector: ℝ^d_neg
+  fused_vector: ℝ^d_f
+```
+
+Fusion rule:
+
+```text
+fused_vector =
+  W_s*semantic_vector
++ W_v*visual_vector
++ W_t*tonal_vector
++ W_n*narrative_vector
++ W_sym*symbolic_vector
+- W_neg*negative_vector
+```
+
+# XIV. NC SCORE API
+
+Natural Center must participate directly in scoring, not only in prompting. fileciteturn0file27
+
+Canonical result object:
+
+```python
+class NCScoreResult(TypedDict):
+    total_score: float
+    thematic_alignment: float
+    aesthetic_alignment: float
+    tonal_alignment: float
+    narrative_alignment: float
+    symbolic_alignment: float
+    negative_space_violation: float
+    invariant_pass: bool
+    hard_fail_reasons: list[str]
+    score_version: str
+    nc_id: str
+    nc_version: int
+```
+
+Canonical formula:
+
+```text
+NCScore(x,NC)=
+  λT*T_align
++ λA*A_align
++ λTau*Tau_align
++ λN*N_align
++ λS*S_align
+- λΩ*Omega_viol
+```
+
+Recommended weights:
+
+```python
+NC_SCORE_WEIGHTS = {
+    "thematic": 0.22,
+    "aesthetic": 0.18,
+    "tonal": 0.18,
+    "narrative": 0.14,
+    "symbolic": 0.18,
+    "negative": 0.20,
+}
+```
+
+# XV. UNIFIED SCORE SPEC
+
+All scoring surfaces must collapse into one doctrine. fileciteturn0file26 fileciteturn0file27
+
+Master function:
+
+```python
+def unified_score(candidate, nc, platform_profile, audience_context, scoring_mode): ...
+```
+
+Master equation:
+
+```text
+Score(x,p,a,t)=
+  wI*Intrinsic(x)
++ wN*NCAlign(x,NC)
++ wP*PlatformFit(x,p,t)
++ wA*AudienceFit(x,a)
+- wR*Risk(x)
+```
+
+Supported modes:
+
+```text
+fragment_selection
+unit_validation
+publish_ranking
+attribution_identity_adjustment
+update_admission
+```
+
+This is the scoring closure layer the system requires.
+
+# XVI. ATTRIBUTION MODEL
+
+The mathematically correct attribution model is hierarchical, weighted, time-decayed, and platform-normalized. fileciteturn0file14
+
+Lineage:
+
+```text
+Asset → Fragment → GeneratedUnit → PublishEvent → PerformanceObservation → AudienceStateTransition / EconomicOutcome
+```
+
+Rollup rule:
+
+```text
+Attr(asset) = Σ publish_events [ lineage_weight * platform_normalized_value * time_decay ]
+```
+
+Economic layer:
+
+```text
+NetAssetReturn = attributed_value - allocated_cost
+ROI = (attributed_value - allocated_cost) / allocated_cost
+AssetYieldMultiplier = attributed_value / allocated_cost
+```
+
+This is the correct production accounting doctrine.
+
+# XVII. AUDIENCE ENGINE
+
+The system is not complete at metrics. It must model audience movement. fileciteturn0file9
+
+Canonical audience state machine:
+
+```text
+STATE_0 unaware
+STATE_1 viewer
+STATE_2 engaged_viewer
+STATE_3 follower
+STATE_4 returning_follower
+STATE_5 converted_user
+STATE_6 advocate
+```
+
+Core services around this:
+
+```text
+audience-engine
+identity-binding
+cta-engine
+retention-engine
+```
+
+Key metrics:
+
+```text
+attention_efficiency
+follow_conversion_rate
+retention_ratio
+asset_yield_to_audience
+asset_yield_to_conversion
+```
+
+# XVIII. PLATFORM INTELLIGENCE
+
+Platform must be modeled as `platform_state(t)`, not as a static adapter. fileciteturn0file3 fileciteturn0file58
+
+Canonical object:
+
+```yaml
+PlatformProfile:
+  profile_id: string
+  platform: youtube|instagram|tiktok|linkedin
+  effective_from: date
+  effective_to: date|null
+  format_weights: json
+  known_constraints: json
+  ranking_assumptions: json
+  confidence_score: float
+```
+
+Monitors:
+
+```text
+documentation_monitor
+analytics_schema_monitor
+posting_capability_monitor
+performance_regime_monitor
+historical_phase_model
+```
+
+This makes adaptation explicit.
+
+# XIX. POLICY ENGINE
+
+Production multi-tenant scale requires policy separation. fileciteturn0file15 fileciteturn0file58
+
+Policy stack:
+
+```text
+system_policy
+tenant_policy
+workspace_policy
+brand_policy
+campaign_policy
+platform_runtime_policy
+```
+
+All workflows should run with a `PolicySnapshot`.
+
+# XX. RESEARCH AS RUNTIME
+
+The research layer is not passive notes. It is a runtime dependency. fileciteturn0file6 fileciteturn0file58 fileciteturn0file68
+
+`research-registry` must own:
+
+```text
+hypotheses
+experiment definitions
+evidence linkage
+metric definitions
+platform-change memos
+conclusions
+versioned claims
+```
+
+This is how the system becomes a learning system rather than an analytics system.
+
+# XXI. API SURFACES
+
+Minimum stable contracts:
+
+```http
+POST /assets
+POST /natural-centers/derive
+POST /brand-embeddings/encode
+POST /generation/jobs
+POST /publishing/jobs
+GET  /reports/assets/{asset_id}
+GET  /reports/campaigns/{campaign_id}
+POST /experiments
+GET  /platform-profiles/{platform}
+POST /tenants
+POST /workspaces
+POST /brands
+```
+
+Event catalog core:
+
+```text
+asset.uploaded
+asset.normalized
+fragments.extracted
+natural_center.derived
+brand_embedding.encoded
+units.generated
+units.scored
+publish.plan.created
+publish.completed
+analytics.received
+attribution.recomputed
+audience.updated
+experiment.started
+experiment.completed
+platform.profile.revised
+policy.snapshot.created
+```
+
+# XXII. TEST STRATEGY
+
+Testing must mirror the proof-implementation bridge. fileciteturn0file24 fileciteturn0file25
+
+Required suites:
+
+```text
+unit tests
+contract tests
+integration tests
+workflow replay tests
+load tests
+attribution conservation tests
+NC gate tests
+platform-profile binding tests
+bounded-update tests
+```
+
+Non-negotiable assertions:
+
+```text
+every unit has lineage
+every publish event spawns analytics workflow
+every publishable unit passes NC threshold
+every unit binds to a platform profile version
+every embedding update is norm-bounded
+```
+
+# XXIII. BUILD ORDER
+
+```bash
+$BUILD_ORDER="
+1. repo + packages + contracts
+2. auth-identity + tenant-management
+3. asset-ingestion + media-analysis
+4. natural-center + brand-embedding
+5. generation-orchestrator + unified-score-spec
+6. scheduling-engine + publishing-connectors
+7. analytics-ingestion + reporting-dashboard
+8. attribution-engine
+9. audience-engine + identity-binding + cta-engine + retention-engine
+10. experimentation-engine + research-registry
+11. platform-intelligence + policy-engine
+12. billing-metering + audit-log-service + notification-service
+"
+```
+
+This order preserves the system’s dependency structure and keeps the first usable loop closed early.
+
+# XXIV. SHIP CRITERION
+
+You can call V1 production-grade only when all of the following are true:
+
+```text
+a tenant can upload an asset
+the system can derive fragments
+the system can derive or load a Natural Center
+the system can encode brand embedding
+the system can generate candidate units
+the units are scored under unified scoring
+publishable units can be scheduled and published
+analytics are ingested automatically
+attribution rolls back to fragment and asset
+reports expose asset yield and audience movement
+platform profile versions are stored and bound
+all major workflows are replayable
+all identity and policy decisions are auditable
+```
+
+That is the actual threshold between a content app and an operating system.
+
+If you want the next artifact in strict sequence, it should be:
+
+```bash
+$NEXT_ARTIFACT="MONOREPO_BOOTSTRAP_SPEC + SERVICE_BY_SERVICE_IMPLEMENTATION_ORDER + ENV_FILE_MATRIX"
+```

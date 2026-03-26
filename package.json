@@ -1,21 +1,36 @@
 {
-  "name": "content-engine--asset-amplifier",
-  "version": "0.0.1",
-  "description": "AI content repurposing and distribution platform for premium brands",
+  "name": "cronus-metabolus",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Content Yield Engine — one premium asset → continuous content → measurable yield",
   "type": "module",
+  "author": "Anthony Padavano + Scott Lefler (Lefler Design)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "dev": "echo 'TBD — skeleton only'",
-    "build": "echo 'TBD — skeleton only'",
-    "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "clean": "turbo clean && rm -rf node_modules",
+    "db:migrate": "pnpm --filter @cronus/db migrate",
+    "db:seed": "tsx infra/scripts/seed.ts",
+    "docker:up": "docker compose -f infra/docker/docker-compose.yml up -d",
+    "docker:down": "docker compose -f infra/docker/docker-compose.yml down",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,md,yaml}\""
   },
   "keywords": [
     "content-engine",
     "social-media",
     "ai",
     "video-processing",
+    "brand-identity",
     "organvm"
-  ],
-  "author": "Anthony Padavano + Scott Lefler",
-  "license": "MIT"
+  ]
 }

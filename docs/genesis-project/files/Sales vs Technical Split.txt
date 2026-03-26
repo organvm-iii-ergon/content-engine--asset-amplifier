@@ -1,0 +1,464 @@
+Below are two **cleanly separated artifacts** derived from your system:  
+1) **Sales One-Pager (external, client-facing)**  
+2) **Technical Spec (internal, operator/engineering-facing)**  
+
+They are structurally aligned but linguistically decoupled.
+
+---
+
+# I. SALES ONE-PAGER  
+## $PRODUCT_SURFACE = "auto-content-cannibal"  
+## $POSITIONING = "premium content yield engine"
+
+### Core Proposition
+
+Turn one premium asset into a continuous stream of high-performing content with measurable business impact.
+
+---
+
+### Problem
+
+Premium content is underutilized.
+
+Brands spend:
+
+```text
+$15K–$50K → hero film / renders
+```
+
+Then:
+
+```text
+1–2 posts → asset decays → no measurable ROI
+```
+
+At the same time:
+
+```text
+$5K+/month → manual social management
+→ inconsistent output
+→ no attribution
+```
+
+---
+
+### Solution
+
+A system that converts a single asset into sustained output and measurable outcomes.
+
+```text
+upload asset
+→ system extracts high-signal fragments
+→ generates platform-native posts
+→ schedules and publishes
+→ tracks performance
+→ attributes results back to the asset
+```
+
+---
+
+### What It Produces
+
+From one asset:
+
+```text
+10–15 short-form clips
+carousel sets
+caption variants (brand-aligned)
+platform-specific formatting
+30–90 days of scheduled content
+```
+
+---
+
+### What It Measures
+
+Not just engagement—actual yield:
+
+```text
+reach
+engagement
+watch time
+follower growth
+leads / conversions
+```
+
+All tied back to the original asset.
+
+---
+
+### Value
+
+```text
+turn $30K asset → 90 days of content
+replace 20+ hrs/week manual work
+increase engagement through platform-native optimization
+```
+
+Critically:
+
+```text
+content → measurable ROI
+```
+
+Not:
+
+```text
+content → aesthetic output only
+```
+
+---
+
+### Who Buys
+
+```text
+enterprise brands (existing clients → upsell)
+creative agencies (white-label)
+DTC brands ($5–10K/month social spend)
+```
+
+---
+
+### Differentiation
+
+Existing tools:
+
+```text
+schedule posts
+```
+
+This system:
+
+```text
+creates + distributes + measures content from source assets
+```
+
+---
+
+### MVP Scope
+
+```text
+upload asset
+→ auto clip extraction
+→ caption generation
+→ one-click scheduling (IG / TikTok / LinkedIn)
+→ weekly performance report
+```
+
+---
+
+### Strategic Shift
+
+From:
+
+```text
+“we deliver a video”
+```
+
+To:
+
+```text
+“we deliver a content system + measurable return on that asset”
+```
+
+This reframes the entire client relationship.
+
+fileciteturn0file33  
+
+---
+
+# II. TECHNICAL SPEC  
+## $SYSTEM_NAME = "cronus-metabolus"  
+## $SYSTEM_CLASS = "content yield + audience formation system"
+
+---
+
+## 1. System Definition
+
+```text
+content = f(asset, natural_center, platform_profile)
+success = f(content, platform_state(t), audience_state)
+```
+
+This is a **closed-loop system**, not a pipeline. fileciteturn0file13  
+
+---
+
+## 2. Core Pipeline
+
+```text
+asset
+→ normalization
+→ fragment extraction
+→ Natural Center derivation
+→ generation
+→ publishing
+→ analytics ingestion
+→ attribution
+→ learning
+```
+
+fileciteturn0file13  
+
+---
+
+## 3. Canonical Data Model
+
+```yaml
+Asset:
+  asset_id
+
+Fragment:
+  fragment_id
+  asset_id
+
+GeneratedUnit:
+  unit_id
+  fragment_id
+
+PublishEvent:
+  publish_id
+  unit_id
+
+PerformanceObservation:
+  publish_id
+  metrics
+```
+
+Lineage constraint:
+
+```text
+asset → fragment → unit → publish → observation
+```
+
+fileciteturn0file14  
+
+---
+
+## 4. Natural Center (Identity Constraint)
+
+```text
+NC = ⟨themes, aesthetics, tone, narrative, symbols, negative_space⟩
+```
+
+Every output must satisfy:
+
+```text
+NC_match(unit) ≥ threshold
+```
+
+fileciteturn0file16  
+
+---
+
+## 5. Brand Embedding (Computational Interface)
+
+```text
+BE = encode(NC)
+```
+
+Used for:
+
+```text
+generation constraints
+similarity validation
+scoring alignment
+drift detection
+```
+
+fileciteturn0file17  
+
+---
+
+## 6. Fragment Extraction
+
+Multimodal segmentation:
+
+```text
+video → scene / motion / audio peaks
+image → crops / layouts
+text → semantic units
+```
+
+Produces candidate set:
+
+```text
+F = {fragments}
+```
+
+fileciteturn0file13  
+
+---
+
+## 7. Unified Scoring System
+
+All scoring collapses into:
+
+```text
+Score(x) =
+  w_I * intrinsic(x)
++ w_N * NC_alignment(x)
++ w_P * platform_fit(x, t)
++ w_A * audience_fit(x)
+- w_R * risk(x)
+```
+
+fileciteturn0file26  
+
+---
+
+## 8. Attribution Model
+
+Hierarchical + time-decayed:
+
+```text
+Asset → Fragment → Unit → Publish → Performance
+```
+
+```text
+M_p = Σ y_{p,t} * exp(-λt)
+```
+
+Aggregated upward:
+
+```text
+Attr(asset) = Σ publish_event_value
+```
+
+fileciteturn0file14  
+
+---
+
+## 9. Audience System
+
+State transitions:
+
+```text
+viewer → engaged → follower → returning → converted → advocate
+```
+
+Each publish event contributes to transitions.
+
+fileciteturn0file14  
+
+---
+
+## 10. System Architecture (MVP → Full)
+
+### MVP
+
+```text
+asset-ingestion
+media-analysis
+generation
+scheduler
+publishing
+analytics
+reporting
+```
+
+fileciteturn0file29  
+
+---
+
+### Full System
+
+```text
+control-plane
+orchestration-plane
+execution services
+research layer
+policy layer
+```
+
+Includes:
+
+```text
+natural-center
+brand-embedding
+attribution-engine
+audience-engine
+experimentation-engine
+platform-intelligence
+```
+
+fileciteturn0file21  
+
+---
+
+## 11. Orchestration Model
+
+```bash
+$WORKFLOW_ENGINE="Temporal"
+```
+
+Workflows:
+
+```text
+asset pipeline
+publish pipeline
+analytics pipeline
+attribution pipeline
+experiment pipeline
+```
+
+fileciteturn0file15  
+
+---
+
+## 12. Operating Laws
+
+```text
+1. every output inherits from NC
+2. every unit has lineage
+3. every publish event produces telemetry
+4. every metric is attributable
+5. platform assumptions are time-bound
+6. identity evolution is bounded
+```
+
+fileciteturn0file21  
+
+---
+
+## 13. System Classification
+
+```text
+multi-tenant
+event-driven
+identity-constrained
+learning system
+```
+
+Not:
+
+```text
+scheduler
+content tool
+```
+
+---
+
+# III. SPLIT SUMMARY (DIFFERENCE IN ONE LINE)
+
+**Sales layer:**
+
+```text
+“turn one asset into measurable content output”
+```
+
+**Technical layer:**
+
+```text
+“closed-loop system optimizing content → audience → economic state under identity and platform constraints”
+```
+
+---
+
+If you want next refinement, the logical step is:
+
+```text
+1) compress sales one-pager → landing page narrative
+2) expand technical spec → API contracts + service interfaces
+3) map both → pitch deck slides (investor vs agency variants)
+```

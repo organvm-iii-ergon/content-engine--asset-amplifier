@@ -1,0 +1,648 @@
+```bash
+$NEXT="PROOF_IMPLEMENTATION_BRIDGE_V1"
+```
+
+This is the missing layer between the formal framework and the deployable system.
+
+The theoretical framework already gives you the ontology, axioms, operators, state space, and evolution law. The implementation corpus already gives you the service map, workflows, repository architecture, Natural Center subsystem, attribution engine, and SaaS expansion. The bridge must therefore do one thing: **convert each theoretical object into a provable software contract, and each proof obligation into an executable test or estimator**. fileciteturn2file24 fileciteturn2file21 fileciteturn2file23
+
+---
+
+# I. BRIDGE OBJECTIVE
+
+Formally, define the bridge as:
+
+\[
+\mathcal{B} : (\text{Theory}, \text{Operators}, \text{Axioms}) \rightarrow (\text{Contracts}, \text{Estimators}, \text{Workflows}, \text{Tests})
+\]
+
+Its output is not another concept document. Its output is a **verification-grade implementation doctrine**.
+
+In plain terms:
+
+```text
+axiom     → invariant check
+operator  → typed service contract
+equation  → estimator / scoring function
+state     → schema + workflow context
+learning  → bounded update rule
+proof     → executable test or statistical guarantee
+```
+
+This follows directly from your system’s shift from conceptual pipeline to research-integrated operating system with orchestration, policy, Natural Center enforcement, attribution, and platform adaptation. fileciteturn2file1turn2file2turn2file21
+
+---
+
+# II. CANONICAL FORM
+
+Define the bridge artifact as:
+
+\[
+PIB = \langle \mathcal{A}, \mathcal{C}, \mathcal{E}, \mathcal{W}, \mathcal{T}, \mathcal{G} \rangle
+\]
+
+where:
+
+\[
+\mathcal{A} = \text{axiom registry}
+\]
+\[
+\mathcal{C} = \text{implementation contracts}
+\]
+\[
+\mathcal{E} = \text{estimators / scoring functions}
+\]
+\[
+\mathcal{W} = \text{workflow realizations}
+\]
+\[
+\mathcal{T} = \text{test and validation suite}
+\]
+\[
+\mathcal{G} = \text{guarantees, bounds, and failure conditions}
+\]
+
+---
+
+# III. AXIOM-TO-CONTRACT MAP
+
+The formal framework already established five core axioms: identity constraint, lineage conservation, observability, platform dependence, and learnability. fileciteturn2file24 Those now need executable counterparts.
+
+## III.1 Identity Constraint → Validation Contract
+
+Theory:
+
+\[
+\forall u \in U,\quad NC\_match(u,NC)\ge \tau_{NC}
+\]
+
+Implementation:
+
+```python
+def validate_identity(unit: GeneratedUnit, nc: NaturalCenter) -> ValidationResult:
+    score = nc_score(unit, nc)
+    if score < NC_THRESHOLD:
+        return Fail("identity_below_threshold")
+    if violates_negative_space(unit, nc):
+        return Fail("negative_space_violation")
+    return Pass(score=score)
+```
+
+This is grounded in the Natural Center object, negative space, invariants, and enforcement gate already defined in the subsystem and formalization docs. fileciteturn2file16turn2file7
+
+## III.2 Lineage Conservation → Referential Contract
+
+Theory:
+
+\[
+\forall u \in U,\quad \exists a \in A : lineage(u,a) > 0
+\]
+
+Implementation requirement:
+
+Every `generated_unit` must reference one or more fragments, and every fragment must reference an asset. This already matches the lineage architecture used by the attribution model. fileciteturn2file14
+
+```sql
+ALTER TABLE generated_units
+  ADD CONSTRAINT fk_generated_units_fragment
+  FOREIGN KEY (fragment_id) REFERENCES fragments(fragment_id);
+
+ALTER TABLE fragments
+  ADD CONSTRAINT fk_fragments_asset
+  FOREIGN KEY (asset_id) REFERENCES assets(asset_id);
+```
+
+If multi-fragment composition exists, use a join table:
+
+```sql
+CREATE TABLE generated_unit_fragments (
+  unit_id TEXT NOT NULL,
+  fragment_id TEXT NOT NULL,
+  contribution_weight NUMERIC NOT NULL CHECK (contribution_weight >= 0),
+  PRIMARY KEY (unit_id, fragment_id)
+);
+```
+
+And enforce:
+
+\[
+\sum_{f} w_{f \to u} = 1
+\]
+
+## III.3 Observability → Telemetry Contract
+
+Theory:
+
+\[
+\forall u \in U,\quad \exists o \in O : observe(u)=o
+\]
+
+Implementation:
+
+Every publish event must schedule analytics ingestion. This is already implicit in the publish and analytics workflows. fileciteturn2file1turn2file15
+
+```python
+def on_publish_completed(publish_id: str) -> None:
+    schedule_analytics_poll(publish_id, every_hours=6)
+```
+
+And in schema:
+
+```sql
+ALTER TABLE publish_events
+  ADD COLUMN analytics_required BOOLEAN NOT NULL DEFAULT TRUE;
+```
+
+## III.4 Platform Dependence → Versioned Platform Contract
+
+Theory:
+
+\[
+success(u)=f(u,P(t))
+\]
+
+Implementation:
+
+Every generated unit and publish event must bind to a `platform_profile_id` and that profile must be time-bounded. This is already required by the platform intelligence and repo architecture specs. fileciteturn2file1turn2file21
+
+```sql
+ALTER TABLE generated_units
+  ADD COLUMN platform_profile_id TEXT NOT NULL;
+
+ALTER TABLE platform_profiles
+  ADD COLUMN effective_from TIMESTAMP NOT NULL,
+  ADD COLUMN effective_to TIMESTAMP NULL;
+```
+
+## III.5 Learnability → Bounded Update Contract
+
+Theory:
+
+\[
+\mathcal{S}(t+1)=\Lambda(\mathcal{S}(t),O_t)
+\]
+
+Implementation:
+
+Updates are only permitted through explicit update operators, with versioning and bounds. This is especially critical for Natural Center and Brand Embedding, which the source set says must evolve slowly and not drift. fileciteturn2file17turn2file20turn2file19
+
+```python
+def update_brand_embedding(
+    be_t: BrandEmbedding,
+    positive_signal: np.ndarray,
+    negative_signal: np.ndarray,
+    alpha: float,
+    beta: float,
+    epsilon: float,
+) -> BrandEmbedding:
+    candidate = be_t + alpha * positive_signal - beta * negative_signal
+    if np.linalg.norm(candidate - be_t) > epsilon:
+        candidate = be_t + epsilon * (candidate - be_t) / np.linalg.norm(candidate - be_t)
+    return candidate
+```
+
+---
+
+# IV. OPERATOR-TO-SERVICE MAP
+
+The formal framework defines extraction, Natural Center derivation, embedding, generation, scoring, attribution, audience transition, and learning operators. The implementation corpus already has corresponding services. The bridge is the exact alignment table below. fileciteturn2file24turn2file21turn2file1
+
+\[
+\Psi_{extract} \leftrightarrow service/media-analysis
+\]
+
+\[
+\Psi_{NC} \leftrightarrow service/natural-center
+\]
+
+\[
+\Phi \leftrightarrow service/brand-embedding
+\]
+
+\[
+\Psi_{gen} \leftrightarrow service/generation-orchestrator
+\]
+
+\[
+\Psi_{score} \leftrightarrow service/media-analysis + package/metric-definitions
+\]
+
+\[
+\Psi_{attr} \leftrightarrow service/attribution-engine
+\]
+
+\[
+\Psi_{aud} \leftrightarrow service/audience-engine
+\]
+
+\[
+\Lambda \leftrightarrow service/research-registry + experimentation-engine + model-registry
+\]
+
+That mapping is not arbitrary. It is already latent in the operator-grade service map and hardened in the full repo architecture. fileciteturn2file1turn2file21
+
+---
+
+# V. PROOF OBLIGATIONS
+
+This is the core of the bridge. Each theoretical claim must become either a strict software invariant, a statistical guarantee, or a bounded approximation.
+
+## V.1 Proof Class A — Hard Invariants
+
+These are proven by construction and test.
+
+### A1. Every output has lineage
+
+Proof method: referential integrity + unit tests.
+
+### A2. Every output is identity-checked before publish
+
+Proof method: workflow gate.
+
+```text
+units.generated
+→ identity.validated
+→ approval.requested / publish.plan.created
+```
+
+This gate matches the Natural Center placement between extraction and generation, then validation before deployment. fileciteturn2file16turn2file7
+
+### A3. Every publish event generates telemetry jobs
+
+Proof method: orchestration check + event assertion.
+
+---
+
+## V.2 Proof Class B — Estimator Correctness
+
+These are not exact in the mathematical sense; they are operationally defined.
+
+### B1. Fragment score is deterministic given inputs and weights
+
+\[
+score(f,p)=\sum_i w_i x_i(f,p) - penalties
+\]
+
+This follows the fragment scoring formalization already laid out in the extraction/scoring architecture. fileciteturn2file13
+
+Executable requirement:
+
+```python
+def fragment_score(features: FragmentFeatures, weights: ScoringWeights) -> float:
+    return float(np.dot(weights.vector, features.vector) - features.penalties_total)
+```
+
+Guarantee: same inputs, same versioned weights, same score.
+
+### B2. Brand score is deterministic given embedding version
+
+\[
+brand\_score(x)=\sum_i w_i alignment_i - w_{neg}\cdot neg\_score
+\]
+
+This is already the defined Brand Embedding interface. fileciteturn2file17
+
+### B3. Attribution is conserved across lineage weights
+
+If weights are normalized:
+
+\[
+\sum_a w_{a \to p}=1
+\]
+
+then the total attributed value at the publish-event level is conserved when rolled up upstream.
+
+That gives you the exact conservation property the attribution model needs. fileciteturn2file14
+
+---
+
+## V.3 Proof Class C — Statistical Guarantees
+
+These apply where exact proof is impossible because the environment is stochastic.
+
+### C1. Causal lift acceptance
+
+Only accept an experimental rule if:
+
+\[
+p < \alpha
+\]
+
+or, better, the confidence interval excludes zero.
+
+The experimentation layer already assumes significance-based acceptance. fileciteturn2file1
+
+### C2. Natural Center evolution acceptance
+
+Only update NC or BE if both are true:
+
+\[
+Lift_{NC} > 0
+\]
+
+and
+
+\[
+\|NC(t+1)-NC(t)\| < \epsilon
+\]
+
+This resolves the computational incompleteness identified in the Natural Center review: identity must be measurable, causal, and slowly updated. fileciteturn2file19
+
+### C3. Platform profile update acceptance
+
+Only revise a platform profile if there is evidence from one or more of:
+
+```text
+documentation change
+schema change
+posting capability change
+internal regime shift
+```
+
+This is directly grounded in the platform intelligence subsystem. fileciteturn2file1
+
+---
+
+# VI. CONVERGENCE AND STABILITY CLAIMS
+
+You explicitly asked for proof hardening, including convergence properties of BE/NC updates. The correct claim is **bounded stability**, not absolute convergence.
+
+## VI.1 Brand Embedding Stability
+
+Let:
+
+\[
+BE_{t+1}=BE_t+\alpha \Delta_+ - \beta \Delta_-
+\]
+
+with projection:
+
+\[
+\|BE_{t+1}-BE_t\|\le \epsilon
+\]
+
+Then the embedding update sequence is bounded. If the update signals decay over time and the projection is fixed, the sequence is Cauchy-like in practice and will settle into a small neighborhood rather than diverging.
+
+That is the strongest honest claim available without imposing stronger assumptions.
+
+## VI.2 Natural Center Stability
+
+Because NC is partly symbolic and partly vectorized, do not claim point convergence. Claim **versioned bounded drift**:
+
+\[
+D(NC_t,NC_{t+1}) \le \epsilon_{NC}
+\]
+
+with
+
+\[
+D = \lambda_1 D_T + \lambda_2 D_A + \lambda_3 D_{\Tau} + \lambda_4 D_N + \lambda_5 D_S + \lambda_6 D_{\Omega}
+\]
+
+This can be implemented as a mixed symbolic-vector distance.
+
+## VI.3 Strategy Weight Stability
+
+If learning weights update as:
+
+\[
+w_{k,t+1}=w_{k,t}+\eta g_{k,t}
+\]
+
+and you clip them into a simplex or bounded interval, then strategy weights are bounded. That is sufficient for production safety.
+
+---
+
+# VII. REGRET BOUNDS FOR FRAGMENT SELECTION
+
+You asked for regret hardening. The correct operational move is to frame selection as a contextual bandit after bootstrap.
+
+At V1, selection is deterministic top-\(N\) by score with diversity constraints. fileciteturn2file13  
+At V2, upgrade to:
+
+\[
+a_t = \arg\max_f \hat{r}(f \mid context_t) + bonus_t(f)
+\]
+
+Then cumulative regret is:
+
+\[
+R_T=\sum_{t=1}^{T}\left(r(f_t^*)-r(f_t)\right)
+\]
+
+You do not yet have enough structure from the sources to claim tight formal regret bounds. The honest bridge requirement is:
+
+```text
+Implement contextual bandit interfaces now.
+Log all action contexts and rewards.
+Claim empirical regret reduction, not closed-form theoretical regret, until the estimator family is fixed.
+```
+
+---
+
+# VIII. PLATFORM_STATE(t) ESTIMATION
+
+The theory requires \(P(t)\). The implementation corpus gives you the inputs: docs changes, analytics schema changes, connector capabilities, and internal performance regime shifts. fileciteturn2file1turn2file21
+
+The correct estimator is:
+
+\[
+P(t)=\langle C_t, K_t, A_t, R_t \rangle
+\]
+
+where:
+
+\[
+C_t = \text{current documented constraints}
+\]
+\[
+K_t = \text{current posting capabilities}
+\]
+\[
+A_t = \text{current analytics surface}
+\]
+\[
+R_t = \text{observed performance regime}
+\]
+
+Then define confidence:
+
+\[
+conf(P_t)=\omega_1 conf(C_t)+\omega_2 conf(K_t)+\omega_3 conf(A_t)+\omega_4 conf(R_t)
+\]
+
+and only allow strong policy changes if confidence exceeds threshold.
+
+This yields a versioned `PlatformProfile` object, exactly as required by the system. fileciteturn2file1turn2file21
+
+---
+
+# IX. NC_SCORE + ATTRIBUTION INTEGRATION
+
+This was explicitly identified as missing. Natural Center must become first-class in scoring, attribution, experimentation, and evolution, not just generation. fileciteturn2file19
+
+Define:
+
+\[
+NC\_score(u)=
+\alpha_1 thematic\_alignment
++\alpha_2 tonal\_alignment
++\alpha_3 aesthetic\_match
++\alpha_4 symbolic\_density
+-\alpha_5 negative\_space\_violation
+\]
+
+Then integrate into value:
+
+\[
+V_p^{NC}=V_p^* \cdot \left(1-\rho+\rho \cdot NC\_score(u)\right)
+\]
+
+This is already consistent with the attribution framework’s identity-adjusted value formulation. fileciteturn2file14
+
+Implementation contract:
+
+```python
+def nc_score(unit: GeneratedUnit, nc: NaturalCenter) -> float:
+    return max(
+        0.0,
+        min(
+            1.0,
+            0.30 * thematic_alignment(unit, nc)
+            + 0.25 * tonal_alignment(unit, nc)
+            + 0.20 * aesthetic_match(unit, nc)
+            + 0.20 * symbolic_density(unit, nc)
+            - 0.25 * negative_space_penalty(unit, nc),
+        ),
+    )
+```
+
+---
+
+# X. EXECUTABLE TEST SUITE
+
+The bridge is incomplete without tests. These belong in `tests/contract`, `tests/integration`, and `tests/replay`, which the repo architecture already anticipates. fileciteturn2file21
+
+## X.1 Contract Tests
+
+These prove schema and API invariants.
+
+```text
+test_asset_has_lineage
+test_generated_unit_has_platform_profile
+test_publish_event_schedules_analytics
+test_nc_validation_blocks_low_identity_units
+test_weights_sum_to_one
+```
+
+## X.2 Integration Tests
+
+These prove end-to-end operator behavior.
+
+```text
+test_asset_to_fragment_to_unit_pipeline
+test_publish_to_observation_pipeline
+test_observation_to_attribution_pipeline
+test_platform_profile_revision_propagates_to_generation
+```
+
+## X.3 Replay Tests
+
+These prove deterministic reproducibility under fixed versions.
+
+```text
+test_replay_same_asset_same_nc_same_weights_same_output_set
+test_replay_same_observations_same_attribution
+```
+
+## X.4 Statistical Validation Tests
+
+These are slower tests against historical data.
+
+```text
+test_nc_alignment_correlates_with_retention
+test_symbolic_density_correlates_with_follow_conversion
+test_experiment_acceptance_requires_significance
+```
+
+---
+
+# XI. TYPE-SAFE INTERFACES
+
+The bridge must end in code-facing interfaces.
+
+```python
+class NaturalCenter(TypedDict):
+    nc_id: str
+    version: int
+    thematic_core: list[str]
+    aesthetic_signature: dict
+    tonal_vector: dict
+    narrative_bias: dict
+    symbolic_markers: list[str]
+    negative_space: list[str]
+    invariants: list[str]
+    mutation_bounds: dict
+    confidence_score: float
+```
+
+```python
+class PlatformProfile(TypedDict):
+    profile_id: str
+    platform: str
+    effective_from: str
+    effective_to: str | None
+    ranking_assumptions: dict
+    constraints: dict
+    confidence_score: float
+```
+
+```python
+class AttributionResult(TypedDict):
+    asset_id: str
+    attributed_value: float
+    followers_value: float
+    leads_value: float
+    identity_adjusted_value: float
+```
+
+These are direct software realizations of the theoretical objects and source schemas. fileciteturn2file1turn2file14turn2file16
+
+---
+
+# XII. MINIMAL BRIDGE DELIVERABLES
+
+The bridge is complete when these six artifacts exist:
+
+```bash
+$DELIVERABLE_1="AXIOM_REGISTRY.md"
+$DELIVERABLE_2="OPERATOR_CONTRACTS.md"
+$DELIVERABLE_3="ESTIMATOR_REGISTRY.md"
+$DELIVERABLE_4="VERIFICATION_TEST_PLAN.md"
+$DELIVERABLE_5="NC_SCORE_API.py"
+$DELIVERABLE_6="ATTRIBUTION_ENGINE_V1.sql"
+```
+
+---
+
+# XIII. FINAL VERDICT
+
+Your system is now theoretically complete enough to implement, but only if you enforce this doctrine:
+
+```text
+no theorem without a contract
+no contract without a test
+no update without a bound
+no optimization without causal evidence
+no output without identity validation
+```
+
+That is the actual proof-implementation bridge.
+
+It is grounded in the existing formal framework, the operator-grade system, the Natural Center formalization, the attribution model, the platform-evolution layer, and the orchestration-backed repo architecture. fileciteturn2file24turn2file1turn2file16turn2file14turn2file21
+
+The strict next artifact is:
+
+```bash
+$NEXT="AXIOM_REGISTRY_AND_OPERATOR_CONTRACTS_V1"
+```

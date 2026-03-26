@@ -1,0 +1,460 @@
+Understood. Below is the **procedural specification** for:
+
+```bash
+$SUBSYSTEM_NATURAL_CENTER
+```
+
+This is not conceptual. This is an **executable extraction + encoding + enforcement pipeline** that plugs directly into `Cronus-Metabolus`.
+
+---
+
+# I. SYSTEM OBJECT
+
+```bash
+$OBJECT_NATURAL_CENTER
+```
+
+## Definition
+
+A **constraint-generating core representation** that governs all downstream content.
+
+---
+
+## Formal Structure
+
+```yaml
+$NATURAL_CENTER:
+  id: <string>
+  thematic_core: <vector>
+  aesthetic_signature: <vector>
+  tonal_vector: <vector>
+  narrative_bias: <vector>
+  symbolic_markers: <set>
+  negative_space: <set>        # what is explicitly NOT allowed
+  invariants: <ruleset>
+  mutation_bounds: <constraints>
+```
+
+---
+
+# II. PROCEDURAL PIPELINE
+
+## STAGE 0 — INPUTS
+
+```bash
+$INPUT_CORPUS = {
+  hero_assets,
+  past content (optional),
+  brand references,
+  founder/voice text (optional)
+}
+```
+
+Minimum viable: **1 premium asset**
+
+---
+
+# III. STAGE 1 — SIGNAL EXTRACTION
+
+## $PROC_SIGNAL_EXTRACTION
+
+### Goal
+Extract **non-obvious recurring patterns**.
+
+---
+
+## Step 1.1 — Visual Pattern Extraction
+
+```bash
+$PROC_VISUAL_PARSE
+```
+
+Outputs:
+
+```yaml
+visual_features:
+  color_distribution
+  motion_profile
+  composition_patterns
+  subject_focus
+  pacing_signature
+```
+
+---
+
+## Step 1.2 — Audio / Language Extraction (if present)
+
+```bash
+$PROC_LANGUAGE_PARSE
+```
+
+Outputs:
+
+```yaml
+linguistic_features:
+  sentence_length_distribution
+  lexical density
+  tone polarity
+  rhetorical structures
+```
+
+---
+
+## Step 1.3 — Semantic Compression
+
+```bash
+$PROC_SEMANTIC_CLUSTER
+```
+
+Method:
+
+- embed frames / text
+- cluster embeddings
+- extract dominant themes
+
+Output:
+
+```yaml
+themes:
+  - cluster_1
+  - cluster_2
+  - cluster_3
+```
+
+---
+
+# IV. STAGE 2 — CENTER DERIVATION
+
+## $PROC_CENTER_SYNTHESIS
+
+### Goal
+Collapse extracted signals into a **low-entropy core**.
+
+---
+
+## Step 2.1 — Thematic Core
+
+```bash
+$THEMATIC_CORE = top_k(themes, k=3–5)
+```
+
+Constraint:
+- must be stable across assets
+- must be compressible to minimal expression
+
+---
+
+## Step 2.2 — Aesthetic Signature
+
+```bash
+$AESTHETIC_SIGNATURE = normalize(
+  color + composition + motion
+)
+```
+
+Example structure:
+
+```yaml
+aesthetic_signature:
+  palette: [dark_neutrals, metallic_accents]
+  motion: [slow, deliberate]
+  framing: [center-weighted, negative-space heavy]
+```
+
+---
+
+## Step 2.3 — Tonal Vector
+
+```bash
+$TONAL_VECTOR = embed(language_features)
+```
+
+Axes:
+
+- formal ↔ casual  
+- minimal ↔ expressive  
+- cold ↔ emotional  
+
+---
+
+## Step 2.4 — Narrative Bias
+
+```bash
+$NARRATIVE_BIAS = detect_patterns(
+  transformation,
+  tension,
+  reveal,
+  authority,
+  aspiration
+)
+```
+
+---
+
+## Step 2.5 — Symbolic Markers
+
+```bash
+$SYMBOLIC_MARKERS = extract_recurring_elements
+```
+
+Examples:
+
+- visual motifs
+- phrases
+- structural beats
+
+---
+
+## Step 2.6 — Negative Space (CRITICAL)
+
+```bash
+$NEGATIVE_SPACE = detect_absences
+```
+
+This defines:
+
+```text
+what the system must NEVER produce
+```
+
+Example:
+
+- no humor
+- no fast cuts
+- no bright palettes
+
+---
+
+# V. STAGE 3 — INVARIANT CONSTRUCTION
+
+## $PROC_INVARIANT_BUILD
+
+### Goal
+Convert center into **hard constraints**
+
+---
+
+## Rule Types
+
+### 1. Structural Invariants
+
+```yaml
+rules:
+  - "all outputs must reflect at least 1 thematic_core element"
+  - "visual outputs must stay within palette bounds"
+```
+
+---
+
+### 2. Tonal Invariants
+
+```yaml
+rules:
+  - "no slang"
+  - "sentence length > threshold"
+```
+
+---
+
+### 3. Prohibited States
+
+```yaml
+rules:
+  - "no meme formats"
+  - "no generic stock tone"
+```
+
+---
+
+# VI. STAGE 4 — ENCODING
+
+## $PROC_CENTER_ENCODING
+
+### Output Object
+
+```json
+{
+  "id": "nc_<hash>",
+  "embedding": <vector>,
+  "rules": <ruleset>,
+  "signature": <compressed representation>
+}
+```
+
+Stored at:
+
+```bash
+$NATURAL_CENTER_STORE_URI
+```
+
+---
+
+# VII. STAGE 5 — ENFORCEMENT
+
+## $PROC_CENTER_ENFORCEMENT
+
+This is where most systems fail.
+
+---
+
+## Injection Points
+
+### 1. Content Generation
+
+```bash
+generate(content | constraints = $NATURAL_CENTER)
+```
+
+---
+
+### 2. Caption Generation
+
+```bash
+LLM(prompt + tonal_vector + invariants)
+```
+
+---
+
+### 3. Post Filtering
+
+```bash
+if !validate(output, $NATURAL_CENTER):
+    reject
+```
+
+---
+
+## Validation Function
+
+```bash
+$FUNC_VALIDATE(output):
+  score = similarity(output_embedding, center_embedding)
+
+  if score < threshold:
+      return FAIL
+
+  if violates_rules(output):
+      return FAIL
+
+  return PASS
+```
+
+---
+
+# VIII. STAGE 6 — FEEDBACK LOOP
+
+## $PROC_CENTER_EVOLUTION
+
+### Inputs
+
+- high-performing outputs
+- low-performing outputs
+
+---
+
+## Update Logic
+
+```bash
+reinforce(features from high performers)
+suppress(features from low performers)
+```
+
+---
+
+## Constraint
+
+```text
+center must evolve slowly (low volatility)
+```
+
+---
+
+# IX. FAILURE MODES
+
+## 1. Over-generalization
+- center too broad → generic content
+
+## 2. Over-constraining
+- center too narrow → no variation
+
+## 3. Drift
+- feedback loop overrides identity
+
+---
+
+# X. FULL PIPELINE INTEGRATION
+
+```text
+[ASSET]
+
+→ SIGNAL EXTRACTION
+→ CENTER SYNTHESIS
+→ NATURAL CENTER (stored)
+
+→ Cronus-Metabolus
+    → content generation (constrained)
+
+→ validation layer
+
+→ deployment
+
+→ feedback → center evolution
+```
+
+---
+
+# XI. MINIMAL IMPLEMENTATION (V1)
+
+If you were to implement immediately:
+
+```bash
+$PIPELINE_V1:
+  - CLIP extraction (ffmpeg + scene detect)
+  - OPENAI embeddings for semantic clustering
+  - LLM prompt template w/ tone constraints
+  - simple rule-based validator
+```
+
+---
+
+# XII. RESULT
+
+You now have:
+
+```text
+A system that:
+- produces volume
+- preserves identity
+- compounds audience
+- improves over time
+```
+
+Without this:
+
+```text
+you only have content noise at scale
+```
+
+---
+
+# XIII. NEXT STEP
+
+Logical continuation:
+
+```bash
+$PROC_NATURAL_CENTER_BOOTSTRAP
+```
+
+→ auto-build Natural Center from **single asset input**
+
+or
+
+```bash
+$REPO_ARCHITECTURE_CME_FULL
+```
+
+→ full multi-service system w/ environment variables + orchestration
+
+---
+
+Choose direction.

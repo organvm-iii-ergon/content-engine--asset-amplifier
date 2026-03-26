@@ -1,0 +1,27 @@
+The figure you’re referring to is **entity["mythological_figure","Cronus","Greek Titan who devoured his children"]** (Greek mythology), known in Roman mythology as **entity["mythological_figure","Saturn","Roman counterpart of Cronus"]**.
+
+### Core Myth (precise form)
+Cronus, a Titan and ruler of the cosmos before the Olympians, was told by prophecy that one of his children would overthrow him. To prevent this, he **swallowed each child at birth**.
+
+### Children involved
+The children he consumed were:
+- Hestia  
+- Demeter  
+- Hera  
+- Hades  
+- Poseidon  
+
+His wife, **Rhea**, eventually intervened:
+- She hid their youngest child, **Zeus**
+- She gave Cronus a **stone wrapped in cloth**, which he swallowed instead
+
+### Resolution
+When Zeus matured, he forced Cronus to **regurgitate his siblings**, and then led the Olympians in overthrowing him (the Titanomachy).
+
+### Structural interpretation (useful for your system work)
+Cronus represents:
+- **Self-consuming systems** (systems that destroy their own outputs to preserve control)
+- **Fear-driven recursion failure**
+- **Temporal devouring** (time consuming its own productions — later philosophically mapped onto Saturn/Time)
+
+If you want, I can map Cronus into your myth→technology assignment framework (e.g., which system archetype or computational failure mode he encodes).

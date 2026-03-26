@@ -1,0 +1,542 @@
+Below is the **execution blueprint** that converts the system into a buildable, deployable, and testable product. This is not conceptual—this is the **implementation contract**.
+
+---
+
+# $FULL_STACK_IMPLEMENTATION_BLUEPRINT
+
+```bash
+$SYSTEM_NAME = "Cronus-Metabolus"
+$SYSTEM_CLASS = "Temporal Content Yield + Audience Formation OS"
+$BUILD_TARGET = "Production-grade, multi-service, research-integrated system"
+```
+
+---
+
+# I. BUILD PHASES (STRICT ORDER)
+
+```bash
+$PHASES = {
+  phase_0_foundation,
+  phase_1_core_pipeline,
+  phase_2_attribution_experimentation,
+  phase_3_platform_intelligence,
+  phase_4_adaptive_system
+}
+```
+
+---
+
+## PHASE 0 — FOUNDATION (Week 1–2)
+
+### Objective
+Establish infrastructure + contracts.
+
+---
+
+### Deliverables
+
+```bash
+$DELIVERABLES_PHASE_0 = {
+  repo_scaffold,
+  env_config,
+  core_db_schema,
+  event_bus,
+  object_storage,
+  basic_auth
+}
+```
+
+---
+
+### Core Setup
+
+```bash
+$ENV = {
+  $POSTGRES_URI,
+  $REDIS_URI,
+  $OBJECT_STORE_URI,
+  $EVENT_BUS_URI,
+  $WORKFLOW_ENGINE_URI,
+  $OPENAI_API_KEY
+}
+```
+
+---
+
+### Minimal Tables
+
+```sql
+CREATE TABLE assets (...);
+CREATE TABLE fragments (...);
+CREATE TABLE natural_centers (...);
+CREATE TABLE generated_units (...);
+CREATE TABLE publish_events (...);
+CREATE TABLE performance_observations (...);
+```
+
+---
+
+### Event Bus Topics
+
+```bash
+$EVENTS = {
+  asset.registered,
+  fragments.created,
+  natural_center.created,
+  units.generated,
+  publish.completed,
+  analytics.received
+}
+```
+
+---
+
+# II. PHASE 1 — CORE PIPELINE (Week 3–6)
+
+### Objective
+End-to-end system: asset → content → publish → analytics
+
+---
+
+## 1. $SERVICE_ASSET_INGESTION
+
+### Contract
+
+```http
+POST /assets
+```
+
+### Payload
+
+```json
+{
+  "source_uri": "...",
+  "asset_type": "video",
+  "brand_id": "..."
+}
+```
+
+---
+
+## 2. $SERVICE_MEDIA_ANALYSIS
+
+### Implementation
+
+```bash
+$TOOLS = {
+  ffmpeg,
+  scene-detection,
+  keyframe extraction
+}
+```
+
+---
+
+### Output
+
+```json
+{
+  "fragments": [
+    {
+      "start_ms": 1200,
+      "end_ms": 5400,
+      "energy_score": 0.87
+    }
+  ]
+}
+```
+
+---
+
+## 3. $SERVICE_NATURAL_CENTER
+
+### Input
+
+```bash
+$INPUT = asset + fragments
+```
+
+### Output
+
+```json
+{
+  "nc_id": "...",
+  "thematic_core": [...],
+  "tonal_vector": [...],
+  "invariants": [...]
+}
+```
+
+---
+
+## 4. $SERVICE_GENERATION_ORCHESTRATOR
+
+### Prompt Template
+
+```bash
+$PROMPT = "
+Generate content with constraints:
+- Tone: $TONAL_VECTOR
+- Themes: $THEMATIC_CORE
+- Avoid: $NEGATIVE_SPACE
+- Platform: $PLATFORM
+"
+```
+
+---
+
+## 5. $SERVICE_PUBLISHING_CONNECTORS
+
+### Interfaces
+
+```bash
+POST /publish/youtube
+POST /publish/tiktok
+POST /publish/linkedin
+```
+
+Adapters translate into platform-specific formats.
+
+---
+
+## 6. $SERVICE_ANALYTICS_INGESTION
+
+### Job
+
+```bash
+$CRON = "every 6 hours"
+```
+
+### Pull
+
+```bash
+GET platform analytics → normalize → store
+```
+
+---
+
+## 7. $REPORTING_DASHBOARD (V1)
+
+Display:
+
+```bash
+- posts
+- views
+- engagement
+- followers gained
+```
+
+---
+
+# III. PHASE 2 — ATTRIBUTION + EXPERIMENTATION (Week 7–10)
+
+### Objective
+Make system scientifically valid.
+
+---
+
+## 1. $SERVICE_ATTRIBUTION_ENGINE
+
+### Function
+
+```bash
+$FUNC = map(
+  performance → publish_event → unit → fragment → asset
+)
+```
+
+---
+
+### Core Query
+
+```sql
+SELECT asset_id, SUM(engagement)
+FROM performance_observations
+JOIN publish_events USING (publish_id)
+JOIN generated_units USING (unit_id)
+GROUP BY asset_id;
+```
+
+---
+
+## 2. $SERVICE_EXPERIMENTATION_ENGINE
+
+### Experiment Schema
+
+```yaml
+experiment:
+  id: EXP001
+  type: hook_test
+  control: variant_A
+  treatment: variant_B
+  metric: retention_3s
+  sample_size: 1000
+```
+
+---
+
+### Assignment Logic
+
+```bash
+assign viewers randomly → control/treatment
+```
+
+---
+
+### Significance
+
+```bash
+if p_value < $SIGNIFICANCE_ALPHA:
+    accept_result
+```
+
+---
+
+# IV. PHASE 3 — PLATFORM INTELLIGENCE (Week 11–14)
+
+### Objective
+Make system adaptive to platform change.
+
+---
+
+## 1. $SERVICE_PLATFORM_INTELLIGENCE
+
+### Data Sources
+
+```bash
+$INPUTS = {
+  platform_docs,
+  api_responses,
+  analytics_schema,
+  internal performance shifts
+}
+```
+
+---
+
+## 2. $PLATFORM_PROFILE OBJECT
+
+```json
+{
+  "platform": "youtube",
+  "format_weights": {
+    "short": 0.6,
+    "long": 0.4
+  },
+  "ranking_features": ["retention", "ctr"],
+  "confidence_score": 0.82
+}
+```
+
+---
+
+## 3. Change Detection
+
+```bash
+if performance_drop && no internal change:
+    trigger platform_change_event
+```
+
+---
+
+---
+
+# V. PHASE 4 — ADAPTIVE SYSTEM (Week 15–20)
+
+### Objective
+System begins self-optimization.
+
+---
+
+## 1. Strategy Update Loop
+
+```bash
+high-performing patterns → increase weight
+low-performing → suppress
+```
+
+---
+
+## 2. Scheduling Optimization
+
+```bash
+optimize(time, frequency) using performance history
+```
+
+---
+
+## 3. Cross-Client Learning (optional gated)
+
+```bash
+aggregate patterns across brands → global model
+```
+
+---
+
+# VI. EVENT-DRIVEN WORKFLOW
+
+## Example Flow
+
+```text
+asset.registered
+→ media_analysis.run
+→ fragments.created
+→ natural_center.compute
+→ units.generate
+→ schedule.compute
+→ publish.execute
+→ analytics.ingest
+→ attribution.compute
+→ experiment.update
+→ platform_intelligence.update
+```
+
+---
+
+# VII. WORKFLOW ENGINE (CRITICAL)
+
+Use:
+
+```bash
+$WORKFLOW_ENGINE = "Temporal"
+```
+
+---
+
+## Example Workflow
+
+```python
+def asset_pipeline(asset_id):
+    fragments = media_analysis(asset_id)
+    nc = compute_natural_center(asset_id)
+    units = generate_units(fragments, nc)
+    schedule = compute_schedule(units)
+    publish(schedule)
+```
+
+---
+
+# VIII. METRIC DEFINITIONS (CODE-LEVEL)
+
+```python
+ASSET_YIELD = total_engagement / 1_asset
+
+FOLLOW_CONVERSION = followers / viewers
+
+RETENTION_3S = viewers_after_3s / total_views
+
+CONTENT_HALF_LIFE = time_until_engagement_decay
+```
+
+---
+
+# IX. FAILURE HANDLING (IMPLEMENTED)
+
+```python
+if connector_error:
+    retry(3)
+
+if analytics_missing:
+    mark_data_unreliable()
+
+if identity_drift > threshold:
+    block_generation()
+```
+
+---
+
+# X. INITIAL DEPLOYMENT PLAN (90 DAYS)
+
+## Days 1–14
+- infra + ingestion + DB
+
+## Days 15–30
+- media analysis + generation
+
+## Days 31–45
+- publishing + analytics
+
+## Days 46–60
+- attribution + dashboard
+
+## Days 61–90
+- experimentation + platform intelligence
+
+---
+
+# XI. MVP DEFINITION (STRICT)
+
+System is “alive” when:
+
+```bash
+$MVP = {
+  upload_asset,
+  auto_generate_content,
+  auto_publish,
+  display_metrics,
+  basic attribution
+}
+```
+
+---
+
+# XII. FIRST PRODUCTION TEST
+
+```bash
+$TEST = {
+  asset: 1 video,
+  duration: 30 days,
+  outputs: 20–40 posts,
+  platforms: 2–3,
+  measure: engagement + followers
+}
+```
+
+---
+
+# XIII. SUCCESS CRITERIA
+
+```bash
+if system_outperforms_manual by >= 25%:
+    proceed_scale
+else:
+    iterate
+```
+
+---
+
+# XIV. FINAL NOTE
+
+This blueprint ensures:
+
+```text
+- theoretical grounding → encoded
+- experimentation → enforced
+- platform change → tracked
+- identity → preserved
+- economics → measurable
+```
+
+---
+
+# XV. NEXT STEP
+
+You now have:
+
+```text
+architecture + services + schema + workflows + timeline
+```
+
+The only missing piece is:
+
+```bash
+$NEXT = "SERVICE-BY-SERVICE CODE SCAFFOLD + FIRST DEPLOYMENT SCRIPTS"
+```
+
+or
+
+```bash
+$NEXT = "EXPERIMENT DESIGN PACK (ready-to-run tests)"
+```
+
+Select which to execute.

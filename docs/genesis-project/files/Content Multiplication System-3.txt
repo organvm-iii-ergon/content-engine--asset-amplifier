@@ -1,0 +1,396 @@
+Correct. You need a **third axis** added to the research system:
+
+```text
+TIME (past→present→future)
+×
+PILLARS
+×
+PLATFORM EVOLUTION
+```
+
+Without this, your system will overfit to **current platform conditions** and decay as platforms mutate.
+
+What follows is the **full integration**:
+
+---
+
+# I. EXPANDED RESEARCH SYSTEM
+
+```bash
+$RESEARCH_SYSTEM = {
+  pillars,
+  temporal_axis,
+  platform_evolution_axis
+}
+```
+
+---
+
+# II. NEW CORE PILLAR
+
+## $PILLAR_PLATFORM_EVOLUTION
+
+This is not optional. It governs everything downstream.
+
+---
+
+## Definition
+
+```text
+The study of how content production, distribution, and success criteria 
+change as platform architectures evolve over time.
+```
+
+---
+
+# III. PLATFORM TEMPORAL MODEL
+
+You must track each platform as a **phase-shifting system**.
+
+---
+
+## $PLATFORM_PHASE_MODEL
+
+```text
+PHASE_1: Chronological Distribution
+PHASE_2: Social Graph Distribution
+PHASE_3: Algorithmic Feed Ranking
+PHASE_4: Interest Graph Dominance
+PHASE_5: AI-mediated / synthetic distribution (emerging)
+```
+
+---
+
+## Example: YouTube
+
+### PAST (≈2008–2012)
+```text
+- subscriber feed dominant
+- long-form favored
+- personality-driven growth
+```
+
+---
+
+### TRANSITION (≈2013–2018)
+```text
+- watch time becomes primary signal
+- thumbnails/titles optimized
+- early algorithm dominance
+```
+
+---
+
+### PRESENT (≈2019–2025)
+```text
+- CTR + retention curves dominate
+- Shorts introduced
+- recommendation graph > subscriber graph
+```
+
+---
+
+### FUTURE (emerging)
+```text
+- AI-curated feeds
+- cross-platform signal blending
+- creator identity becomes secondary to content performance vectors
+```
+
+---
+
+# IV. REQUIRED RESEARCH TRACK
+
+## $TRACK_PLATFORM_EVOLUTION_ANALYSIS
+
+For each platform:
+
+```yaml
+platform:
+  phases:
+    - phase_id
+    - dominant_mechanism
+    - success_features
+    - failure_patterns
+    - key_metrics
+```
+
+---
+
+## Platforms to Track
+
+```bash
+$PLATFORMS = {
+  youtube,
+  instagram,
+  tiktok,
+  linkedin,
+  twitter/x,
+  emerging (ai-native feeds)
+}
+```
+
+---
+
+# V. INTEGRATION WITH CRONUS-METABOLUS
+
+## New Subsystem
+
+```bash
+$SUBSYSTEM_PLATFORM_INTELLIGENCE
+```
+
+---
+
+## Function
+
+```text
+Continuously model platform behavior and update system strategy.
+```
+
+---
+
+## Outputs
+
+```yaml
+platform_profile:
+  content_preferences
+  format_weighting
+  timing_bias
+  ranking_features
+```
+
+---
+
+## Injection Point
+
+```text
+Cronus-Metabolus →
+    content generation constrained by:
+        Natural Center
+        + Platform Profile
+```
+
+---
+
+# VI. PLATFORM-AWARE GENERATION
+
+## Old Model
+
+```text
+content → platform
+```
+
+---
+
+## New Model
+
+```text
+content = f(asset, natural_center, platform_profile)
+```
+
+---
+
+## Example
+
+Same asset produces:
+
+```text
+YouTube:
+    longer clips, narrative continuity
+
+TikTok:
+    rapid hooks, loopable structure
+
+LinkedIn:
+    insight framing, slower pacing
+```
+
+---
+
+# VII. TEMPORAL + PLATFORM MATRIX
+
+You now construct:
+
+```bash
+$RESEARCH_MATRIX_V3
+```
+
+---
+
+## Structure
+
+```text
+For each pillar:
+    for each platform:
+        for each time phase:
+            analyze:
+                past
+                present gap
+                future direction
+```
+
+---
+
+## Example Slice
+
+### Pillar: Attention Capture  
+### Platform: YouTube  
+
+```text
+PAST:
+    personality + novelty
+
+PRESENT:
+    retention curve optimization
+
+FUTURE:
+    predictive engagement modeling
+```
+
+---
+
+# VIII. STRATEGIC ADVANTAGE
+
+Most systems are:
+
+```text
+static → built for current platform behavior
+```
+
+You are building:
+
+```text
+adaptive → aware of platform evolution over time
+```
+
+---
+
+# IX. PRACTICAL OUTPUTS
+
+## 1. $PLATFORM_EVOLUTION_REPORT
+
+For each platform:
+
+```text
+- phase timeline
+- feature shifts
+- metric shifts
+- structural changes
+```
+
+---
+
+## 2. $CONTENT_STRATEGY_DELTA_MAP
+
+```text
+What worked then vs now vs next
+```
+
+---
+
+## 3. $PLATFORM_ADAPTATION_ENGINE
+
+```text
+System automatically adjusts:
+- format
+- cadence
+- structure
+based on platform evolution
+```
+
+---
+
+# X. CRITICAL INSIGHT
+
+You stated:
+
+```text
+“What made a YouTube star in 2010 is different than today”
+```
+
+Formalized:
+
+```text
+Success = f(content, platform_state(t))
+```
+
+---
+
+## Therefore
+
+```text
+Your system must model:
+platform_state as a time-dependent variable
+```
+
+---
+
+# XI. FINAL SYSTEM FORM
+
+```bash
+$CRONUS_METABOLUS = {
+  content_engine,
+  natural_center,
+  audience_engine,
+  platform_intelligence,
+  feedback_loop,
+  temporal_adaptation
+}
+```
+
+---
+
+# XII. NEXT STEP (PRECISE)
+
+You now need two artifacts:
+
+---
+
+## 1. $CANONICAL_READING_LADDER (LANE A)
+
+- peer-reviewed sources per pillar
+- grouped by temporal relevance
+
+---
+
+## 2. $EXPERIMENTATION_FRAMEWORK (LANE B)
+
+- platform-aware A/B testing
+- asset-level tracking
+- causal inference layer
+
+---
+
+I will generate both next, but I will structure them as:
+
+```text
+- exact books / papers (not generic)
+- mapped to each pillar
+- with purpose annotations
+```
+
+and
+
+```text
+- executable experiment templates
+- with variables, controls, outputs
+```
+
+---
+
+If you want maximum precision:
+
+Confirm:
+
+```bash
+$DEPTH = "dissertation-grade"
+```
+
+or
+
+```bash
+$DEPTH = "operator-grade"
+```
+
+before I proceed.

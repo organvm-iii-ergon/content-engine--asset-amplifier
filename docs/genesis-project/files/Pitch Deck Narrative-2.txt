@@ -1,0 +1,288 @@
+Below is a **10–12 slide pitch narrative** distilled from the full system corpus. It preserves the core system laws (Natural Center, attribution, multi-tenant OS trajectory) while compressing into a **sellable, investor/client-facing arc**.
+
+---
+
+# SLIDE 1 — TITLE / SYSTEM IDENTITY
+
+**Cronus Metabolus**  
+*Auto-Content Multiplex Engine*
+
+**Tagline:**
+> One premium asset → continuous content → measurable yield
+
+**System Class:**
+Multi-tenant temporal content yield engine  
+fileciteturn0file15
+
+---
+
+# SLIDE 2 — THE PROBLEM (STRUCTURAL, NOT TACTICAL)
+
+Premium brands already invest heavily:
+
+- $15K–$50K per hero asset  
+- Ongoing $5K–$10K/month content labor  
+
+But:
+
+- Assets are **underutilized (≈1–2 posts)**
+- Content creation is **manual + inconsistent**
+- No clear **ROI attribution**
+
+**Result:**
+High spend, low yield, zero compounding.
+
+fileciteturn0file32
+
+---
+
+# SLIDE 3 — CATEGORY REFRAME
+
+This is not a scheduling tool.
+
+Current tools:
+- Buffer / Hootsuite → *distribution layer only*
+
+This system:
+- **Extracts → generates → publishes → learns**
+
+**Category:**
+> Content → Audience → Economic system
+
+Not:
+> Content → Post → Forget
+
+---
+
+# SLIDE 4 — CORE PRODUCT (MVP TRUTH)
+
+```text
+1 asset → 10–15 fragments → 30–90 posts → weekly performance report
+```
+
+Capabilities:
+
+- Multimodal extraction (video, renders, text)
+- Platform-native formatting
+- Caption generation (brand-consistent)
+- Automated scheduling
+- Metrics + reporting loop
+
+This is the **irreducible closed loop**  
+fileciteturn0file29
+
+---
+
+# SLIDE 5 — THE ENGINE (HOW IT WORKS)
+
+Canonical system flow:
+
+```text
+asset
+→ fragment extraction
+→ Natural Center constraint
+→ generation
+→ publishing
+→ analytics
+→ attribution
+→ learning
+```
+
+**Key function:**
+
+```text
+content = f(asset, natural_center, platform_profile)
+```
+
+fileciteturn2file0
+
+---
+
+# SLIDE 6 — THE DIFFERENTIATOR (IDENTITY ENGINE)
+
+Most AI content tools:
+
+- produce volume  
+- degrade brand identity  
+
+This system enforces:
+
+**Natural Center (NC)**  
+= computable identity constraint
+
+```text
+Every output must match identity ≥ threshold
+```
+
+Measured via:
+
+- thematic alignment  
+- aesthetic alignment  
+- tonal alignment  
+- symbolic recurrence  
+- negative-space enforcement  
+
+fileciteturn0file16
+
+---
+
+# SLIDE 7 — THE OUTPUT MULTIPLIER
+
+**Before:**
+
+```text
+1 video → 1 post
+```
+
+**After:**
+
+```text
+1 video → 30–90 optimized posts
+```
+
+**Transformation:**
+
+> “We turn one $30K asset into a 90-day content system”
+
+Operational impact:
+
+- +40% engagement potential  
+- −20 hrs/week manual work  
+- continuous presence across platforms  
+
+fileciteturn0file32
+
+---
+
+# SLIDE 8 — ATTRIBUTION (WHY THIS WINS)
+
+Most systems stop at “likes.”
+
+This system tracks:
+
+```text
+asset → fragment → unit → publish → performance → audience transition
+```
+
+With:
+
+- time-decayed value
+- platform normalization
+- multi-touch attribution
+
+**Result:**
+
+```text
+ROI per asset becomes measurable
+```
+
+fileciteturn0file14
+
+---
+
+# SLIDE 9 — AUDIENCE ENGINE (THE REAL PRODUCT)
+
+Not just content → **state transitions**
+
+```text
+viewer
+→ engaged
+→ follower
+→ returning
+→ converted
+→ advocate
+```
+
+System optimizes:
+
+- retention
+- identity recognition
+- conversion pathways
+
+This is the shift:
+
+> Content engine → audience formation engine
+
+fileciteturn0file9
+
+---
+
+# SLIDE 10 — MARKET ENTRY (GO-TO-MARKET)
+
+Three immediate buyers:
+
+**1. Existing clients (agency upsell)**
+- Convert one-off projects → retainers  
+
+**2. Agencies (white-label)**
+- Sell system as their own  
+
+**3. DTC brands**
+- Replace manual content ops  
+
+---
+
+# SLIDE 11 — SYSTEM EXPANSION (ROADMAP)
+
+Evolution path:
+
+```text
+MVP (content loop)
+→ attribution + scoring
+→ audience engine
+→ experimentation layer
+→ multi-tenant SaaS OS
+```
+
+Final form:
+
+```text
+control plane
++ orchestration plane
++ execution services
++ research/learning layer
+```
+
+fileciteturn0file21
+
+---
+
+# SLIDE 12 — END STATE (THE REAL BET)
+
+This system turns:
+
+```text
+content → cost center
+```
+
+into:
+
+```text
+content → compounding asset
+```
+
+And:
+
+```text
+creative output → measurable economic engine
+```
+
+**Final positioning:**
+
+> Not a tool.  
+> A system that converts media into audience and revenue.
+
+---
+
+## Optional (if you want refinement)
+
+If you want, I can next:
+
+- tighten this into **VC-grade language vs client-grade language**
+- produce **visual slide layouts (Figma-ready)**
+- or split into **3 variants**:
+  - investor pitch
+  - agency sales deck
+  - product landing narrative
+
+Each requires slightly different emphasis (especially slides 8–10).

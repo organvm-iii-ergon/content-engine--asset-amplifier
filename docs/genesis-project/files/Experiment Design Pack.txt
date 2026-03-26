@@ -1,0 +1,529 @@
+```bash
+$NEXT = "EXPERIMENT_DESIGN_PACK_V1"
+$SYSTEM = "cronus-metabolus"
+$SCOPE = "ready-to-run, instrumented, causally legible tests"
+$MODE = "production-adjacent (Phase 1–3 compatible)"
+```
+
+This artifact converts your system into an **empirical machine**.  
+Not ideas. Not metrics. **Executable experiments with causal resolution.**
+
+It sits exactly after:
+
+```text
+NC_ENGINE_V2
+UNIFIED_SCORE_SPEC
+ATTRIBUTION_ENGINE
+```
+
+and before:
+
+```text
+full autonomous learning loop
+```
+
+The system already requires experiments to drive updates, not intuition fileciteturn0file20  
+
+---
+
+# I. GLOBAL EXPERIMENT CONTRACT
+
+All experiments must conform to:
+
+```yaml
+Experiment:
+  experiment_id: string
+  hypothesis: string
+  target_metric: string
+  treatment_definition: dict
+  control_definition: dict
+  randomization_unit: publish_event|user|time_block
+  sample_size: int
+  power_target: 0.8
+  duration_days: int
+  success_criteria: dict
+  failure_conditions: dict
+  analysis_plan: dict
+```
+
+All experiments must bind to lineage:
+
+```text
+asset → fragment → unit → publish → observation
+```
+
+This is non-negotiable for attribution integrity fileciteturn0file14  
+
+---
+
+# II. EXPERIMENT TAXONOMY (SYSTEM-COMPLETE)
+
+```bash
+$EXPERIMENT_FAMILIES = [
+  NC_ALIGNMENT,
+  FRAGMENT_SELECTION,
+  GENERATION_VARIATION,
+  PLATFORM_FIT,
+  AUDIENCE_TRANSITION,
+  ECONOMIC_YIELD
+]
+```
+
+Each family isolates one operator in:
+
+```text
+Ψ_extract, Ψ_gen, Ψ_score, Ψ_attr, Ψ_aud, Λ
+```
+
+---
+
+# III. CORE EXPERIMENTS (READY TO RUN)
+
+## 1. $EXP_NC_ALIGNMENT_LIFT
+
+### Purpose
+Test whether **Natural Center alignment causally improves performance**
+
+### Hypothesis
+
+```text
+H1: Higher NC_score → higher audience retention + follower conversion
+```
+
+### Design
+
+```yaml
+treatment:
+  units with NC_score ≥ 0.75
+
+control:
+  units with 0.55 ≤ NC_score < 0.65
+
+randomization_unit: publish_event
+stratification:
+  platform
+  content_type
+```
+
+### Metrics
+
+```yaml
+primary:
+  retention_rate
+  follower_conversion_rate
+
+secondary:
+  watch_time
+  engagement_rate
+```
+
+### Estimator
+
+\[
+Lift_{NC} = E[Y | NC_{high}] - E[Y | NC_{mid}]
+\]
+
+### Implementation
+
+```python
+def assign_nc_experiment(unit):
+    score = nc_score(unit, NC)
+    if score >= 0.75:
+        return "treatment"
+    elif 0.55 <= score < 0.65:
+        return "control"
+    else:
+        return "exclude"
+```
+
+### Success Criteria
+
+```text
+Lift_NC ≥ +8% retention OR +5% conversion
+p_value < 0.05
+```
+
+---
+
+## 2. $EXP_FRAGMENT_SELECTION_OPTIMALITY
+
+### Purpose
+Validate fragment scoring function
+
+### Hypothesis
+
+```text
+Top-ranked fragments outperform random fragments
+```
+
+### Design
+
+```yaml
+treatment:
+  top_k fragments by unified_score
+
+control:
+  random fragments from same asset
+
+randomization_unit: fragment → unit → publish
+```
+
+### Metrics
+
+```yaml
+primary:
+  view_through_rate
+
+secondary:
+  engagement_rate
+```
+
+### Estimator
+
+\[
+Lift_{frag} = E[Y | score_{top}] - E[Y | score_{random}]
+\]
+
+### Implementation
+
+```python
+def select_fragments(asset):
+    ranked = rank_fragments(asset)
+    return {
+        "treatment": ranked[:5],
+        "control": random.sample(ranked, 5)
+    }
+```
+
+### Success Criteria
+
+```text
+Lift_frag ≥ +10% VTR
+```
+
+---
+
+## 3. $EXP_GENERATION_VARIANTS
+
+### Purpose
+Test generation operator sensitivity
+
+### Hypothesis
+
+```text
+Different generation prompts produce measurable outcome differences
+```
+
+### Design
+
+```yaml
+variants:
+  A: direct caption
+  B: narrative-driven caption
+  C: authority-driven caption
+
+randomization_unit: unit
+```
+
+### Metrics
+
+```yaml
+primary:
+  engagement_rate
+
+secondary:
+  click_through_rate
+```
+
+### Implementation
+
+```python
+def generate_variants(fragment):
+    return {
+        "A": gen_caption_basic(fragment),
+        "B": gen_caption_narrative(fragment),
+        "C": gen_caption_authority(fragment),
+    }
+```
+
+### Success Criteria
+
+```text
+One variant dominates with ≥ +12% engagement
+```
+
+---
+
+## 4. $EXP_PLATFORM_FIT_TIMING
+
+### Purpose
+Validate platform-state sensitivity
+
+### Hypothesis
+
+```text
+Platform-aligned timing outperforms static scheduling
+```
+
+### Design
+
+```yaml
+treatment:
+  dynamic timing (platform_profile)
+
+control:
+  static schedule
+
+randomization_unit: publish_event
+```
+
+### Metrics
+
+```yaml
+primary:
+  impressions
+
+secondary:
+  engagement_rate
+```
+
+### Estimator
+
+\[
+Lift_{platform} = E[Y | dynamic] - E[Y | static]
+\]
+
+---
+
+## 5. $EXP_AUDIENCE_TRANSITION_CHAIN
+
+### Purpose
+Measure system-level objective
+
+### Hypothesis
+
+```text
+High NC alignment improves downstream state transitions
+```
+
+### State Model
+
+```text
+viewer → engaged → follower → returning → converted
+```
+
+### Design
+
+```yaml
+treatment:
+  high NC alignment units
+
+control:
+  low-mid NC alignment units
+
+tracking:
+  user-level transitions
+```
+
+### Metrics
+
+```yaml
+primary:
+  P(follower | viewer)
+
+secondary:
+  P(returning | follower)
+  P(converted | returning)
+```
+
+### Estimator
+
+\[
+Lift_{i→j} = P(j|i, treatment) - P(j|i, control)
+\]
+
+This aligns with the audience-state system requirement fileciteturn0file14  
+
+---
+
+## 6. $EXP_ASSET_YIELD_MULTIPLIER
+
+### Purpose
+Validate business model
+
+### Hypothesis
+
+```text
+System increases asset yield vs baseline posting
+```
+
+### Design
+
+```yaml
+treatment:
+  full system (multi-post extraction)
+
+control:
+  single-post baseline
+
+randomization_unit: asset
+```
+
+### Metrics
+
+```yaml
+primary:
+  total_views_per_asset
+
+secondary:
+  leads_per_asset
+  revenue_per_asset
+```
+
+### Estimator
+
+\[
+YieldMultiplier = \frac{R_{system}}{R_{baseline}}
+\]
+
+### Success Criteria
+
+```text
+≥ 3x output
+≥ 2x engagement
+```
+
+---
+
+# IV. EXPERIMENT EXECUTION PIPELINE
+
+```text
+experiment.created
+→ treatment_assignment
+→ unit_generation (variantized)
+→ publish_execution
+→ analytics_ingestion
+→ attribution_resolution
+→ statistical_analysis
+→ conclusion_recorded
+→ policy_update (if valid)
+```
+
+This must run via orchestration layer (event-driven) fileciteturn0file21  
+
+---
+
+# V. STATISTICAL CONTRACT
+
+All experiments must satisfy:
+
+```yaml
+minimum_sample_size: computed via power analysis
+confidence_level: 95%
+multiple_testing_control: required if >3 variants
+pre_registered_metrics: required
+```
+
+Reject if:
+
+```text
+underpowered
+post-hoc metric switching
+imbalanced assignment
+```
+
+---
+
+# VI. OUTPUT ARTIFACTS
+
+Each experiment produces:
+
+```bash
+$ARTIFACTS = [
+  EXPERIMENT_SPEC,
+  ASSIGNMENT_LOG,
+  METRIC_DATASET,
+  STATISTICAL_REPORT,
+  CAUSAL_ESTIMATE,
+  DECISION_RECORD
+]
+```
+
+Stored in:
+
+```bash
+/research/experiments/{experiment_id}/
+```
+
+This enforces research-runtime integration fileciteturn0file20  
+
+---
+
+# VII. SYSTEM INTEGRATION
+
+Experiments directly update:
+
+```text
+NC_ENGINE_V2        → identity evolution
+UNIFIED_SCORE_SPEC  → weight updates
+PLATFORM_PROFILE    → timing + format shifts
+GENERATION_LOGIC    → prompt selection
+```
+
+But only if:
+
+```text
+causal_validated == true
+effect_size ≥ threshold
+update bounded (||Δ|| < ε)
+```
+
+---
+
+# VIII. MINIMAL RUN SET (DEPLOY IMMEDIATELY)
+
+If you deploy now, run exactly:
+
+```bash
+$RUN_FIRST = [
+  EXP_NC_ALIGNMENT_LIFT,
+  EXP_FRAGMENT_SELECTION_OPTIMALITY,
+  EXP_ASSET_YIELD_MULTIPLIER
+]
+```
+
+These three alone:
+
+```text
+validate identity
+validate extraction
+validate business value
+```
+
+Everything else is refinement.
+
+---
+
+# IX. SYSTEM CONSEQUENCE
+
+Once this pack is active:
+
+```text
+content system → experiment-driven system
+intuition → causal validation
+metrics → decisions
+```
+
+Without this layer:
+
+```text
+you have analytics
+```
+
+With it:
+
+```text
+you have a learning system
+```
+
+This is the exact transition your architecture has been moving toward across all prior artifacts.

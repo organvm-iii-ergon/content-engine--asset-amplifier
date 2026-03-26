@@ -1,0 +1,670 @@
+```bash
+$NEXT="NC_ENGINE_V2 + SCORING_UNIFICATION_LAYER"
+```
+
+This is the correct next artifact.
+
+It closes the remaining gap identified in the source set: **Natural Center exists as a computable object, but it is not yet fully closed under scoring, attribution, experimentation, and bounded evolution**. The missing move is to make `NC` the **single measurable identity field** that participates uniformly in extraction, generation, validation, scoring, attribution, and learning. fileciteturn4file19 fileciteturn4file16
+
+---
+
+# I. OBJECTIVE
+
+```text
+Turn Natural Center from:
+constraint object
+
+into:
+
+stateful, measurable, versioned scoring engine
++ unified alignment layer across all operators
+```
+
+Formally, the target is:
+
+\[
+NC\_Engine =
+\langle NC,\ BE,\ \Sigma,\ \mathcal{M},\ \mathcal{C},\ \mathcal{U} \rangle
+\]
+
+where:
+
+\[
+NC = \text{symbolic Natural Center object}
+\]
+\[
+BE = \text{brand embedding projection}
+\]
+\[
+\Sigma = \text{scoring surface}
+\]
+\[
+\mathcal{M} = \text{metric registry}
+\]
+\[
+\mathcal{C} = \text{causal hooks}
+\]
+\[
+\mathcal{U} = \text{bounded update rule}
+\]
+
+This is exactly the expansion the computability review says is missing: scoring function, metric surface, causal participation, and controlled update rule. fileciteturn4file19
+
+---
+
+# II. CORE THESIS
+
+The system currently has:
+
+```text
+NC → generation constraints
+BE → partial vector interface
+fragment scoring → separate
+attribution → separate
+audience transitions → separate
+```
+
+It needs:
+
+```text
+one unified scoring layer
+```
+
+So define:
+
+\[
+\mathcal{S}_{unified}(x,p,t) =
+\alpha \cdot Intrinsic(x)
++ \beta \cdot NCAlign(x)
++ \gamma \cdot PlatformFit(x,p,t)
++ \delta \cdot AudienceFit(x)
+- \eta \cdot Risk(x)
+\]
+
+This becomes the common function family used at different points in the stack.
+
+---
+
+# III. NC_ENGINE_V2
+
+```bash
+$NC_ENGINE_V2
+```
+
+## III.1 Canonical Object
+
+```yaml
+NaturalCenterV2:
+  nc_id: string
+  tenant_id: string
+  workspace_id: string
+  brand_id: string
+  version: int
+
+  thematic_core: list
+  aesthetic_signature: dict
+  tonal_vector: dict
+  narrative_bias: dict
+  symbolic_markers: list
+  negative_space: list
+  invariants: list
+  mutation_bounds: dict
+
+  embedding:
+    semantic_vector: vector
+    visual_vector: vector
+    tonal_vector: vector
+    narrative_vector: vector
+    symbolic_vector: vector
+    negative_vector: vector
+    fused_vector: vector
+
+  metrics:
+    nc_coherence: float
+    nc_consistency: float
+    nc_drift: float
+    nc_recognition: float | null
+
+  confidence_score: float
+  review_status: draft|reviewed|approved
+  effective_from: timestamp
+  effective_to: timestamp|null
+```
+
+This merges the symbolic Natural Center structure with the multi-vector Brand Embedding structure and elevates NC metrics to first-class fields. fileciteturn4file16 fileciteturn4file17 fileciteturn4file19
+
+---
+
+## III.2 Required APIs
+
+```python
+def derive_natural_center_v2(corpus: list[Asset]) -> NaturalCenterV2
+def encode_natural_center_v2(nc: NaturalCenterV2) -> BrandEmbedding
+def nc_score(output: GeneratedUnit, nc: NaturalCenterV2) -> float
+def nc_metric_surface(outputs: list[GeneratedUnit], nc: NaturalCenterV2) -> dict
+def update_natural_center_v2(nc: NaturalCenterV2, evidence: EvidenceBundle) -> NaturalCenterV2
+```
+
+---
+
+## III.3 Required Internal Modules
+
+```text
+nc-bootstrap
+nc-encoder
+nc-validator
+nc-metrics
+nc-causal
+nc-evolution
+```
+
+---
+
+# IV. SCORING UNIFICATION LAYER
+
+```bash
+$SCORING_UNIFICATION_LAYER
+```
+
+This is the real system closure.
+
+Every score in the system must become a specialization of one master interface:
+
+```python
+def unified_score(
+    candidate,
+    nc: NaturalCenterV2,
+    platform_profile: PlatformProfile,
+    audience_context: AudienceContext,
+    scoring_mode: str,
+) -> ScoreBundle
+```
+
+Return:
+
+```yaml
+ScoreBundle:
+  total_score: float
+  intrinsic_score: float
+  nc_alignment_score: float
+  platform_fit_score: float
+  audience_fit_score: float
+  risk_penalty: float
+  component_scores: dict
+  passed_hard_constraints: bool
+  score_version: string
+```
+
+---
+
+# V. UNIFIED SCORE FAMILY
+
+## V.1 Master Equation
+
+\[
+Score(x,p,a,t) =
+w_I I(x)
++ w_N N(x,NC)
++ w_P P(x,p,t)
++ w_A A(x,a)
+- w_R R(x)
+\]
+
+where:
+
+\[
+I(x) = \text{intrinsic content quality}
+\]
+\[
+N(x,NC) = \text{Natural Center alignment}
+\]
+\[
+P(x,p,t) = \text{platform fit under } platform\_state(t)
+\]
+\[
+A(x,a) = \text{audience-transition fitness}
+\]
+\[
+R(x) = \text{penalty surface}
+\]
+
+This replaces the current fragmented logic with one compositional scoring doctrine. It is consistent with the formal operator model and the algorithmic frame already defined in the source set. fileciteturn4file23 fileciteturn4file13
+
+---
+
+## V.2 Specializations
+
+### Fragment selection score
+
+\[
+Score_{fragment}(f) =
+w_I I(f)
++ w_N N(f,NC)
++ w_P P(f,p,t)
+- w_R R(f)
+\]
+
+### Generated unit validation score
+
+\[
+Score_{unit}(u) =
+w_N N(u,NC)
++ w_P P(u,p,t)
++ w_A A(u,a)
+- w_R R(u)
+\]
+
+### Attribution identity modifier
+
+\[
+IdentityAdj(u) = N(u,NC)
+\]
+
+### Learning update acceptance score
+
+\[
+Score_{update} =
+w_C CausalLift
++ w_S Stability
+- w_D DriftRisk
+\]
+
+---
+
+# VI. NC ALIGNMENT SURFACE
+
+This is the most important addition.
+
+Natural Center alignment cannot remain a single opaque cosine score. It must be decomposed.
+
+Define:
+
+\[
+N(x,NC)=
+\lambda_T T_{align}
++\lambda_A A_{align}
++\lambda_{\Tau} \Tau_{align}
++\lambda_N N_{align}
++\lambda_S S_{align}
+-\lambda_{\Omega}\Omega_{viol}
+\]
+
+where:
+
+```text
+T_align      = thematic alignment
+A_align      = aesthetic alignment
+Tau_align    = tonal alignment
+N_align      = narrative alignment
+S_align      = symbolic marker density / recurrence
+Omega_viol   = negative-space violation score
+```
+
+This directly operationalizes the full NC object rather than reducing it to a flat embedding comparison. fileciteturn4file16 fileciteturn4file19
+
+### Practical V1 formula
+
+```python
+def nc_score(output, nc):
+    return clamp(
+        0.22 * thematic_alignment(output, nc)
+      + 0.18 * aesthetic_alignment(output, nc)
+      + 0.18 * tonal_alignment(output, nc)
+      + 0.14 * narrative_alignment(output, nc)
+      + 0.18 * symbolic_alignment(output, nc)
+      - 0.20 * negative_space_violation(output, nc),
+      0.0,
+      1.0,
+    )
+```
+
+---
+
+# VII. METRIC SURFACE
+
+The source set explicitly says NC must be independently measurable, not merely used as a modifier. fileciteturn4file19
+
+So define four first-class metrics.
+
+## VII.1 NC Coherence
+
+Per output:
+
+\[
+NC\_coherence(u)=N(u,NC)
+\]
+
+Meaning: how aligned one output is to the current Natural Center.
+
+## VII.2 NC Consistency
+
+Per campaign:
+
+\[
+NC\_consistency(C)=1-\frac{1}{|C|}\sum_{u \in C} D(u,\mu_C)
+\]
+
+Meaning: how mutually coherent outputs are with each other under the same center.
+
+## VII.3 NC Drift
+
+Across time:
+
+\[
+NC\_drift(t_1,t_2)=D(NC_{t_1},NC_{t_2})
+\]
+
+Where \(D\) is the mixed symbolic-vector distance proposed in the proof bridge. fileciteturn4file24
+
+## VII.4 NC Recognition
+
+Audience-facing, later-stage metric:
+
+\[
+NC\_recognition = f(recall,\ repeat\_engagement,\ branded\_search,\ symbolic\_association)
+\]
+
+This can start as null or experimental until instrumentation matures.
+
+---
+
+# VIII. CAUSAL HOOKS
+
+Natural Center must enter the experimentation layer directly, not implicitly. fileciteturn4file19
+
+Define causal hypotheses such as:
+
+```text
+HYP_NC_001:
+higher nc_coherence → higher retention_3s
+
+HYP_NC_002:
+higher symbolic_alignment → higher follow_conversion_rate
+
+HYP_NC_003:
+lower tonal_drift → higher returning_viewer_ratio
+```
+
+Formal lift:
+
+\[
+Lift_{NC} = E[Y \mid high\_NC\_alignment] - E[Y \mid low\_NC\_alignment]
+\]
+
+Acceptance rule:
+
+```python
+if p_value < ALPHA and lift_nc > 0:
+    mark_signal_as_causally_validated()
+```
+
+This is the exact missing causal participation requirement. fileciteturn4file19 fileciteturn4file24
+
+---
+
+# IX. BOUNDED EVOLUTION RULE
+
+NC must evolve, but only under control. The source set is explicit on slow evolution and bounded drift. fileciteturn4file16 fileciteturn4file19
+
+Define:
+
+\[
+NC_{t+1} = NC_t + \Pi_{\epsilon}\bigl(\Delta_{validated}\bigr)
+\]
+
+where \(\Pi_{\epsilon}\) is a projection onto the bounded-drift ball.
+
+Operationally:
+
+```python
+def update_natural_center_v2(nc_t, validated_signals, epsilon):
+    candidate = apply_validated_updates(nc_t, validated_signals)
+    if distance(candidate, nc_t) > epsilon:
+        candidate = project_back(candidate, nc_t, epsilon)
+    return candidate
+```
+
+Constraints:
+
+```text
+1. only causally validated signals may update NC
+2. update must stay within mutation_bounds
+3. negative_space cannot be weakened without review
+4. symbolic markers require stronger evidence than hook patterns
+```
+
+---
+
+# X. SERVICE MAP
+
+This artifact affects multiple services, not only `natural-center`.
+
+## services/natural-center
+
+Owns:
+
+```text
+derivation
+validation
+metric computation
+bounded evolution
+```
+
+## services/brand-embedding
+
+Owns:
+
+```text
+encode/decode
+vector storage
+similarity operations
+drift distance
+```
+
+## services/media-analysis
+
+Owns:
+
+```text
+intrinsic features
+fragment features
+candidate feature vectors
+```
+
+## services/generation-orchestrator
+
+Consumes:
+
+```text
+nc_score
+hard constraints
+platform-adjusted unified score
+```
+
+## services/attribution-engine
+
+Consumes:
+
+```text
+identity-adjusted value
+nc_coherence
+nc_consistency
+lift_nc
+```
+
+## services/experimentation-engine
+
+Consumes:
+
+```text
+nc-based hypotheses
+significance tests
+update admission decisions
+```
+
+This service split is fully consistent with the operator-grade and monorepo architecture already established. fileciteturn4file1 fileciteturn4file21
+
+---
+
+# XI. DATABASE / SCHEMA DELTA
+
+Additions to `natural_centers`:
+
+```sql
+ALTER TABLE natural_centers
+ADD COLUMN confidence_score FLOAT NOT NULL,
+ADD COLUMN nc_coherence_baseline FLOAT NULL,
+ADD COLUMN nc_consistency_baseline FLOAT NULL,
+ADD COLUMN review_status TEXT NOT NULL DEFAULT 'draft',
+ADD COLUMN effective_from TIMESTAMP NOT NULL,
+ADD COLUMN effective_to TIMESTAMP NULL;
+```
+
+Create metric table:
+
+```sql
+CREATE TABLE nc_metrics (
+  metric_id TEXT PRIMARY KEY,
+  nc_id TEXT NOT NULL,
+  unit_id TEXT NULL,
+  campaign_id TEXT NULL,
+  metric_type TEXT NOT NULL,
+  metric_value FLOAT NOT NULL,
+  measured_at TIMESTAMP NOT NULL
+);
+```
+
+Create update log:
+
+```sql
+CREATE TABLE nc_update_events (
+  update_id TEXT PRIMARY KEY,
+  nc_id TEXT NOT NULL,
+  prior_version INT NOT NULL,
+  next_version INT NOT NULL,
+  evidence_bundle_uri TEXT NOT NULL,
+  causal_validation_status TEXT NOT NULL,
+  drift_distance FLOAT NOT NULL,
+  approved_by TEXT NULL,
+  created_at TIMESTAMP NOT NULL
+);
+```
+
+Add score versioning:
+
+```sql
+ALTER TABLE generated_units
+ADD COLUMN scoring_version TEXT NOT NULL,
+ADD COLUMN unified_score FLOAT NULL,
+ADD COLUMN identity_adj_value FLOAT NULL;
+```
+
+---
+
+# XII. WORKFLOW CHANGES
+
+## Asset pipeline upgrade
+
+```text
+asset.normalized
+→ fragments.extracted
+→ NC.bootstrap_or_load
+→ BE.encoded
+→ candidates.unified_scored
+→ units.generated
+→ units.identity_validated
+→ publish.plan.created
+```
+
+## Analytics pipeline upgrade
+
+```text
+analytics.ingested
+→ attribution.computed
+→ nc_metrics.computed
+→ causal_tests.updated
+→ nc_update_candidate.evaluated
+```
+
+## Review workflow
+
+```text
+nc_update_candidate.created
+→ causal_validation.checked
+→ drift_bound.checked
+→ human_review_if_required
+→ nc_version.promoted
+```
+
+These changes align with the orchestration-first architecture and the requirement that research become runtime-bound, not passive. fileciteturn4file21 fileciteturn4file24
+
+---
+
+# XIII. TEST REGISTRY
+
+## Contract tests
+
+```text
+test_nc_score_in_range
+test_negative_space_blocks_invalid_output
+test_unified_score_is_deterministic
+test_update_requires_causal_validation
+test_update_respects_drift_bound
+```
+
+## Integration tests
+
+```text
+test_asset_to_nc_to_scored_fragments
+test_generated_unit_receives_unified_score
+test_attribution_uses_identity_adjustment
+test_experiment_can_measure_lift_nc
+```
+
+## Statistical tests
+
+```text
+test_high_nc_alignment_improves_retention
+test_symbolic_alignment_improves_follow_conversion
+test_tonal_drift_reduces_return_rate
+```
+
+---
+
+# XIV. HARD GOVERNANCE RULES
+
+```text
+no output may ship without nc_score
+no attribution may omit identity adjustment
+no nc update may occur without causal evidence
+no scoring function may bypass negative space
+no embedding update may exceed ε drift bound
+```
+
+---
+
+# XV. FINAL FORM
+
+After this artifact, Natural Center becomes:
+
+```text
+not just a stored object
+not just a generation constraint
+not just an embedding seed
+
+but:
+
+a versioned, measurable, causal, bounded identity field
+```
+
+That is the exact closure the source set has been pushing toward. fileciteturn4file19 fileciteturn4file17 fileciteturn4file24
+
+---
+
+# XVI. STRICT NEXT ARTIFACT
+
+```bash
+$NEXT="NC_SCORE_API + UNIFIED_SCORE_SPEC + NC_METRIC_REGISTRY"
+```
+
+That would be the code-facing deliverable: exact formulas, typed schemas, thresholds, and function signatures.

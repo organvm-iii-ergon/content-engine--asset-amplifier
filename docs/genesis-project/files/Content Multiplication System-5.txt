@@ -1,0 +1,460 @@
+Yes. Two categories are currently under-specified:
+
+1) **Methodological rigor pillars** (how you prove things are true)  
+2) **Constraint-domain pillars** (what can break or limit the system in reality)
+
+Without these, the research program risks being **descriptive rather than defensible**.
+
+---
+
+# I. CURRENT COVERAGE (FOR CONTEXT)
+
+You already have:
+
+```text
+- Media / content theory
+- Marketing science
+- Systems theory
+- Cognitive attention
+- Platform dynamics
+- Empirical market validation
+```
+
+This is strong—but incomplete.
+
+---
+
+# II. MISSING PILLARS (CRITICAL)
+
+## 1. $PILLAR_CAUSAL_INFERENCE
+
+### Problem
+Right now, you measure outcomes but cannot **prove causation**.
+
+---
+
+### Required
+
+You must distinguish:
+
+```text
+Did the system cause the result?
+vs
+Did the platform / timing / randomness cause it?
+```
+
+---
+
+### Methods to Incorporate
+
+```text
+- A/B testing (randomized)
+- difference-in-differences
+- counterfactual modeling
+- uplift modeling
+```
+
+---
+
+### Output
+
+```bash
+$CAUSAL_VALIDATION_REPORT
+```
+
+Without this, your claims are:
+
+```text
+correlational, not defensible
+```
+
+---
+
+## 2. $PILLAR_STATISTICAL_POWER
+
+### Problem
+Small sample case studies will not generalize.
+
+---
+
+### Required
+
+```text
+- minimum sample sizes
+- variance analysis
+- confidence intervals
+- significance testing
+```
+
+---
+
+### Key Metric
+
+```text
+Is performance improvement statistically significant?
+```
+
+---
+
+### Output
+
+```bash
+$STATISTICAL_SIGNIFICANCE_REPORT
+```
+
+---
+
+## 3. $PILLAR_ALGORITHMIC_INTERFACE
+
+### Problem
+You are operating inside opaque systems (Instagram, TikTok).
+
+---
+
+### Required Inquiry
+
+```text
+How does platform ranking interact with your outputs?
+```
+
+---
+
+### Research Areas
+
+```text
+- recommender systems
+- feed ranking heuristics
+- content feature weighting
+```
+
+---
+
+### Why Critical
+
+Your system is not independent—it is:
+
+```text
+co-evolving with platform algorithms
+```
+
+---
+
+## 4. $PILLAR_BEHAVIORAL_RESPONSE
+
+### Problem
+You model attention, but not **human decision behavior deeply enough**.
+
+---
+
+### Required Fields
+
+```text
+- behavioral economics
+- persuasion theory
+- habit formation
+- variable reward systems
+```
+
+---
+
+### Key Question
+
+```text
+What makes a viewer convert, not just engage?
+```
+
+---
+
+---
+
+## 5. $PILLAR_IDENTITY_PERSISTENCE
+
+### Problem
+Natural Center exists, but is not yet validated as a measurable construct.
+
+---
+
+### Required
+
+You must prove:
+
+```text
+Consistency → recognition → retention → conversion
+```
+
+---
+
+### Methods
+
+```text
+- recognition testing
+- recall studies
+- cross-post identity similarity scoring
+```
+
+---
+
+### Output
+
+```bash
+$IDENTITY_COHERENCE_INDEX
+```
+
+---
+
+## 6. $PILLAR_INFORMATION_DECAY
+
+### Problem
+Content has a lifespan, but you are not modeling it formally.
+
+---
+
+### Required
+
+```text
+- engagement decay curves
+- content half-life modeling
+- repost / remix timing optimization
+```
+
+---
+
+### Core Function
+
+```text
+maximize total yield over time, not initial spike
+```
+
+---
+
+---
+
+## 7. $PILLAR_COMPETITIVE_BASELINE
+
+### Problem
+You compare to “manual effort,” but not rigorously to alternatives.
+
+---
+
+### Required Comparators
+
+```text
+- social media managers
+- agencies
+- existing AI tools
+- no-post baseline
+```
+
+---
+
+### Output
+
+```bash
+$COMPETITIVE_DELTA_ANALYSIS
+```
+
+---
+
+---
+
+## 8. $PILLAR_UNIT_ECONOMICS
+
+### Problem
+ROI is stated but not deeply modeled.
+
+---
+
+### Required
+
+```text
+- cost per asset
+- cost per generated post
+- cost per follower
+- cost per lead
+- marginal cost vs marginal return
+```
+
+---
+
+### Key Equation
+
+```text
+Profitability = (value generated per asset) - (system cost)
+```
+
+---
+
+---
+
+## 9. $PILLAR_GENERALIZATION
+
+### Problem
+System may work in one niche but fail elsewhere.
+
+---
+
+### Required
+
+```text
+Test across:
+- industries
+- content types
+- audience demographics
+- platform mixes
+```
+
+---
+
+### Output
+
+```bash
+$GENERALIZATION_MATRIX
+```
+
+---
+
+---
+
+## 10. $PILLAR_FAILURE_ANALYSIS
+
+### Problem
+No formal modeling of when the system breaks.
+
+---
+
+### Required
+
+```text
+- low-quality assets
+- weak Natural Center
+- oversaturation
+- platform suppression
+```
+
+---
+
+### Output
+
+```bash
+$FAILURE_MODE_CATALOG
+```
+
+---
+
+# III. MISSING META-PILLAR
+
+## 11. $PILLAR_REPRODUCIBILITY
+
+### Problem
+Results must be repeatable.
+
+---
+
+### Required
+
+```text
+- standardized pipelines
+- fixed evaluation protocols
+- reproducible experiments
+```
+
+---
+
+### Outcome
+
+```text
+System becomes scientific, not anecdotal
+```
+
+---
+
+# IV. FULL PILLAR SET (COMPLETE)
+
+After inclusion:
+
+```text
+THEORETICAL:
+- media / systems / cognition
+- information theory
+- behavioral science
+- identity persistence
+
+EMPIRICAL:
+- market validation
+- causal inference
+- statistical rigor
+- reproducibility
+
+SYSTEM:
+- algorithmic interface
+- feedback loops
+- decay modeling
+
+ECONOMIC:
+- unit economics
+- competitive benchmarks
+
+ROBUSTNESS:
+- generalization
+- failure analysis
+```
+
+---
+
+# V. CRITICAL INSIGHT
+
+Right now you have:
+
+```text
+A powerful system + strong intuition
+```
+
+With these added pillars, you get:
+
+```text
+A defensible, provable, category-defining system
+```
+
+---
+
+# VI. PRIORITIZATION (DO NOT DO ALL AT ONCE)
+
+Immediate priorities:
+
+```bash
+1. $PILLAR_CAUSAL_INFERENCE
+2. $PILLAR_UNIT_ECONOMICS
+3. $PILLAR_ALGORITHMIC_INTERFACE
+```
+
+These unlock:
+
+- credibility
+- sales power
+- system tuning
+
+---
+
+# VII. NEXT STEP
+
+You should now construct:
+
+```bash
+$RESEARCH_MATRIX_V2
+```
+
+Mapping:
+
+```text
+pillar → methods → data → outputs → owner → timeline
+```
+
+---
+
+If you want, I can generate:
+
+- exact **canonical papers per pillar**
+- full **experiment design templates**
+- or a **live research operating system (ROS) spec**
+
+Proceed direction.

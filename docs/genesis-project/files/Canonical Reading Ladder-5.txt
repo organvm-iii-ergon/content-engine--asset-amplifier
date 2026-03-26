@@ -1,0 +1,824 @@
+```bash
+$NEXT="NC_SCORE_API + UNIFIED_SCORE_SPEC + NC_METRIC_REGISTRY"
+```
+
+This is the code-facing closure layer.
+
+It operationalizes three things that the source set has been demanding but not yet fully pinned down:
+
+1. `NaturalCenter` must become a **first-class measurable operator**, not only a stored constraint object. fileciteturn5file19 fileciteturn5file16  
+2. all scoring surfaces must collapse into **one composable scoring doctrine** spanning fragment selection, generation validation, attribution adjustment, and bounded learning. fileciteturn5file26 fileciteturn5file13  
+3. the system must expose explicit, versioned **NC metrics** so identity can be evaluated, not merely enforced. fileciteturn5file19
+
+---
+
+# I. NC_SCORE_API
+
+```bash
+$NC_SCORE_API_V1
+```
+
+## I.1 Purpose
+
+`NC_score` is the canonical identity-alignment function.
+
+It must be used at four points:
+
+```text
+fragment scoring
+generated-unit validation
+attribution identity adjustment
+learning update admission
+```
+
+That requirement follows directly from the source diagnosis that Natural Center is not yet fully closed under scoring, attribution, experimentation, and evolution. fileciteturn5file19 fileciteturn5file26
+
+---
+
+## I.2 Primary signature
+
+```python
+def nc_score(
+    candidate: "ScorableCandidate",
+    nc: "NaturalCenterV2",
+    mode: str = "unit",
+) -> "NCScoreResult":
+    ...
+```
+
+Allowed `mode` values:
+
+```text
+fragment
+unit
+campaign
+update_candidate
+```
+
+---
+
+## I.3 Input contracts
+
+```python
+class ScorableCandidate(TypedDict):
+    candidate_id: str
+    candidate_type: str
+    semantic_features: dict
+    visual_features: dict
+    tonal_features: dict
+    narrative_features: dict
+    symbolic_features: dict
+    negative_space_features: dict
+    embedding: list[float] | None
+    metadata: dict
+```
+
+```python
+class NaturalCenterV2(TypedDict):
+    nc_id: str
+    version: int
+    thematic_core: list[str]
+    aesthetic_signature: dict
+    tonal_vector: dict
+    narrative_bias: dict
+    symbolic_markers: list[str]
+    negative_space: list[str]
+    invariants: list[str]
+    mutation_bounds: dict
+    embedding: dict
+    confidence_score: float
+```
+
+This structure is the direct continuation of the Natural Center object and Brand Embedding object already established in the source corpus. fileciteturn5file16 fileciteturn5file17
+
+---
+
+## I.4 Output contract
+
+```python
+class NCScoreResult(TypedDict):
+    total_score: float
+    thematic_alignment: float
+    aesthetic_alignment: float
+    tonal_alignment: float
+    narrative_alignment: float
+    symbolic_alignment: float
+    negative_space_violation: float
+    invariant_pass: bool
+    hard_fail_reasons: list[str]
+    score_version: str
+    nc_id: str
+    nc_version: int
+```
+
+---
+
+## I.5 Canonical formula
+
+\[
+NCScore(x,NC)=
+\lambda_T T_{align}
++\lambda_A A_{align}
++\lambda_{\Tau}\Tau_{align}
++\lambda_N N_{align}
++\lambda_S S_{align}
+-\lambda_{\Omega}\Omega_{viol}
+\]
+
+Recommended V1 weights:
+
+```python
+NC_SCORE_WEIGHTS = {
+    "thematic": 0.22,
+    "aesthetic": 0.18,
+    "tonal": 0.18,
+    "narrative": 0.14,
+    "symbolic": 0.18,
+    "negative": 0.20,
+}
+```
+
+This decomposition is required because NC alignment cannot remain a single opaque cosine score. fileciteturn5file26
+
+---
+
+## I.6 Reference implementation
+
+```python
+from typing import TypedDict, List, Dict
+
+
+class NCScoreResult(TypedDict):
+    total_score: float
+    thematic_alignment: float
+    aesthetic_alignment: float
+    tonal_alignment: float
+    narrative_alignment: float
+    symbolic_alignment: float
+    negative_space_violation: float
+    invariant_pass: bool
+    hard_fail_reasons: List[str]
+    score_version: str
+    nc_id: str
+    nc_version: int
+
+
+def _clamp(value: float, lo: float = 0.0, hi: float = 1.0) -> float:
+    return max(lo, min(hi, value))
+
+
+def nc_score(candidate: dict, nc: dict, mode: str = "unit") -> NCScoreResult:
+    thematic_alignment = _clamp(candidate["semantic_features"]["thematic_alignment"])
+    aesthetic_alignment = _clamp(candidate["visual_features"]["aesthetic_alignment"])
+    tonal_alignment = _clamp(candidate["tonal_features"]["tonal_alignment"])
+    narrative_alignment = _clamp(candidate["narrative_features"]["narrative_alignment"])
+    symbolic_alignment = _clamp(candidate["symbolic_features"]["symbolic_alignment"])
+    negative_space_violation = _clamp(
+        candidate["negative_space_features"]["negative_space_violation"]
+    )
+
+    hard_fail_reasons: List[str] = []
+
+    if tonal_alignment < nc["mutation_bounds"].get("min_tonal_alignment", 0.60):
+        hard_fail_reasons.append("tonal_alignment_below_floor")
+
+    if negative_space_violation > nc["mutation_bounds"].get("max_negative_violation", 0.20):
+        hard_fail_reasons.append("negative_space_violation")
+
+    invariant_pass = len(hard_fail_reasons) == 0
+
+    total_score = _clamp(
+        0.22 * thematic_alignment
+        + 0.18 * aesthetic_alignment
+        + 0.18 * tonal_alignment
+        + 0.14 * narrative_alignment
+        + 0.18 * symbolic_alignment
+        - 0.20 * negative_space_violation
+    )
+
+    return NCScoreResult(
+        total_score=total_score,
+        thematic_alignment=thematic_alignment,
+        aesthetic_alignment=aesthetic_alignment,
+        tonal_alignment=tonal_alignment,
+        narrative_alignment=narrative_alignment,
+        symbolic_alignment=symbolic_alignment,
+        negative_space_violation=negative_space_violation,
+        invariant_pass=invariant_pass,
+        hard_fail_reasons=hard_fail_reasons,
+        score_version="nc_score_v1",
+        nc_id=nc["nc_id"],
+        nc_version=nc["version"],
+    )
+```
+
+---
+
+## I.7 Enforcement thresholds
+
+```python
+NC_SCORE_THRESHOLDS = {
+    "fragment_min": 0.62,
+    "unit_min": 0.72,
+    "campaign_mean_min": 0.75,
+    "attribution_discount_floor": 0.55,
+    "hard_reject_floor": 0.45,
+}
+```
+
+Meaning:
+
+```text
+score < 0.45  → reject
+0.45–0.55     → allow only in review mode
+0.55–0.72     → can exist as candidate, not publishable
+≥ 0.72        → publishable, subject to platform and audience checks
+```
+
+These thresholds are consistent with the bootstrap and validation logic already proposed in the corpus. fileciteturn5file20
+
+---
+
+# II. UNIFIED_SCORE_SPEC
+
+```bash
+$UNIFIED_SCORE_SPEC_V1
+```
+
+## II.1 Purpose
+
+All scoring in the system must become a specialization of one function family.
+
+Without this, the system remains fragmented:
+
+```text
+fragment scoring
+brand scoring
+platform scoring
+audience scoring
+attribution adjustment
+```
+
+With this, it becomes closed under one common doctrine. fileciteturn5file26
+
+---
+
+## II.2 Master signature
+
+```python
+def unified_score(
+    candidate: "ScorableCandidate",
+    nc: "NaturalCenterV2",
+    platform_profile: "PlatformProfile",
+    audience_context: "AudienceContext",
+    scoring_mode: str,
+) -> "UnifiedScoreResult":
+    ...
+```
+
+Allowed `scoring_mode` values:
+
+```text
+fragment_selection
+unit_validation
+publish_ranking
+attribution_identity_adjustment
+update_admission
+```
+
+---
+
+## II.3 Output contract
+
+```python
+class UnifiedScoreResult(TypedDict):
+    total_score: float
+    intrinsic_score: float
+    nc_alignment_score: float
+    platform_fit_score: float
+    audience_fit_score: float
+    risk_penalty: float
+    hard_constraint_pass: bool
+    hard_fail_reasons: list[str]
+    score_version: str
+    mode: str
+```
+
+---
+
+## II.4 Master equation
+
+\[
+Score(x,p,a,t)=
+w_I I(x)
++ w_N N(x,NC)
++ w_P P(x,p,t)
++ w_A A(x,a)
+- w_R R(x)
+\]
+
+where:
+
+```text
+I = intrinsic quality score
+N = NC alignment score
+P = platform-fit score
+A = audience-fit score
+R = risk / penalty score
+```
+
+This is the exact scoring unification the previous artifact called for. fileciteturn5file26
+
+---
+
+## II.5 Component definitions
+
+### Intrinsic score
+
+Used mainly for fragment and unit quality.
+
+\[
+I(x)=
+\sum_i \omega_i x_i
+\]
+
+Typical inputs come from the extraction stack:
+
+```text
+visual_saliency
+motion_energy
+hook_density
+speech_clarity
+semantic_novelty
+subject_prominence
+```
+
+These are already specified in the algorithmic frame. fileciteturn5file13
+
+### NC alignment score
+
+\[
+N(x,NC)=NCScore(x,NC)
+\]
+
+### Platform fit score
+
+\[
+P(x,p,t)=
+a_1 duration\_fit
++a_2 opening\_pattern\_fit
++a_3 caption\_density\_fit
++a_4 format\_weight\_match
++a_5 current\_platform\_preference\_match
+\]
+
+This follows the platform profile doctrine and platform-state model. fileciteturn5file1 fileciteturn5file13
+
+### Audience fit score
+
+\[
+A(x,a)=
+b_1 retention\_potential
++b_2 identity\_binding
++b_3 CTA\_fitness
++b_4 seriality\_support
+\]
+
+This is justified by the audience-state machine and audience engine layer. fileciteturn5file9
+
+### Risk penalty
+
+\[
+R(x)=
+r_1 negative\_space\_violation
++r_2 redundancy
++r_3 crop\_risk
++r_4 legibility\_risk
++r_5 drift\_risk
+\]
+
+---
+
+## II.6 Mode-specific weights
+
+```python
+UNIFIED_SCORE_MODE_WEIGHTS = {
+    "fragment_selection": {
+        "intrinsic": 0.38,
+        "nc": 0.27,
+        "platform": 0.25,
+        "audience": 0.00,
+        "risk": 0.10,
+    },
+    "unit_validation": {
+        "intrinsic": 0.10,
+        "nc": 0.45,
+        "platform": 0.25,
+        "audience": 0.10,
+        "risk": 0.10,
+    },
+    "publish_ranking": {
+        "intrinsic": 0.12,
+        "nc": 0.28,
+        "platform": 0.30,
+        "audience": 0.20,
+        "risk": 0.10,
+    },
+    "attribution_identity_adjustment": {
+        "intrinsic": 0.00,
+        "nc": 0.75,
+        "platform": 0.00,
+        "audience": 0.00,
+        "risk": 0.25,
+    },
+    "update_admission": {
+        "intrinsic": 0.00,
+        "nc": 0.20,
+        "platform": 0.00,
+        "audience": 0.00,
+        "risk": 0.80,
+    },
+}
+```
+
+---
+
+## II.7 Reference implementation
+
+```python
+def unified_score(candidate, nc, platform_profile, audience_context, scoring_mode):
+    nc_result = nc_score(candidate, nc, mode="unit")
+
+    intrinsic_score = candidate["metadata"].get("intrinsic_score", 0.0)
+    platform_fit_score = candidate["metadata"].get("platform_fit_score", 0.0)
+    audience_fit_score = candidate["metadata"].get("audience_fit_score", 0.0)
+    risk_penalty = candidate["metadata"].get("risk_penalty", 0.0)
+
+    weights = UNIFIED_SCORE_MODE_WEIGHTS[scoring_mode]
+
+    total_score = max(
+        0.0,
+        min(
+            1.0,
+            weights["intrinsic"] * intrinsic_score
+            + weights["nc"] * nc_result["total_score"]
+            + weights["platform"] * platform_fit_score
+            + weights["audience"] * audience_fit_score
+            - weights["risk"] * risk_penalty,
+        ),
+    )
+
+    hard_fail_reasons = list(nc_result["hard_fail_reasons"])
+    hard_constraint_pass = len(hard_fail_reasons) == 0
+
+    return UnifiedScoreResult(
+        total_score=total_score,
+        intrinsic_score=intrinsic_score,
+        nc_alignment_score=nc_result["total_score"],
+        platform_fit_score=platform_fit_score,
+        audience_fit_score=audience_fit_score,
+        risk_penalty=risk_penalty,
+        hard_constraint_pass=hard_constraint_pass,
+        hard_fail_reasons=hard_fail_reasons,
+        score_version="unified_score_v1",
+        mode=scoring_mode,
+    )
+```
+
+---
+
+## II.8 Hard constraints
+
+These are not soft penalties. They are gates.
+
+```text
+negative-space violation above threshold
+tonal alignment below floor
+platform profile expired
+text legibility below floor
+safe crop confidence below floor
+```
+
+If any fail:
+
+```text
+hard_constraint_pass = false
+```
+
+This remains consistent with the proof bridge and axiom registry: no score can bypass a hard invariant. fileciteturn5file24 fileciteturn5file25
+
+---
+
+# III. NC_METRIC_REGISTRY
+
+```bash
+$NC_METRIC_REGISTRY_V1
+```
+
+## III.1 Purpose
+
+Natural Center must be independently measurable.
+
+The source corpus explicitly identifies this as missing. Identity cannot remain “enforced but unevaluated.” fileciteturn5file19
+
+---
+
+## III.2 Canonical metrics
+
+### NC_COHERENCE
+
+Per output:
+
+\[
+NC\_COHERENCE(u)=NCScore(u,NC)
+\]
+
+Definition:
+
+```text
+how aligned one output is to the active Natural Center
+```
+
+### NC_CONSISTENCY
+
+Per campaign:
+
+\[
+NC\_CONSISTENCY(C)=1-\frac{1}{|C|}\sum_{u\in C}D(u,\mu_C)
+\]
+
+Definition:
+
+```text
+how internally coherent a set of outputs is
+```
+
+### NC_DRIFT
+
+Across time:
+
+\[
+NC\_DRIFT(NC_t,NC_{t+1})=D(NC_t,NC_{t+1})
+\]
+
+Definition:
+
+```text
+how much the active Natural Center changed between versions
+```
+
+### NC_RECOGNITION
+
+Audience-facing:
+
+\[
+NC\_RECOGNITION=f(repeat\_engagement, recall, branded\_search, symbolic\_association)
+\]
+
+Definition:
+
+```text
+whether the audience is actually recognizing the identity field
+```
+
+### NC_SYMBOLIC_DENSITY
+
+Per output:
+
+\[
+NC\_SYMBOLIC\_DENSITY(u)=\frac{matched\_markers}{possible\_markers}
+\]
+
+### NC_NEGATIVE_SPACE_RISK
+
+Per output:
+
+\[
+NC\_NEGATIVE\_SPACE\_RISK(u)=\Omega_{viol}
+\]
+
+### NC_TONAL_DRIFT
+
+Per output:
+
+\[
+NC\_TONAL\_DRIFT(u)=1-\Tau_{align}
+\]
+
+---
+
+## III.3 Registry schema
+
+```yaml
+NCMetricDefinition:
+  metric_key: string
+  metric_name: string
+  level: output|campaign|nc_version|audience
+  formula: string
+  value_range: [float, float]
+  direction: higher_is_better|lower_is_better
+  threshold_warning: float | null
+  threshold_fail: float | null
+  required_inputs: list[str]
+  owner_service: string
+  version: string
+```
+
+---
+
+## III.4 V1 registry entries
+
+```yaml
+- metric_key: nc_coherence
+  metric_name: NC Coherence
+  level: output
+  formula: "NCScore(u, NC)"
+  value_range: [0.0, 1.0]
+  direction: higher_is_better
+  threshold_warning: 0.72
+  threshold_fail: 0.45
+  required_inputs: [semantic_features, visual_features, tonal_features, narrative_features, symbolic_features, negative_space_features]
+  owner_service: natural-center
+  version: v1
+
+- metric_key: nc_consistency
+  metric_name: NC Consistency
+  level: campaign
+  formula: "1 - mean(distance(u_i, campaign_centroid))"
+  value_range: [0.0, 1.0]
+  direction: higher_is_better
+  threshold_warning: 0.70
+  threshold_fail: 0.55
+  required_inputs: [campaign_output_embeddings]
+  owner_service: natural-center
+  version: v1
+
+- metric_key: nc_drift
+  metric_name: NC Drift
+  level: nc_version
+  formula: "distance(NC_t, NC_t_plus_1)"
+  value_range: [0.0, 1.0]
+  direction: lower_is_better
+  threshold_warning: 0.12
+  threshold_fail: 0.20
+  required_inputs: [prior_nc, next_nc]
+  owner_service: brand-embedding
+  version: v1
+
+- metric_key: nc_recognition
+  metric_name: NC Recognition
+  level: audience
+  formula: "f(recall, repeat_engagement, branded_search, symbolic_association)"
+  value_range: [0.0, 1.0]
+  direction: higher_is_better
+  threshold_warning: null
+  threshold_fail: null
+  required_inputs: [audience_signals]
+  owner_service: audience-engine
+  version: v1
+```
+
+---
+
+## III.5 Storage schema
+
+```sql
+CREATE TABLE nc_metric_definitions (
+  metric_key TEXT PRIMARY KEY,
+  metric_name TEXT NOT NULL,
+  level TEXT NOT NULL,
+  formula TEXT NOT NULL,
+  range_min FLOAT NOT NULL,
+  range_max FLOAT NOT NULL,
+  direction TEXT NOT NULL,
+  threshold_warning FLOAT NULL,
+  threshold_fail FLOAT NULL,
+  required_inputs JSONB NOT NULL,
+  owner_service TEXT NOT NULL,
+  version TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE nc_metric_observations (
+  observation_id TEXT PRIMARY KEY,
+  metric_key TEXT NOT NULL REFERENCES nc_metric_definitions(metric_key),
+  tenant_id TEXT NOT NULL,
+  workspace_id TEXT NOT NULL,
+  brand_id TEXT NOT NULL,
+  nc_id TEXT NOT NULL,
+  nc_version INT NOT NULL,
+  unit_id TEXT NULL,
+  campaign_id TEXT NULL,
+  publish_id TEXT NULL,
+  metric_value FLOAT NOT NULL,
+  measured_at TIMESTAMP NOT NULL,
+  metadata JSONB NOT NULL DEFAULT '{}'::jsonb
+);
+```
+
+This schema extends the runtime research-and-operator model already required by the monorepo architecture. fileciteturn5file21
+
+---
+
+# IV. INTEGRATION RULES
+
+## IV.1 Generation
+
+No generated unit may advance unless:
+
+```text
+nc_score >= unit_min
+hard_constraint_pass = true
+```
+
+## IV.2 Attribution
+
+Identity adjustment becomes:
+
+\[
+IdentityAdj(u)=NC\_COHERENCE(u)
+\]
+
+Then:
+
+\[
+V_p^{NC}=V_p^* \cdot IdentityAdj(u)
+\]
+
+This is the exact attribution integration called for in the attribution framework. fileciteturn5file14
+
+## IV.3 Experimentation
+
+Causal NC hypotheses must use registry metrics directly:
+
+```text
+higher nc_coherence → higher retention_3s
+higher symbolic_density → higher follow_conversion
+lower tonal_drift → higher return rate
+```
+
+## IV.4 Evolution
+
+No NC update may promote unless:
+
+```text
+lift_nc > 0
+nc_drift <= epsilon
+review_status = approved OR auto_promote_policy = true
+```
+
+This matches the bounded-evolution doctrine from the proof bridge and computability review. fileciteturn5file24 fileciteturn5file19
+
+---
+
+# V. TEST REGISTRY
+
+```text
+test_nc_score_range_is_zero_to_one
+test_nc_score_rejects_negative_space_violation
+test_unified_score_is_deterministic_given_fixed_inputs
+test_unified_score_mode_weights_sum_correctly
+test_nc_metric_registry_contains_required_keys
+test_nc_coherence_written_for_every_publishable_unit
+test_attribution_uses_identity_adjustment
+test_nc_update_blocked_when_drift_exceeds_bound
+```
+
+---
+
+# VI. GOVERNANCE
+
+```text
+no publishable object without nc_coherence
+no score without score_version
+no metric without registry definition
+no attribution without identity adjustment
+no nc promotion without drift and causal checks
+```
+
+---
+
+# VII. FINAL RESULT
+
+After this artifact, you have:
+
+```text
+a formal NC scoring API
+a single unified score doctrine
+a first-class NC metric registry
+```
+
+That is the exact code-facing layer required to move from “Natural Center exists” to “Natural Center governs the system as a measurable computational field.” fileciteturn5file19 fileciteturn5file26 fileciteturn5file21
+
+```bash
+$NEXT="IMPLEMENTATION_FILES_V1"
+```
+
+Specifically:
+
+```text
+packages/natural-center-sdk/src/nc_score.py
+packages/metric-definitions/src/unified_score.py
+data/seeds/metric-catalog/nc_metrics_v1.yaml
+contracts/metrics/nc_metric_registry.schema.json
+```

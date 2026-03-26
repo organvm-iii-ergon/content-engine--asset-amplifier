@@ -1,0 +1,720 @@
+```bash
+$AXIOM_REGISTRY_AND_OPERATOR_CONTRACTS_V1
+```
+
+This artifact must **materialize the theoretical system into enforceable, versioned, executable contracts**. It is not descriptive. It is binding.
+
+It sits directly on top of the formal system:
+
+\[
+S = \langle A, F, NC, BE, P, U, O, \Psi, \Lambda \rangle
+\]
+
+and converts it into:
+
+```text
+axioms → invariants
+operators → services + APIs
+objects → schemas
+equations → estimators
+proofs → tests
+```
+
+This is the required next layer after the proof–implementation bridge fileciteturn3file24.
+
+---
+
+# I. AXIOM REGISTRY
+
+```bash
+$AXIOM_REGISTRY_V1
+```
+
+Each axiom must be expressed in four forms simultaneously:
+
+```text
+formal statement
+constraint rule
+schema binding
+test condition
+```
+
+---
+
+## AXIOM_01 — IDENTITY CONSTRAINT
+
+### Formal
+
+\[
+\forall u \in U,\quad NC\_match(u, NC) \ge \tau_{NC}
+\]
+
+### Contract
+
+```yaml
+id: AXIOM_01_IDENTITY
+type: hard_invariant
+enforcement_stage: pre_publish
+blocking: true
+```
+
+### API
+
+```python
+def NC_score(unit: GeneratedUnit, nc: NaturalCenter) -> float
+```
+
+### Enforcement
+
+```python
+if NC_score(u, NC) < NC_THRESHOLD:
+    reject("identity_violation")
+```
+
+### Schema Binding
+
+```sql
+ALTER TABLE generated_units
+ADD COLUMN nc_score FLOAT NOT NULL;
+
+ALTER TABLE generated_units
+ADD COLUMN nc_version TEXT NOT NULL;
+```
+
+### Test
+
+```text
+test_identity_gate_blocks_low_nc_units
+```
+
+---
+
+## AXIOM_02 — LINEAGE CONSERVATION
+
+### Formal
+
+\[
+\forall u \in U,\quad \exists a \in A : lineage(u,a) > 0
+\]
+
+### Contract
+
+```yaml
+id: AXIOM_02_LINEAGE
+type: hard_invariant
+blocking: true
+```
+
+### Schema
+
+```sql
+ALTER TABLE fragments
+ADD CONSTRAINT fk_fragment_asset
+FOREIGN KEY (asset_id) REFERENCES assets(asset_id);
+
+ALTER TABLE generated_units
+ADD CONSTRAINT fk_unit_fragment
+FOREIGN KEY (fragment_id) REFERENCES fragments(fragment_id);
+```
+
+### Multi-source extension
+
+```sql
+CREATE TABLE unit_fragment_map (
+  unit_id TEXT,
+  fragment_id TEXT,
+  weight FLOAT CHECK (weight >= 0),
+  PRIMARY KEY (unit_id, fragment_id)
+);
+```
+
+Constraint:
+
+```sql
+CHECK (sum(weight) = 1)
+```
+
+### Test
+
+```text
+test_every_unit_has_lineage
+```
+
+---
+
+## AXIOM_03 — OBSERVABILITY
+
+### Formal
+
+\[
+\forall u \in U,\quad \exists o \in O : observe(u)
+\]
+
+### Contract
+
+```yaml
+id: AXIOM_03_OBSERVABILITY
+type: workflow_invariant
+```
+
+### Enforcement
+
+```python
+on_publish_complete(publish_id):
+    schedule_analytics_ingestion(publish_id)
+```
+
+### Schema
+
+```sql
+ALTER TABLE publish_events
+ADD COLUMN analytics_required BOOLEAN DEFAULT TRUE;
+```
+
+### Test
+
+```text
+test_publish_triggers_observation_pipeline
+```
+
+---
+
+## AXIOM_04 — PLATFORM DEPENDENCE
+
+### Formal
+
+\[
+success(u) = f(u, P(t))
+\]
+
+### Contract
+
+```yaml
+id: AXIOM_04_PLATFORM_STATE
+type: contextual_invariant
+```
+
+### Schema
+
+```sql
+ALTER TABLE generated_units
+ADD COLUMN platform_profile_id TEXT NOT NULL;
+
+ALTER TABLE platform_profiles
+ADD COLUMN effective_from TIMESTAMP,
+ADD COLUMN effective_to TIMESTAMP;
+```
+
+### Enforcement
+
+```python
+assert platform_profile.is_valid(now)
+```
+
+### Test
+
+```text
+test_units_bind_to_platform_profile_version
+```
+
+---
+
+## AXIOM_05 — LEARNABILITY
+
+### Formal
+
+\[
+\mathcal{S}(t+1) = \Lambda(\mathcal{S}(t), O_t)
+\]
+
+### Contract
+
+```yaml
+id: AXIOM_05_LEARNING
+type: bounded_update
+```
+
+### Enforcement
+
+```python
+if delta_norm(update) > EPSILON:
+    clip(update)
+```
+
+### Test
+
+```text
+test_embedding_updates_are_bounded
+```
+
+---
+
+# II. OPERATOR CONTRACT REGISTRY
+
+```bash
+$OPERATOR_CONTRACTS_V1
+```
+
+Each operator must resolve to:
+
+```text
+input schema
+output schema
+service binding
+determinism class
+test requirement
+```
+
+---
+
+## OPERATOR_01 — EXTRACTION
+
+\[
+\Psi_{extract}: A \rightarrow F
+\]
+
+### Service
+
+```bash
+service/media-analysis
+```
+
+### API
+
+```python
+def extract_fragments(asset: Asset) -> List[Fragment]
+```
+
+### Output schema
+
+```json
+{
+  "fragment_id": "...",
+  "asset_id": "...",
+  "start_time": 0,
+  "end_time": 10,
+  "features": {...}
+}
+```
+
+### Determinism
+
+```text
+semi-deterministic (model-dependent)
+```
+
+### Tests
+
+```text
+test_fragment_generation_consistency
+test_fragment_duration_bounds
+```
+
+---
+
+## OPERATOR_02 — NATURAL CENTER
+
+\[
+\Psi_{NC}: A \cup F \rightarrow NC
+\]
+
+### Service
+
+```bash
+service/natural-center
+```
+
+### API
+
+```python
+def derive_natural_center(corpus: List[Asset]) -> NaturalCenter
+```
+
+### Output schema
+
+Matches:
+
+```text
+T, A, Tau, N, S, Omega, I, M, E
+```
+
+### Constraint
+
+```text
+conf(NC) >= threshold OR require review
+```
+
+### Tests
+
+```text
+test_nc_contains_required_fields
+test_nc_confidence_estimation
+```
+
+---
+
+## OPERATOR_03 — EMBEDDING
+
+\[
+\Phi: NC \rightarrow BE
+\]
+
+### Service
+
+```bash
+service/brand-embedding
+```
+
+### API
+
+```python
+def encode_nc(nc: NaturalCenter) -> BrandEmbedding
+```
+
+### Structure
+
+```yaml
+semantic_vector
+visual_vector
+tonal_vector
+narrative_vector
+symbolic_vector
+negative_vector
+fused_vector
+```
+
+### Test
+
+```text
+test_embedding_dimensions
+test_encode_decode_consistency
+```
+
+---
+
+## OPERATOR_04 — GENERATION
+
+\[
+\Psi_{gen}: (f, BE, P) \rightarrow u
+\]
+
+### Service
+
+```bash
+service/generation-orchestrator
+```
+
+### API
+
+```python
+def generate_units(fragment, embedding, platform_profile) -> List[GeneratedUnit]
+```
+
+### Constraints
+
+```text
+must pass NC validation
+must satisfy platform shape constraints
+```
+
+### Test
+
+```text
+test_generated_units_pass_identity
+```
+
+---
+
+## OPERATOR_05 — SCORING
+
+\[
+\Psi_{score}: (f, BE, P) \rightarrow \mathbb{R}
+\]
+
+### API
+
+```python
+def score_fragment(fragment, embedding, platform) -> float
+```
+
+### Deterministic requirement
+
+```text
+same inputs + same weights → same output
+```
+
+### Test
+
+```text
+test_scoring_determinism
+```
+
+---
+
+## OPERATOR_06 — ATTRIBUTION
+
+\[
+\Psi_{attr}: O \rightarrow \mathbb{R}
+\]
+
+### Service
+
+```bash
+service/attribution-engine
+```
+
+### API
+
+```python
+def compute_attribution(observations) -> AttributionResult
+```
+
+### Constraint
+
+```text
+Σ weights = 1
+```
+
+### Test
+
+```text
+test_attribution_conservation
+```
+
+---
+
+## OPERATOR_07 — AUDIENCE TRANSITION
+
+\[
+\Psi_{aud}: u \rightarrow S_i \rightarrow S_j
+\]
+
+### Service
+
+```bash
+service/audience-engine
+```
+
+### API
+
+```python
+def compute_transition(unit, metrics) -> TransitionProbabilities
+```
+
+### Test
+
+```text
+test_valid_state_transitions
+```
+
+---
+
+## OPERATOR_08 — LEARNING
+
+\[
+\Lambda: (NC, BE, O) \rightarrow (NC', BE')
+\]
+
+### Service
+
+```bash
+service/experimentation-engine
+```
+
+### Constraint
+
+```text
+update only if causal lift > 0
+update bounded by ε
+```
+
+### Test
+
+```text
+test_learning_requires_significance
+```
+
+---
+
+# III. ESTIMATOR REGISTRY
+
+```bash
+$ESTIMATORS_V1
+```
+
+Each equation must be executable.
+
+---
+
+## Fragment Score
+
+```python
+score = dot(w, features) - penalties
+```
+
+---
+
+## Brand Score
+
+```python
+brand_score =
+  Σ w_i * alignment_i
+  - w_neg * negative_score
+```
+
+---
+
+## NC Score
+
+```python
+nc_score =
+  0.30 thematic
++ 0.25 tonal
++ 0.20 aesthetic
++ 0.20 symbolic
+- 0.25 negative_penalty
+```
+
+---
+
+## Attribution Value
+
+```python
+V_p =
+  Σ_k α_k * normalized_metric
++ Σ β * transitions
++ causal_lift
+```
+
+---
+
+# IV. WORKFLOW CONTRACTS
+
+```bash
+$WORKFLOW_CONTRACTS_V1
+```
+
+---
+
+## Asset Pipeline
+
+```text
+asset.uploaded
+→ fragments.generated
+→ NC.derived
+→ units.generated
+→ identity.validated
+→ publish.plan.created
+```
+
+---
+
+## Publish Pipeline
+
+```text
+publish.requested
+→ publish.completed
+→ analytics.scheduled
+```
+
+---
+
+## Attribution Pipeline
+
+```text
+analytics.ingested
+→ attribution.computed
+→ report.generated
+```
+
+---
+
+# V. TEST SUITE REQUIREMENTS
+
+```bash
+$TEST_SUITE_V1
+```
+
+---
+
+## Contract tests
+
+```text
+identity constraint holds
+lineage constraint holds
+platform binding enforced
+```
+
+---
+
+## Integration tests
+
+```text
+asset → fragment → unit → publish → analytics → attribution
+```
+
+---
+
+## Replay tests
+
+```text
+same input → same output (version locked)
+```
+
+---
+
+## Statistical tests
+
+```text
+NC alignment correlates with retention
+experiments meet significance threshold
+```
+
+---
+
+# VI. GOVERNANCE RULE
+
+```text
+no axiom without enforcement
+no operator without API
+no API without schema
+no schema without test
+no learning without bounds
+```
+
+---
+
+# VII. SYSTEM STATE AFTER THIS ARTIFACT
+
+Before:
+
+```text
+theory + architecture
+```
+
+After:
+
+```text
+enforceable system with provable behavior
+```
+
+This completes the transition from:
+
+```text
+conceptual system → executable system
+```
+
+---
+
+# VIII. NEXT
+
+```bash
+$NEXT="NC_ENGINE_V2 + SCORING_UNIFICATION_LAYER"
+```
+
+That is where:
+
+- Natural Center becomes fully measurable
+- scoring, attribution, and generation unify under one function space
+
+At that point, the system becomes **closed under optimization**, which is the final threshold.

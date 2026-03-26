@@ -1,0 +1,88 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: cronus-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: cronus
+      POSTGRES_USER: cronus
+      POSTGRES_PASSWORD: cronus_dev
+    command: >
+      -c shared_preload_libraries=
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cronus -d cronus"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cronus-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: cronus-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cronus-net
+
+  minio:
+    image: minio/minio
+    container_name: cronus-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    networks:
+      - cronus-net
+
+  temporal:
+    image: temporalio/auto-setup:latest
+    container_name: cronus-temporal
+    ports:
+      - "7233:7233"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB: postgres
+      DB_PORT: "5432"
+      POSTGRES_USER: cronus
+      POSTGRES_PWD: cronus_dev
+      POSTGRES_SEEDS: postgres
+    networks:
+      - cronus-net
+
+  temporal-ui:
+    image: temporalio/ui:latest
+    container_name: cronus-temporal-ui
+    ports:
+      - "8233:8080"
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+    depends_on:
+      - temporal
+    networks:
+      - cronus-net
+
+networks:
+  cronus-net:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  minio-data:

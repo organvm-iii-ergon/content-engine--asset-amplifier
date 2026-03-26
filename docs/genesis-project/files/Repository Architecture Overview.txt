@@ -1,0 +1,624 @@
+Reviewed. The sources converge cleanly on one implementable form:
+
+`auto-content-cannibal` is the market-facing product thesis: one premium asset becomes a month or quarter of platform-native output, with scheduling and ROI visibility. fileciteturn2file0
+
+`Cronus-Metabolus` is the operator-grade system behind it: a multi-service, research-integrated operating system with Natural Center enforcement, attribution, experimentation, platform intelligence, and adaptive scheduling. fileciteturn2file1turn2file2
+
+The correct repository therefore is not a simple app repo. It is a monorepo with three simultaneous layers:
+
+1. product layer for operator-facing apps,
+2. execution layer for services and workflows,
+3. research layer for hypotheses, evidence, and platform-evolution state. fileciteturn2file2
+
+## Canonical repository identity
+
+```bash
+$SYSTEM_NAME="cronus-metabolus"
+$SYSTEM_CLASS="temporal-content-yield-and-audience-formation-os"
+$REPO_ID="cronus-metabolus-os"
+$REPO_MODE="monorepo"
+```
+
+## Architecture doctrine
+
+The repo should encode these four laws directly in structure and contracts:
+
+```text
+Every output inherits from Natural Center.
+Every campaign is attributable to source assets.
+Every optimization is experimentally legible.
+Every platform assumption is time-bounded and revisable.
+```
+
+That doctrine is explicit in the source set and should govern the repo root, service boundaries, schemas, and CI policy. fileciteturn2file2
+
+## Full repository architecture
+
+```text
+cronus-metabolus-os/
+├── apps/
+│   ├── gateway-api/
+│   ├── operator-console/
+│   ├── reporting-dashboard/
+│   ├── research-console/
+│   └── public-docs-site/
+│
+├── services/
+│   ├── auth-identity/
+│   ├── asset-ingestion/
+│   ├── media-analysis/
+│   ├── natural-center/
+│   ├── generation-orchestrator/
+│   ├── platform-intelligence/
+│   ├── scheduling-engine/
+│   ├── publishing-connectors/
+│   ├── analytics-ingestion/
+│   ├── attribution-engine/
+│   ├── experimentation-engine/
+│   ├── research-registry/
+│   ├── model-registry/
+│   ├── evidence-store-indexer/
+│   ├── policy-engine/
+│   └── alerting-observability/
+│
+├── packages/
+│   ├── domain-models/
+│   ├── event-schemas/
+│   ├── metric-definitions/
+│   ├── platform-adapters/
+│   ├── analytics-normalizers/
+│   ├── natural-center-sdk/
+│   ├── experiment-sdk/
+│   ├── workflow-sdk/
+│   ├── client-config-sdk/
+│   ├── shared-config/
+│   ├── shared-logging/
+│   ├── shared-auth/
+│   ├── shared-storage/
+│   └── ui-system/
+│
+├── infra/
+│   ├── terraform/
+│   │   ├── modules/
+│   │   ├── environments/
+│   │   │   ├── research/
+│   │   │   ├── staging/
+│   │   │   └── production/
+│   │   └── global/
+│   ├── kubernetes/
+│   │   ├── base/
+│   │   ├── research/
+│   │   ├── staging/
+│   │   └── production/
+│   ├── workflows/
+│   │   ├── temporal/
+│   │   └── replay/
+│   ├── monitoring/
+│   │   ├── opentelemetry/
+│   │   ├── dashboards/
+│   │   └── alerts/
+│   └── secrets/
+│
+├── data/
+│   ├── db-migrations/
+│   │   ├── postgres/
+│   │   └── warehouse/
+│   ├── seeds/
+│   │   ├── platform-era-seeds/
+│   │   ├── metric-catalog/
+│   │   └── experiment-templates/
+│   ├── schemas/
+│   │   ├── operational/
+│   │   ├── experimental/
+│   │   ├── evolutionary/
+│   │   └── source-plane/
+│   └── fixtures/
+│
+├── research/
+│   ├── sources/
+│   │   ├── canonical/
+│   │   ├── platform-docs/
+│   │   ├── market/
+│   │   └── internal/
+│   ├── hypotheses/
+│   ├── experiments/
+│   ├── evidence/
+│   ├── memos/
+│   ├── reports/
+│   ├── platform-change-log/
+│   ├── temporal-models/
+│   └── validation/
+│
+├── clients/
+│   ├── templates/
+│   ├── brand-profiles/
+│   ├── natural-centers/
+│   ├── platform-policies/
+│   └── campaign-configs/
+│
+├── contracts/
+│   ├── api/
+│   ├── events/
+│   ├── database/
+│   ├── metrics/
+│   ├── experiments/
+│   └── platform-profiles/
+│
+├── docs/
+│   ├── architecture/
+│   ├── ontology/
+│   ├── runbooks/
+│   ├── service-contracts/
+│   ├── operations/
+│   ├── security/
+│   ├── onboarding/
+│   └── adr/
+│
+├── scripts/
+│   ├── bootstrap/
+│   ├── local/
+│   ├── ci/
+│   ├── migrations/
+│   ├── replays/
+│   └── backfills/
+│
+├── .github/
+│   ├── workflows/
+│   ├── ISSUE_TEMPLATE/
+│   └── pull_request_template.md
+│
+├── tests/
+│   ├── integration/
+│   ├── contract/
+│   ├── e2e/
+│   ├── replay/
+│   └── load/
+│
+├── .env.example
+├── .env.research.example
+├── .env.staging.example
+├── .env.production.example
+├── Makefile
+├── pnpm-workspace.yaml
+├── turbo.json
+├── docker-compose.yml
+├── README.md
+└── REPO_GOVERNANCE.md
+```
+
+This extends the source repo skeleton in the direction the documents imply but do not fully spell out: explicit `clients/`, `contracts/`, `research-console/`, `policy-engine/`, `evidence-store-indexer/`, and environment-scoped infrastructure roots. The source materials already require the service map, research registry, platform-evolution subsystem, and repo skeleton; this is the hardened version. fileciteturn2file1turn2file2
+
+## What each top-level directory is for
+
+`apps/` is the control plane. It is where humans touch the system.
+
+`services/` is the execution plane. Every major invariant-bearing capability gets its own service because the source explicitly rejects a shallow posting tool and pushes toward a research-and-deployment system with separate contracts for identity, experimentation, and platform adaptation. fileciteturn2file2
+
+`packages/` is the semantic core. It prevents drift between services by centralizing domain objects, event schemas, metrics, adapter interfaces, and shared validation.
+
+`infra/` is the runtime substrate. The source set explicitly calls for container orchestration, object storage, warehouse, event bus, durable workflow engine, cache, and observability. fileciteturn2file2
+
+`data/` is schema truth plus repeatable seeds. It holds migrations, warehouse models, and platform-era seeds for `platform_state(t)`.
+
+`research/` is not optional. The source set treats hypotheses, evidence, experiment definitions, and platform change as first-class production concerns, not side documents. fileciteturn2file2
+
+`clients/` is where brand-specific Natural Center projections, campaign policies, and deployment constraints live. This is how the system remains multi-tenant without dissolving identity.
+
+`contracts/` exists so API, events, database schema, metrics, and experiment objects can be versioned independently and validated in CI.
+
+## Service decomposition
+
+The correct first-wave service boundary is this:
+
+```text
+gateway-api
+auth-identity
+asset-ingestion
+media-analysis
+natural-center
+generation-orchestrator
+publishing-connectors
+analytics-ingestion
+reporting-dashboard
+```
+
+That is directly aligned with the build phases and MVP definition in the implementation blueprint. fileciteturn2file1
+
+The second wave is:
+
+```text
+attribution-engine
+experimentation-engine
+research-registry
+platform-intelligence
+policy-engine
+```
+
+That matches the transition from “content multiplier” to “audience formation + research-integrated system.” fileciteturn2file1turn2file2
+
+## Internal service file template
+
+Use the same internal file tree for every service.
+
+```text
+services/<service-name>/
+├── src/
+│   ├── application/
+│   ├── domain/
+│   ├── infrastructure/
+│   ├── interfaces/
+│   ├── workers/
+│   └── index.ts
+├── contracts/
+├── tests/
+│   ├── unit/
+│   ├── integration/
+│   └── contract/
+├── Dockerfile
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+This gives you stable separation between domain logic, ports/adapters, worker processes, and external contracts.
+
+## Canonical domain objects
+
+These should live in `packages/domain-models/` and be imported everywhere else:
+
+```text
+Asset
+Fragment
+NaturalCenter
+GeneratedUnit
+PublishEvent
+PerformanceObservation
+Experiment
+PlatformProfile
+PlatformChangeEvent
+Campaign
+BrandProfile
+CaptionVariant
+CTAVariant
+SchedulePolicy
+EvidenceRecord
+Hypothesis
+Conclusion
+```
+
+The first eight are explicitly present in the source blueprint. The remaining ones are necessary completion objects once you operationalize campaigns, CTA testing, research evidence, and client configuration. fileciteturn2file1turn2file2
+
+## Event vocabulary
+
+Put these in `packages/event-schemas/`.
+
+```text
+asset.registered
+asset.transcoded
+fragments.generated
+natural_center.computed
+natural_center.validated
+platform_profile.updated
+units.generated
+schedule.computed
+publish.requested
+publish.completed
+analytics.ingested
+attribution.computed
+experiment.started
+experiment.completed
+platform_change.detected
+policy.updated
+identity_drift.detected
+strategy_decay.detected
+```
+
+The first set is directly present in the blueprint. The drift and decay events are required by the failure-handling and platform-adaptation logic. fileciteturn2file1turn2file2
+
+## Full environment variable contract
+
+Below is the environment contract I would actually ship. It includes the source variables, but grouped by domain and extended where the repo needs operational precision. The source materials explicitly require parameterization from the start. fileciteturn2file1turn2file2
+
+```bash
+# ----------------------------------------
+# CORE APPLICATION
+# ----------------------------------------
+$APP_ENV=
+$SYSTEM_ID=cronus-metabolus
+$SYSTEM_NAME=cronus-metabolus
+$SYSTEM_CLASS=temporal-content-yield-and-audience-formation-os
+$PUBLIC_APP_URI=
+$GATEWAY_PORT=3000
+$OPERATOR_CONSOLE_PORT=3001
+$REPORTING_DASHBOARD_PORT=3002
+$RESEARCH_CONSOLE_PORT=3003
+$LOG_LEVEL=info
+$DEFAULT_TIMEZONE=UTC
+
+# ----------------------------------------
+# WORKSPACE / MONOREPO
+# ----------------------------------------
+$REPO_ROOT=
+$CONFIG_DIR=
+$SECRETS_DIR=
+$CLIENTS_DIR=
+$RESEARCH_DIR=
+$EVIDENCE_DIR=
+
+# ----------------------------------------
+# DATABASE / CACHE / BUS / WORKFLOWS
+# ----------------------------------------
+$POSTGRES_URI=
+$POSTGRES_SHADOW_URI=
+$REDIS_URI=
+$EVENT_BUS_URI=
+$EVENT_BUS_CLIENT_ID=
+$WORKFLOW_ENGINE_URI=
+$WORKFLOW_NAMESPACE=cronus-metabolus
+$WORKFLOW_TASK_QUEUE=asset-pipeline
+$DATA_WAREHOUSE_URI=
+$OBJECT_STORE_URI=
+$OBJECT_STORE_BUCKET_RAW=
+$OBJECT_STORE_BUCKET_DERIVED=
+$OBJECT_STORE_BUCKET_REPORTS=
+$MODEL_REGISTRY_URI=
+$EVIDENCE_STORE_URI=
+
+# ----------------------------------------
+# AUTH / SECURITY
+# ----------------------------------------
+$JWT_ISSUER=
+$JWT_AUDIENCE=
+$JWT_PRIVATE_KEY=
+$JWT_PUBLIC_KEY=
+$SESSION_SECRET=
+$ENCRYPTION_KEY=
+$INTERNAL_SERVICE_TOKEN=
+$ALLOWED_ORIGINS=
+
+# ----------------------------------------
+# AI / MODELING
+# ----------------------------------------
+$OPENAI_API_KEY=
+$EMBEDDING_MODEL_ID=
+$GENERATION_MODEL_ID=
+$VISION_MODEL_ID=
+$TRANSCRIPTION_MODEL_ID=
+$RERANK_MODEL_ID=
+$MAX_GENERATION_TOKENS=4096
+$DEFAULT_EMBEDDING_DIMENSIONS=
+$PROMPT_VERSION=1
+
+# ----------------------------------------
+# MEDIA ANALYSIS
+# ----------------------------------------
+$FFMPEG_BIN=/usr/bin/ffmpeg
+$FFPROBE_BIN=/usr/bin/ffprobe
+$SCENE_DETECTION_THRESHOLD=0.35
+$KEYFRAME_INTERVAL_SECONDS=2
+$MAX_ASSET_DURATION_SECONDS=600
+$MAX_ASSET_FILE_SIZE_MB=4096
+$TRANSCODE_PRESET=fast
+
+# ----------------------------------------
+# NATURAL CENTER
+# ----------------------------------------
+$NATURAL_CENTER_SIMILARITY_THRESHOLD=0.82
+$TONAL_DRIFT_THRESHOLD=0.18
+$AESTHETIC_DRIFT_THRESHOLD=0.20
+$SYMBOLIC_MARKER_MIN_SCORE=0.70
+$NATURAL_CENTER_MIN_ASSETS=1
+$NATURAL_CENTER_REVIEW_REQUIRED=true
+$NEGATIVE_SPACE_ENFORCEMENT=true
+$IDENTITY_BLOCK_ON_DRIFT=true
+
+# ----------------------------------------
+# GENERATION / CONTENT POLICY
+# ----------------------------------------
+$MAX_GENERATED_UNITS_PER_ASSET=40
+$DEFAULT_POSTING_WINDOW_DAYS=30
+$ALLOW_AUTO_CAPTIONS=true
+$ALLOW_AUTO_HASHTAGS=true
+$ALLOW_AUTO_CTA_VARIANTS=true
+$GENERATION_APPROVAL_REQUIRED=true
+$PLATFORM_PROFILE_STRICT_MODE=true
+
+# ----------------------------------------
+# PLATFORM CONNECTORS
+# ----------------------------------------
+$YOUTUBE_CONNECTOR_ENABLED=false
+$INSTAGRAM_CONNECTOR_ENABLED=false
+$TIKTOK_CONNECTOR_ENABLED=false
+$LINKEDIN_CONNECTOR_ENABLED=false
+
+$YOUTUBE_CLIENT_ID=
+$YOUTUBE_CLIENT_SECRET=
+$YOUTUBE_REDIRECT_URI=
+$YOUTUBE_CHANNEL_ID=
+
+$INSTAGRAM_CLIENT_ID=
+$INSTAGRAM_CLIENT_SECRET=
+$INSTAGRAM_REDIRECT_URI=
+$INSTAGRAM_ACCOUNT_ID=
+
+$TIKTOK_CLIENT_ID=
+$TIKTOK_CLIENT_SECRET=
+$TIKTOK_REDIRECT_URI=
+$TIKTOK_ACCOUNT_ID=
+
+$LINKEDIN_CLIENT_ID=
+$LINKEDIN_CLIENT_SECRET=
+$LINKEDIN_REDIRECT_URI=
+$LINKEDIN_ORGANIZATION_ID=
+
+# ----------------------------------------
+# ANALYTICS / ATTRIBUTION
+# ----------------------------------------
+$ANALYTICS_POLL_CRON=0 */6 * * *
+$ANALYTICS_BACKFILL_DAYS=30
+$MIN_ANALYTICS_RELIABILITY_SCORE=0.70
+$ATTRIBUTION_LOOKBACK_DAYS=90
+$ASSET_RETIREMENT_HALF_LIFE_DAYS=21
+$FOLLOW_CONVERSION_LOOKBACK_DAYS=30
+$REPORT_DEFAULT_WINDOW_DAYS=30
+
+# ----------------------------------------
+# EXPERIMENTATION / STATISTICS
+# ----------------------------------------
+$EXPERIMENT_MIN_SAMPLE_SIZE=1000
+$SIGNIFICANCE_ALPHA=0.05
+$EXPERIMENT_DEFAULT_POWER=0.80
+$EXPERIMENT_HOLDOUT_RATIO=0.10
+$ALLOW_MULTI_ARMED_BANDITS=false
+$DEFAULT_PRIMARY_METRIC=retention_3s
+$DEFAULT_SECONDARY_METRIC=follower_conversion_rate
+
+# ----------------------------------------
+# PLATFORM INTELLIGENCE / CHANGE DETECTION
+# ----------------------------------------
+$PLATFORM_SHIFT_ALERT_THRESHOLD=0.20
+$PLATFORM_DOCS_REFRESH_CRON=0 */12 * * *
+$PLATFORM_PROFILE_CONFIDENCE_FLOOR=0.60
+$STRATEGY_DECAY_LOOKBACK_DAYS=21
+$AUTO_CREATE_PLATFORM_CHANGE_EVENT=true
+$ENABLE_PLATFORM_ERA_MODELING=true
+
+# ----------------------------------------
+# SCHEDULING / DEPLOYMENT
+# ----------------------------------------
+$SCHEDULING_ENABLED=true
+$DEFAULT_SCHEDULING_POLICY=engagement_weighted
+$MAX_POSTS_PER_DAY_PER_PLATFORM=3
+$MIN_HOURS_BETWEEN_POSTS=4
+$RETRY_CONNECTOR_ATTEMPTS=3
+$PUBLISH_DRY_RUN=false
+$APPROVAL_REQUIRED_FOR_PUBLISH=true
+
+# ----------------------------------------
+# CLIENT / TENANCY
+# ----------------------------------------
+$DEFAULT_BRAND_ID=
+$DEFAULT_CLIENT_ID=
+$MULTI_TENANT_MODE=true
+$CLIENT_CONFIG_STRICT_VALIDATION=true
+$WHITE_LABEL_MODE=false
+
+# ----------------------------------------
+# OBSERVABILITY
+# ----------------------------------------
+$OTEL_EXPORTER_OTLP_ENDPOINT=
+$METRICS_EXPORT_ENABLED=true
+$TRACING_ENABLED=true
+$ERROR_REPORTING_DSN=
+$ALERT_EMAIL_FROM=
+$ALERT_EMAIL_TO=
+$SLACK_WEBHOOK_URI=
+
+# ----------------------------------------
+# CI / TEST / LOCAL DEV
+# ----------------------------------------
+$CI=false
+$TEST_POSTGRES_URI=
+$TEST_REDIS_URI=
+$TEST_OBJECT_STORE_URI=
+$ENABLE_REPLAY_TESTS=true
+$ENABLE_LOAD_TESTS=false
+$SEED_PLATFORM_ERAS=true
+```
+
+## `.env` file layout
+
+Use four environment templates.
+
+```text
+.env.example
+.env.research.example
+.env.staging.example
+.env.production.example
+```
+
+`research` should allow looser policies, high logging, replay mode, and partial connector disablement.
+
+`staging` should use sandbox credentials, dry-run publishing, and analytics replay.
+
+`production` should lock connectors, require approvals where configured, and enforce drift thresholds. Those three environments are explicitly required in the source material. fileciteturn2file2
+
+## Package manager and language choice
+
+The source set does not prescribe language. The cleanest fit is:
+
+```bash
+$MONOREPO_TOOL="pnpm + turbo"
+$PRIMARY_LANGUAGE="typescript"
+$WORKFLOW_RUNTIME="temporal"
+$DB="postgres"
+$CACHE="redis"
+$QUEUE="kafka-or-equivalent"
+```
+
+That matches the service-heavy, contract-heavy, event-driven structure in the documents. fileciteturn2file1turn2file2
+
+## Suggested top-level governance files
+
+```text
+README.md
+REPO_GOVERNANCE.md
+ARCHITECTURE.md
+ONTOLOGY.md
+ENVIRONMENT_VARIABLES.md
+EVENT_CATALOG.md
+METRIC_CATALOG.md
+EXPERIMENT_POLICY.md
+PLATFORM_EVOLUTION_POLICY.md
+NATURAL_CENTER_POLICY.md
+```
+
+These matter because the repo is doing double duty as execution system and epistemic system.
+
+## Minimal first implementation slice
+
+If the goal is the shortest path to a real first build, this is the initial thin slice:
+
+```text
+apps/gateway-api
+apps/operator-console
+apps/reporting-dashboard
+
+services/asset-ingestion
+services/media-analysis
+services/natural-center
+services/generation-orchestrator
+services/publishing-connectors
+services/analytics-ingestion
+
+packages/domain-models
+packages/event-schemas
+packages/metric-definitions
+packages/natural-center-sdk
+packages/shared-config
+
+infra/workflows/temporal
+data/db-migrations/postgres
+clients/templates
+contracts/api
+contracts/events
+```
+
+That is the strict MVP implied by the original product document and the later implementation blueprint: upload asset, extract fragments, generate posts, publish, and report. fileciteturn2file0turn2file1
+
+## Bottom-line translation
+
+Your sources resolve into this architecture:
+
+```text
+market claim:
+one premium asset -> many platform-native outputs + measurable ROI
+
+operator reality:
+source plane -> natural center -> platform-aware generation -> scheduling ->
+publishing -> analytics -> attribution -> experimentation -> adaptation
+```
+
+That is the correct repository frame. fileciteturn2file0turn2file1turn2file2
+
+The next logical artifact is a full `README.md + .env.example + monorepo bootstrap scaffold` in code form.

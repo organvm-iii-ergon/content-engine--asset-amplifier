@@ -1,0 +1,787 @@
+```bash
+$OUTPUT="FIGMA_FILE_SPEC + COMPONENT_JSON_EXPORT + DESIGN_TOKENS_SYNC_SCRIPT"
+$SYSTEM_NAME="cronus-metabolus"
+$PRODUCT_SURFACE="auto-content-cannibal"
+$DESIGN_SYSTEM_ID="cronus_metabolus_pitch_system_v1"
+```
+
+Below is the **complete implementation-facing package** for the design layer. It is derived from the system identity, product narrative, control-plane logic, and Figma-ready framing already established in the source set: premium asset in, many outputs out, with identity enforcement, attribution visibility, and audience/economic framing carried consistently into the interface layer. fileciteturn1file33 fileciteturn1file12 fileciteturn1file21
+
+# I. FIGMA FILE SPEC
+
+```yaml
+$FIGMA_FILE_SPEC:
+  file_name: "Cronus Metabolus — Pitch System v1"
+  team: "Cronus Metabolus"
+  pages:
+    - "00_Cover"
+    - "01_Foundations"
+    - "02_Tokens"
+    - "03_Components"
+    - "04_Slide_Templates"
+    - "05_Final_Deck_Investor"
+    - "06_Final_Deck_Agency"
+    - "07_Final_Deck_Landing"
+    - "08_Exports"
+    - "09_Archive"
+
+  page_00_cover:
+    purpose: "Entry page with system identity and usage notes"
+    frames:
+      - "FILE_OVERVIEW"
+      - "VERSION_HISTORY"
+      - "USAGE_PROTOCOL"
+
+  page_01_foundations:
+    purpose: "Brand logic, positioning, message hierarchy"
+    frames:
+      - "BRAND_FOUNDATION"
+      - "VOICE_GUIDE"
+      - "MESSAGING_LADDER"
+      - "NARRATIVE_ARC"
+
+  page_02_tokens:
+    purpose: "All primitive and semantic tokens"
+    frames:
+      - "COLOR_TOKENS"
+      - "TYPE_TOKENS"
+      - "SPACE_TOKENS"
+      - "RADIUS_TOKENS"
+      - "STROKE_TOKENS"
+      - "SHADOW_TOKENS"
+      - "MOTION_TOKENS"
+      - "GRID_TOKENS"
+
+  page_03_components:
+    purpose: "Reusable component library"
+    sections:
+      - "C01_Text"
+      - "C02_Cards"
+      - "C03_Diagrams"
+      - "C04_Metrics"
+      - "C05_Layout"
+      - "C06_Navigation"
+      - "C07_CTA"
+      - "C08_Footer"
+      - "C09_Deck_Utilities"
+
+  page_04_slide_templates:
+    purpose: "Canonical slide skeletons"
+    frames:
+      - "T01_Title"
+      - "T02_Problem_Split"
+      - "T03_Category_Shift"
+      - "T04_Product_Flow"
+      - "T05_System_Stack"
+      - "T06_Before_After"
+      - "T07_Metric_Row"
+      - "T08_Market_Columns"
+      - "T09_Roadmap_Timeline"
+      - "T10_End_State"
+
+  page_05_final_deck_investor:
+    purpose: "Investor-ready 12–14 slide deck"
+    frames:
+      - "S01_Title"
+      - "S02_Problem"
+      - "S03_Category"
+      - "S04_Product"
+      - "S05_Engine"
+      - "S06_Differentiation"
+      - "S07_Identity"
+      - "S08_Output_Multiplier"
+      - "S09_Attribution"
+      - "S10_Audience"
+      - "S11_Market"
+      - "S12_Business_Model"
+      - "S13_Roadmap"
+      - "S14_End_State"
+
+  page_06_final_deck_agency:
+    purpose: "Agency sales deck"
+    frames:
+      - "A01_Title"
+      - "A02_Client_Problem"
+      - "A03_Project_to_Retainer"
+      - "A04_Workflow"
+      - "A05_What_You_Sell"
+      - "A06_Differentiation"
+      - "A07_ROI_Dashboard"
+      - "A08_Offer_Architecture"
+      - "A09_Pricing_Logic"
+      - "A10_Close"
+
+  page_07_final_deck_landing:
+    purpose: "Landing-page narrative system"
+    frames:
+      - "L01_Hero"
+      - "L02_Problem"
+      - "L03_How_It_Works"
+      - "L04_Output_Grid"
+      - "L05_Differentiation"
+      - "L06_Results"
+      - "L07_Proof"
+      - "L08_Final_CTA"
+
+  page_08_exports:
+    purpose: "Export-ready assets"
+    frames:
+      - "PNG_EXPORTS"
+      - "PDF_EXPORTS"
+      - "SOCIAL_PREVIEWS"
+
+  page_09_archive:
+    purpose: "Deprecated variants and prior iterations"
+```
+
+This file structure matches the system split between product surface, reusable primitives, and execution-facing design discipline. It is also consistent with the repo logic of distinct layers, versioned contracts, and reusable system components rather than ad hoc screens. fileciteturn1file21 fileciteturn1file31
+
+# II. FRAME AND AUTO-LAYOUT SPEC
+
+```yaml
+$FRAME_SPEC:
+  base_frame:
+    width: 1600
+    height: 900
+    layout_mode: "VERTICAL"
+    primary_axis_sizing_mode: "FIXED"
+    counter_axis_sizing_mode: "FIXED"
+    padding_top: 80
+    padding_right: 80
+    padding_bottom: 80
+    padding_left: 80
+    item_spacing: 40
+    background: "{color.bg.canvas}"
+
+  content_max_width: 1440
+
+  grid:
+    columns: 12
+    gutter: 24
+    margin: 80
+    type: "STRETCH"
+
+  alignment:
+    default_horizontal: "MIN"
+    default_vertical: "MIN"
+
+  section_gap:
+    large: 64
+    medium: 40
+    small: 24
+
+  template_rules:
+    title_slide:
+      vertical_align: "CENTER"
+      content_justification: "CENTER"
+      max_text_width: 960
+
+    split_slide:
+      columns: "6/6"
+      item_spacing: 40
+
+    metric_slide:
+      columns: 4
+      card_min_width: 280
+
+    comparison_slide:
+      columns: "5/2/5"
+
+    timeline_slide:
+      direction: "HORIZONTAL"
+      nodes: 4
+```
+
+# III. TOKENS
+
+```json
+{
+  "$schema": "https://tokens.studio/schema.json",
+  "global": {
+    "color": {
+      "bg": {
+        "canvas": { "value": "#0A0A0A", "type": "color" },
+        "surface": { "value": "#121212", "type": "color" },
+        "elevated": { "value": "#181818", "type": "color" }
+      },
+      "text": {
+        "primary": { "value": "#FFFFFF", "type": "color" },
+        "secondary": { "value": "#A3A3A3", "type": "color" },
+        "muted": { "value": "#737373", "type": "color" },
+        "inverse": { "value": "#0A0A0A", "type": "color" }
+      },
+      "stroke": {
+        "subtle": { "value": "rgba(255,255,255,0.10)", "type": "color" },
+        "strong": { "value": "rgba(255,255,255,0.18)", "type": "color" }
+      },
+      "accent": {
+        "blue": { "value": "#5B8CFF", "type": "color" },
+        "violet": { "value": "#9B5CFF", "type": "color" },
+        "cyan": { "value": "#58D1FF", "type": "color" },
+        "success": { "value": "#4ADE80", "type": "color" },
+        "warning": { "value": "#FBBF24", "type": "color" }
+      },
+      "gradient": {
+        "brand": {
+          "value": "linear-gradient(135deg, #5B8CFF 0%, #9B5CFF 100%)",
+          "type": "color"
+        },
+        "hero": {
+          "value": "linear-gradient(135deg, rgba(91,140,255,0.18) 0%, rgba(155,92,255,0.18) 100%)",
+          "type": "color"
+        }
+      }
+    },
+    "fontFamily": {
+      "sans": { "value": "Inter", "type": "fontFamilies" }
+    },
+    "fontWeight": {
+      "regular": { "value": "400", "type": "fontWeights" },
+      "medium": { "value": "500", "type": "fontWeights" },
+      "semibold": { "value": "600", "type": "fontWeights" },
+      "bold": { "value": "700", "type": "fontWeights" }
+    },
+    "fontSize": {
+      "meta": { "value": "16", "type": "fontSizes" },
+      "body": { "value": "20", "type": "fontSizes" },
+      "h2": { "value": "32", "type": "fontSizes" },
+      "h1": { "value": "48", "type": "fontSizes" },
+      "display": { "value": "72", "type": "fontSizes" }
+    },
+    "lineHeight": {
+      "tight": { "value": "1.05", "type": "lineHeights" },
+      "display": { "value": "1.0", "type": "lineHeights" },
+      "heading": { "value": "1.1", "type": "lineHeights" },
+      "body": { "value": "1.4", "type": "lineHeights" },
+      "meta": { "value": "1.3", "type": "lineHeights" }
+    },
+    "letterSpacing": {
+      "tight": { "value": "-0.04em", "type": "letterSpacing" },
+      "normal": { "value": "0em", "type": "letterSpacing" },
+      "wide": { "value": "0.08em", "type": "letterSpacing" }
+    },
+    "space": {
+      "0": { "value": "0", "type": "spacing" },
+      "1": { "value": "8", "type": "spacing" },
+      "2": { "value": "16", "type": "spacing" },
+      "3": { "value": "24", "type": "spacing" },
+      "4": { "value": "32", "type": "spacing" },
+      "5": { "value": "40", "type": "spacing" },
+      "6": { "value": "64", "type": "spacing" },
+      "7": { "value": "80", "type": "spacing" },
+      "8": { "value": "120", "type": "spacing" }
+    },
+    "radius": {
+      "sm": { "value": "12", "type": "borderRadius" },
+      "md": { "value": "16", "type": "borderRadius" },
+      "lg": { "value": "24", "type": "borderRadius" }
+    },
+    "borderWidth": {
+      "hairline": { "value": "1", "type": "borderWidth" }
+    },
+    "shadow": {
+      "card": {
+        "value": "0px 8px 24px rgba(0,0,0,0.24)",
+        "type": "boxShadow"
+      }
+    },
+    "motion": {
+      "durationFast": { "value": "200ms", "type": "duration" },
+      "durationBase": { "value": "300ms", "type": "duration" },
+      "easeStandard": { "value": "cubic-bezier(0.2,0,0,1)", "type": "cubicBezier" }
+    },
+    "size": {
+      "frameWidth": { "value": "1600", "type": "sizing" },
+      "frameHeight": { "value": "900", "type": "sizing" },
+      "contentMax": { "value": "1440", "type": "sizing" }
+    }
+  }
+}
+```
+
+# IV. STYLE DEFINITIONS
+
+```yaml
+$STYLE_SPEC:
+  text_styles:
+    Display:
+      font_family: "{fontFamily.sans}"
+      font_weight: "{fontWeight.semibold}"
+      font_size: "{fontSize.display}"
+      line_height: "{lineHeight.display}"
+      letter_spacing: "{letterSpacing.tight}"
+      color: "{color.text.primary}"
+
+    H1:
+      font_family: "{fontFamily.sans}"
+      font_weight: "{fontWeight.semibold}"
+      font_size: "{fontSize.h1}"
+      line_height: "{lineHeight.heading}"
+      letter_spacing: "{letterSpacing.tight}"
+      color: "{color.text.primary}"
+
+    H2:
+      font_family: "{fontFamily.sans}"
+      font_weight: "{fontWeight.medium}"
+      font_size: "{fontSize.h2}"
+      line_height: "{lineHeight.heading}"
+      color: "{color.text.primary}"
+
+    Body:
+      font_family: "{fontFamily.sans}"
+      font_weight: "{fontWeight.regular}"
+      font_size: "{fontSize.body}"
+      line_height: "{lineHeight.body}"
+      color: "{color.text.primary}"
+
+    Meta:
+      font_family: "{fontFamily.sans}"
+      font_weight: "{fontWeight.regular}"
+      font_size: "{fontSize.meta}"
+      line_height: "{lineHeight.meta}"
+      color: "{color.text.secondary}"
+
+    LabelCaps:
+      font_family: "{fontFamily.sans}"
+      font_weight: "{fontWeight.medium}"
+      font_size: "{fontSize.meta}"
+      line_height: "{lineHeight.meta}"
+      letter_spacing: "{letterSpacing.wide}"
+      color: "{color.text.secondary}"
+      text_case: "UPPER"
+
+  effect_styles:
+    CardShadow:
+      box_shadow: "{shadow.card}"
+
+  fill_styles:
+    BgCanvas:
+      fill: "{color.bg.canvas}"
+
+    BgSurface:
+      fill: "{color.bg.surface}"
+
+    AccentGradient:
+      fill: "{color.gradient.brand}"
+
+    HeroGradient:
+      fill: "{color.gradient.hero}"
+
+  stroke_styles:
+    StrokeSubtle:
+      stroke: "{color.stroke.subtle}"
+      stroke_width: "{borderWidth.hairline}"
+```
+
+# V. COMPONENT JSON EXPORT
+
+```json
+{
+  "designSystemId": "cronus_metabolus_pitch_system_v1",
+  "components": [
+    {
+      "name": "Text / TitleBlock",
+      "type": "FRAME",
+      "layoutMode": "VERTICAL",
+      "itemSpacing": 24,
+      "paddingTop": 0,
+      "paddingRight": 0,
+      "paddingBottom": 0,
+      "paddingLeft": 0,
+      "children": [
+        { "name": "Eyebrow", "textStyle": "LabelCaps", "visible": true },
+        { "name": "Title", "textStyle": "Display" },
+        { "name": "Subtitle", "textStyle": "Body" }
+      ],
+      "variants": {
+        "align": ["left", "center"],
+        "size": ["hero", "standard"]
+      }
+    },
+    {
+      "name": "Card / Metric",
+      "type": "FRAME",
+      "layoutMode": "VERTICAL",
+      "itemSpacing": 16,
+      "paddingTop": 24,
+      "paddingRight": 24,
+      "paddingBottom": 24,
+      "paddingLeft": 24,
+      "cornerRadius": 16,
+      "fillStyle": "BgSurface",
+      "strokeStyle": "StrokeSubtle",
+      "effectStyle": "CardShadow",
+      "children": [
+        { "name": "MetricValue", "textStyle": "H1" },
+        { "name": "MetricLabel", "textStyle": "Meta" }
+      ],
+      "variants": {
+        "tone": ["default", "accent"],
+        "size": ["sm", "md", "lg"]
+      }
+    },
+    {
+      "name": "Card / ContentNode",
+      "type": "FRAME",
+      "layoutMode": "VERTICAL",
+      "itemSpacing": 12,
+      "paddingTop": 24,
+      "paddingRight": 24,
+      "paddingBottom": 24,
+      "paddingLeft": 24,
+      "cornerRadius": 16,
+      "fillStyle": "BgSurface",
+      "strokeStyle": "StrokeSubtle",
+      "children": [
+        { "name": "Icon", "type": "VECTOR" },
+        { "name": "Label", "textStyle": "H2" },
+        { "name": "Meta", "textStyle": "Meta" }
+      ],
+      "variants": {
+        "state": ["default", "active", "muted"]
+      }
+    },
+    {
+      "name": "Diagram / FlowArrow",
+      "type": "FRAME",
+      "layoutMode": "HORIZONTAL",
+      "children": [
+        { "name": "Line", "type": "VECTOR" },
+        { "name": "ArrowHead", "type": "VECTOR" }
+      ],
+      "variants": {
+        "direction": ["right", "down"]
+      }
+    },
+    {
+      "name": "Layout / SplitSection",
+      "type": "FRAME",
+      "layoutMode": "HORIZONTAL",
+      "itemSpacing": 40,
+      "children": [
+        { "name": "LeftColumn", "type": "FRAME", "width": 700 },
+        { "name": "RightColumn", "type": "FRAME", "width": 700 }
+      ],
+      "variants": {
+        "ratio": ["6-6", "7-5", "5-7"]
+      }
+    },
+    {
+      "name": "Layout / SlideFrame",
+      "type": "FRAME",
+      "layoutMode": "VERTICAL",
+      "width": 1600,
+      "height": 900,
+      "paddingTop": 80,
+      "paddingRight": 80,
+      "paddingBottom": 80,
+      "paddingLeft": 80,
+      "itemSpacing": 40,
+      "fillStyle": "BgCanvas",
+      "children": [
+        { "name": "Content", "type": "FRAME", "width": 1440 }
+      ],
+      "variants": {
+        "template": [
+          "title",
+          "split",
+          "flow",
+          "comparison",
+          "metrics",
+          "timeline",
+          "statement"
+        ]
+      }
+    },
+    {
+      "name": "CTA / PrimaryButton",
+      "type": "FRAME",
+      "layoutMode": "HORIZONTAL",
+      "paddingTop": 16,
+      "paddingRight": 24,
+      "paddingBottom": 16,
+      "paddingLeft": 24,
+      "cornerRadius": 16,
+      "fillStyle": "AccentGradient",
+      "children": [
+        { "name": "Label", "textStyle": "Meta", "textColor": "{color.text.primary}" }
+      ],
+      "variants": {
+        "size": ["md", "lg"],
+        "state": ["default", "hover", "disabled"]
+      }
+    }
+  ]
+}
+```
+
+# VI. TEMPLATE-BY-TEMPLATE FIGMA BUILD CONTRACT
+
+```yaml
+$TEMPLATE_BUILD_SPEC:
+  T01_Title:
+    root_component: "Layout / SlideFrame"
+    template_variant: "title"
+    child_order:
+      - "Text / TitleBlock"
+    notes: "Use centered alignment. Subtitle max width 760."
+
+  T02_Problem_Split:
+    root_component: "Layout / SlideFrame"
+    template_variant: "split"
+    child_order:
+      - "Layout / SplitSection"
+    left_column:
+      - "Text / TitleBlock"
+      - "BodyCopy"
+    right_column:
+      - "Diagram / WasteSystemGraphic"
+
+  T03_Category_Shift:
+    root_component: "Layout / SlideFrame"
+    template_variant: "comparison"
+    child_order:
+      - "ComparisonHeader"
+      - "BeforeState"
+      - "Diagram / FlowArrow"
+      - "AfterState"
+
+  T04_Product_Flow:
+    root_component: "Layout / SlideFrame"
+    template_variant: "flow"
+    child_order:
+      - "SectionHeader"
+      - "FlowRow"
+    flow_row:
+      nodes:
+        - "Asset"
+        - "Fragments"
+        - "Posts"
+        - "Metrics"
+
+  T05_System_Stack:
+    root_component: "Layout / SlideFrame"
+    template_variant: "statement"
+    child_order:
+      - "SectionHeader"
+      - "LayerStack"
+
+  T06_Before_After:
+    root_component: "Layout / SlideFrame"
+    template_variant: "comparison"
+    child_order:
+      - "SectionHeader"
+      - "BeforePanel"
+      - "Diagram / FlowArrow"
+      - "AfterPanel"
+
+  T07_Metric_Row:
+    root_component: "Layout / SlideFrame"
+    template_variant: "metrics"
+    child_order:
+      - "SectionHeader"
+      - "MetricGrid"
+
+  T08_Market_Columns:
+    root_component: "Layout / SlideFrame"
+    template_variant: "split"
+    override:
+      columns: 3
+    child_order:
+      - "MarketCard_01"
+      - "MarketCard_02"
+      - "MarketCard_03"
+
+  T09_Roadmap_Timeline:
+    root_component: "Layout / SlideFrame"
+    template_variant: "timeline"
+    child_order:
+      - "SectionHeader"
+      - "TimelineRow"
+
+  T10_End_State:
+    root_component: "Layout / SlideFrame"
+    template_variant: "statement"
+    child_order:
+      - "Text / TitleBlock"
+      - "SupportingLine"
+```
+
+# VII. DESIGN TOKENS SYNC SCRIPT
+
+This script assumes a local design-tokens repo structure and pushes a token JSON file suitable for Tokens Studio, Style Dictionary, or a frontend token pipeline. It uses environment variables throughout.
+
+```python
+#!/usr/bin/env python3
+"""
+$SCRIPT_NAME="sync_design_tokens.py"
+$PURPOSE="Normalize and sync Cronus Metabolus design tokens to platform targets"
+$REQUIRED_ENV_VARS="TOKENS_SOURCE_JSON TOKENS_OUTPUT_DIR TOKENS_BRAND_ID TOKENS_VERSION"
+"""
+
+import json
+import os
+from pathlib import Path
+from typing import Any, Dict
+
+$TOKENS_SOURCE_JSON = os.environ.get("TOKENS_SOURCE_JSON")
+$TOKENS_OUTPUT_DIR = os.environ.get("TOKENS_OUTPUT_DIR")
+$TOKENS_BRAND_ID = os.environ.get("TOKENS_BRAND_ID", "cronus_metabolus")
+$TOKENS_VERSION = os.environ.get("TOKENS_VERSION", "v1")
+
+if not $TOKENS_SOURCE_JSON:
+    raise RuntimeError("Missing required environment variable: TOKENS_SOURCE_JSON")
+
+if not $TOKENS_OUTPUT_DIR:
+    raise RuntimeError("Missing required environment variable: TOKENS_OUTPUT_DIR")
+
+
+def load_tokens(path: str) -> Dict[str, Any]:
+    with open(path, "r", encoding="utf-8") as $FILE:
+        return json.load($FILE)
+
+
+def ensure_output_dir(path: str) -> Path:
+    $DIR = Path(path)
+    $DIR.mkdir(parents=True, exist_ok=True)
+    return $DIR
+
+
+def flatten_tokens($NODE: Dict[str, Any], $PREFIX: str = "") -> Dict[str, Any]:
+    $OUT: Dict[str, Any] = {}
+    for $KEY, $VALUE in $NODE.items():
+        $PATH = f"{$PREFIX}.{$KEY}" if $PREFIX else $KEY
+        if isinstance($VALUE, dict) and "value" in $VALUE and "type" in $VALUE:
+            $OUT[$PATH] = $VALUE["value"]
+        elif isinstance($VALUE, dict):
+            $OUT.update(flatten_tokens($VALUE, $PATH))
+    return $OUT
+
+
+def to_css_vars($FLAT: Dict[str, Any]) -> str:
+    $LINES = [":root {"]
+    for $KEY, $VALUE in sorted($FLAT.items()):
+        $CSS_NAME = "--" + $KEY.replace(".", "-").replace("_", "-")
+        $LINES.append(f"  {$CSS_NAME}: {$VALUE};")
+    $LINES.append("}")
+    return "\n".join($LINES) + "\n"
+
+
+def to_tailwind_extend($FLAT: Dict[str, Any]) -> Dict[str, Any]:
+    $COLORS: Dict[str, Any] = {}
+    $SPACING: Dict[str, Any] = {}
+    $FONT_SIZE: Dict[str, Any] = {}
+    $RADIUS: Dict[str, Any] = {}
+
+    for $KEY, $VALUE in $FLAT.items():
+        if $KEY.startswith("global.color."):
+            $COLORS[$KEY.replace("global.color.", "").replace(".", "-")] = $VALUE
+        elif $KEY.startswith("global.space."):
+            $SPACING[$KEY.replace("global.space.", "")] = f"{$VALUE}px"
+        elif $KEY.startswith("global.fontSize."):
+            $FONT_SIZE[$KEY.replace("global.fontSize.", "")] = f"{$VALUE}px"
+        elif $KEY.startswith("global.radius."):
+            $RADIUS[$KEY.replace("global.radius.", "")] = f"{$VALUE}px"
+
+    return {
+        "theme": {
+            "extend": {
+                "colors": $COLORS,
+                "spacing": $SPACING,
+                "fontSize": $FONT_SIZE,
+                "borderRadius": $RADIUS,
+            }
+        }
+    }
+
+
+def write_json(path: Path, payload: Dict[str, Any]) -> None:
+    with open(path, "w", encoding="utf-8") as $FILE:
+        json.dump(payload, $FILE, indent=2, ensure_ascii=False)
+        $FILE.write("\n")
+
+
+def write_text(path: Path, payload: str) -> None:
+    with open(path, "w", encoding="utf-8") as $FILE:
+        $FILE.write(payload)
+
+
+def main() -> None:
+    $TOKENS = load_tokens($TOKENS_SOURCE_JSON)
+    $FLAT = flatten_tokens($TOKENS)
+    $OUT_DIR = ensure_output_dir($TOKENS_OUTPUT_DIR)
+
+    $TOKENS_EXPORT = {
+        "brandId": $TOKENS_BRAND_ID,
+        "version": $TOKENS_VERSION,
+        "tokens": $TOKENS,
+    }
+
+    $FLAT_EXPORT = {
+        "brandId": $TOKENS_BRAND_ID,
+        "version": $TOKENS_VERSION,
+        "flat": $FLAT,
+    }
+
+    $TAILWIND_EXPORT = to_tailwind_extend($FLAT)
+    $CSS_EXPORT = to_css_vars($FLAT)
+
+    write_json($OUT_DIR / f"{$TOKENS_BRAND_ID}.tokens.{ $TOKENS_VERSION }.json", $TOKENS_EXPORT)
+    write_json($OUT_DIR / f"{$TOKENS_BRAND_ID}.flat.{ $TOKENS_VERSION }.json", $FLAT_EXPORT)
+    write_json($OUT_DIR / f"{$TOKENS_BRAND_ID}.tailwind.{ $TOKENS_VERSION }.json", $TAILWIND_EXPORT)
+    write_text($OUT_DIR / f"{$TOKENS_BRAND_ID}.css.{ $TOKENS_VERSION }.css", $CSS_EXPORT)
+
+    print("Design token sync complete.")
+    print(f"Brand: {$TOKENS_BRAND_ID}")
+    print(f"Version: {$TOKENS_VERSION}")
+    print(f"Output: {$OUT_DIR}")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+# VIII. ENVIRONMENT CONTRACT
+
+```bash
+$TOKENS_SOURCE_JSON="/absolute/path/to/cronus_metabolus.tokens.json"
+$TOKENS_OUTPUT_DIR="/absolute/path/to/output/tokens"
+$TOKENS_BRAND_ID="cronus_metabolus"
+$TOKENS_VERSION="v1"
+python3 sync_design_tokens.py
+```
+
+# IX. RECOMMENDED FILE TREE
+
+```text
+$DESIGN_ROOT/
+├── figma/
+│   ├── cronus_metabolus_file_spec.yaml
+│   ├── cronus_metabolus_components.json
+│   └── cronus_metabolus_templates.yaml
+├── tokens/
+│   └── cronus_metabolus.tokens.json
+├── scripts/
+│   └── sync_design_tokens.py
+└── exports/
+```
+
+# X. CANONICAL USAGE ORDER
+
+```text
+1. Create Figma file using $FIGMA_FILE_SPEC
+2. Import tokens into Tokens Studio using the token JSON
+3. Create text, fill, effect, and stroke styles
+4. Build components from $COMPONENT_JSON_EXPORT
+5. Assemble slide templates from $TEMPLATE_BUILD_SPEC
+6. Populate final deck variants
+7. Sync tokens to code using $DESIGN_TOKENS_SYNC_SCRIPT
+```
+
+This keeps the design layer consistent with the system’s broader doctrine: identity is versioned, structure is reusable, and execution is contract-bound rather than improvised. fileciteturn1file21 fileciteturn1file24 fileciteturn1file25
+
+If you want the next logical closure, the next artifact is:
+
+```bash
+$NEXT="FIGMA_PLUGIN_DATA_SCHEMA + FRONTEND_THEME_MAP + SLIDE_MASTER_CONTENT_MATRIX"
+```

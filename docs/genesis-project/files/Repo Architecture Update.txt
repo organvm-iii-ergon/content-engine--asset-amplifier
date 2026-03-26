@@ -1,0 +1,437 @@
+Short answer: **yes—your “full repo architecture ($ENV variables, services, pipelines)” is now incomplete and requires an update.** Not because it is wrong, but because the system has **crossed a threshold** from *pipeline architecture → operating system architecture*.
+
+Below is the precise delta.
+
+---
+
+# I. CURRENT STATE (WHAT YOU HAVE)
+
+Your existing blueprint already correctly defines:
+
+```text
+- multi-service decomposition
+- event-driven workflows
+- environment-variable contract
+- ingestion → generation → publishing → analytics loop
+```
+
+This is **Phase 1–2 complete**.
+
+Source confirmation:
+
+- full stack blueprint (phases, env, services) fileciteturn0file0  
+- operator-grade service map + infra fileciteturn0file1  
+
+---
+
+# II. WHAT HAS CHANGED (WHY UPDATE IS REQUIRED)
+
+Your system has evolved along three axes:
+
+```text
+1. content system → audience system
+2. pipeline → research-integrated adaptive system
+3. single-tenant tool → multi-tenant SaaS + orchestration
+```
+
+These are explicitly present across the later artifacts:
+
+- audience state machine + retention loop fileciteturn0file9  
+- platform evolution + time-dependent modeling fileciteturn0file3  
+- SaaS + orchestration layer expansion fileciteturn0file15  
+
+---
+
+# III. EXACT GAP IN YOUR CURRENT REPO ARCHITECTURE
+
+Your current repo spec **under-specifies 5 critical layers**:
+
+---
+
+## 1. RESEARCH / EPISTEMIC LAYER (MISSING AS FIRST-CLASS)
+
+You *have*:
+
+```text
+research/ directory
+```
+
+But it is not yet enforced as a **runtime dependency**.
+
+### Required upgrade
+
+```text
+research-registry → MUST be a core service (not passive storage)
+```
+
+Why:
+
+```text
+- experiments drive system updates
+- platform changes must be tracked as state
+- hypotheses must map to production behavior
+```
+
+Without this, you have:
+
+```text
+analytics system
+```
+
+With it, you get:
+
+```text
+learning system
+```
+
+---
+
+## 2. PLATFORM STATE AS A VARIABLE (NOT FULLY ENCODED)
+
+You currently treat platform as:
+
+```text
+static adapter
+```
+
+But system now requires:
+
+```text
+platform_state(t)
+```
+
+Source formalization:
+
+```text
+Success = f(content, platform_state(t))
+```
+
+fileciteturn0file3  
+
+### Required repo additions
+
+```text
+data/platform-era-seeds/
+services/platform-intelligence/
+contracts/platform-profiles/
+```
+
+Plus:
+
+```text
+PlatformProfile MUST be versioned and time-bounded
+```
+
+---
+
+## 3. AUDIENCE ENGINE (CURRENTLY UNDER-SPECIFIED)
+
+Your repo focuses on:
+
+```text
+content → publish → metrics
+```
+
+But system now requires:
+
+```text
+content → audience state transitions → retention → compounding growth
+```
+
+fileciteturn0file9  
+
+### Required services
+
+```text
+audience-engine/
+identity-binding/
+cta-engine/
+retention-engine/
+```
+
+### Required schema addition
+
+```text
+AudienceStateTransition
+```
+
+---
+
+## 4. POLICY ENGINE (CRITICAL FOR MULTI-TENANT + IDENTITY)
+
+Your current system has rules embedded in services.
+
+This does not scale.
+
+### Required abstraction
+
+```text
+policy-engine/
+```
+
+Handles:
+
+```text
+- Natural Center constraints
+- tenant rules
+- platform rules
+- experiment rules
+```
+
+Without this:
+
+```text
+logic fragmentation across services
+```
+
+---
+
+## 5. ORCHESTRATION AS PRIMARY EXECUTION SPINE
+
+You already include:
+
+```text
+$WORKFLOW_ENGINE = Temporal
+```
+
+fileciteturn0file0  
+
+But currently it is treated as:
+
+```text
+supporting component
+```
+
+It must be upgraded to:
+
+```text
+PRIMARY execution layer
+```
+
+### Required repo shift
+
+```text
+infra/workflows/ → becomes core runtime logic
+services become stateless workers
+```
+
+---
+
+# IV. REQUIRED ARCHITECTURE UPDATE (CANONICAL FORM)
+
+Your repo should now be understood as:
+
+```text
+Layer 1 — Control Plane
+Layer 2 — Orchestration Plane (PRIMARY)
+Layer 3 — Execution Services
+Layer 4 — Data + Research Planes
+Layer 5 — Policy + Identity Layer
+```
+
+---
+
+## Updated Top-Level Structure (DIFF ONLY)
+
+Add / modify:
+
+```text
+services/
+  audience-engine/
+  identity-binding/
+  retention-engine/
+  policy-engine/
+  tenant-management/
+  billing-metering/
+
+data/
+  platform-era-seeds/   # REQUIRED
+  evolutionary-plane/   # REQUIRED
+
+research/
+  becomes runtime-bound, not passive
+
+contracts/
+  platform-profiles/
+  policies/
+  workflows/
+
+infra/
+  workflows/temporal/   # promote to core
+
+packages/
+  policy-sdk/
+  tenant-sdk/
+```
+
+---
+
+# V. ENV VARIABLE CONTRACT — REQUIRED ADDITIONS
+
+Your env spec is already strong, but missing key domains.
+
+Add:
+
+```bash
+# ----------------------------------------
+# TENANCY
+# ----------------------------------------
+$TENANT_ID
+$WORKSPACE_ID
+$BRAND_ID
+$MULTI_TENANT_MODE=true
+$TENANT_ISOLATION_MODE=row_level
+
+# ----------------------------------------
+# PLATFORM STATE
+# ----------------------------------------
+$PLATFORM_PROFILE_VERSION
+$PLATFORM_STATE_CONFIDENCE
+$PLATFORM_ERA_MODEL_ENABLED=true
+
+# ----------------------------------------
+# AUDIENCE SYSTEM
+# ----------------------------------------
+$AUDIENCE_MODEL_ENABLED=true
+$FOLLOW_CONVERSION_THRESHOLD
+$RETENTION_TARGET
+$CTA_OPTIMIZATION_ENABLED=true
+
+# ----------------------------------------
+# POLICY ENGINE
+# ----------------------------------------
+$POLICY_ENGINE_ENABLED=true
+$POLICY_STRICT_MODE=true
+$IDENTITY_ENFORCEMENT_MODE=hard
+
+# ----------------------------------------
+# RESEARCH SYSTEM
+# ----------------------------------------
+$HYPOTHESIS_REGISTRY_ENABLED=true
+$EXPERIMENT_REGISTRY_ENABLED=true
+$EVIDENCE_STORE_URI
+$RESEARCH_MODE=false
+
+# ----------------------------------------
+# ORCHESTRATION CONTROL
+# ----------------------------------------
+$WORKFLOW_REPLAY_ENABLED=true
+$WORKFLOW_AUDIT_ENABLED=true
+$WORKFLOW_MAX_RETRIES=3
+```
+
+---
+
+# VI. CRITICAL ARCHITECTURAL SHIFT (NON-NEGOTIABLE)
+
+Your system is no longer:
+
+```text
+"services + pipelines"
+```
+
+It is now:
+
+```text
+"stateful adaptive system with experimental feedback loops"
+```
+
+Which implies:
+
+---
+
+## Old mental model
+
+```text
+request → service → response
+```
+
+---
+
+## Required mental model
+
+```text
+event → workflow → state transition → learning → policy update → next event
+```
+
+---
+
+# VII. FINAL VERDICT
+
+### Does your repo architecture need updating?
+
+```text
+YES — not structurally, but ontologically
+```
+
+---
+
+### What stays correct
+
+```text
+- service decomposition
+- env-driven config
+- event-driven pipeline
+- monorepo structure
+```
+
+---
+
+### What must be added
+
+```text
+1. research as runtime system
+2. platform_state(t) as first-class variable
+3. audience engine layer
+4. policy engine abstraction
+5. orchestration as primary execution spine
+```
+
+---
+
+# VIII. MOST IMPORTANT SINGLE CHANGE
+
+If you only implement one update:
+
+```text
+MAKE ORCHESTRATION THE CORE
+```
+
+Everything else plugs into that.
+
+---
+
+# IX. NEXT STEP (PRECISE)
+
+You are now at:
+
+```bash
+$NEXT = "REPO_ARCHITECTURE_V2 (execution-grade)"
+```
+
+Which should include:
+
+```text
+- service contracts (typed)
+- workflow definitions (Temporal)
+- policy schema
+- platform profile versioning
+- audience state model
+```
+
+---
+
+If you want, I will generate:
+
+```bash
+$OUTPUT = "FULL MONOREPO BOOTSTRAP (copy-paste runnable)"
+```
+
+with:
+
+- folder scaffold  
+- package.json / turbo / pnpm  
+- Temporal workflows  
+- base services wired together  
+
+This is the correct next move.

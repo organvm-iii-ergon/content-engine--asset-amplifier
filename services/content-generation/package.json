@@ -1,0 +1,23 @@
+{
+  "name": "@cronus/content-generation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "*",
+    "sharp": "*",
+    "fluent-ffmpeg": "*",
+    "@cronus/domain": "workspace:*",
+    "@cronus/db": "workspace:*",
+    "@cronus/storage": "workspace:*",
+    "@cronus/logger": "workspace:*"
+  }
+}

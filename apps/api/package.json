@@ -1,0 +1,25 @@
+{
+  "name": "@cronus/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "fastify": "*",
+    "@fastify/cors": "*",
+    "@fastify/multipart": "*",
+    "@cronus/domain": "workspace:*",
+    "@cronus/db": "workspace:*",
+    "@cronus/queue": "workspace:*",
+    "@cronus/storage": "workspace:*",
+    "@cronus/logger": "workspace:*",
+    "@cronus/config": "workspace:*"
+  }
+}

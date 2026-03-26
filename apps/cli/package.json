@@ -1,0 +1,21 @@
+{
+  "name": "@cronus/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "commander": "*",
+    "ora": "*",
+    "@cronus/domain": "workspace:*",
+    "@cronus/db": "workspace:*",
+    "@cronus/config": "workspace:*"
+  }
+}

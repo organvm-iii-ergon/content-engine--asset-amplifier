@@ -1,0 +1,531 @@
+Below is the **fully converted artifact**. It is no longer structural guidance—it is **deployable copy + systemized design primitives**.
+
+It is split into:
+
+1. **Exact copy deck (investor-grade, no placeholders)**
+2. **Figma component system (tokens + styles + auto-layout frames)**
+
+Everything is aligned to your system laws and ontology.  
+No abstraction remains.
+
+---
+
+# I. EXACT COPY DECK (FINAL WORDING)
+
+## SLIDE 1 — TITLE
+
+**Cronus Metabolus**  
+Content → System → Yield
+
+A content-to-audience-to-revenue operating system
+
+---
+
+## SLIDE 2 — PROBLEM
+
+Brands spend $15K–$50K producing premium content.
+
+That content is used once.  
+Then it sits unused.
+
+At the same time, they pay $3K–$10K/month  
+to manually create social content with no clear ROI.
+
+Content production is expensive.  
+Content utilization is broken.
+
+---
+
+## SLIDE 3 — CATEGORY SHIFT
+
+Old model:
+
+Content is a deliverable.
+
+New model:
+
+Content is a system.
+
+```text
+1 asset → 1 post
+```
+
+becomes
+
+```text
+1 asset → 30–90 outputs → measurable yield
+```
+
+---
+
+## SLIDE 4 — PRODUCT
+
+Upload one premium asset.
+
+The system:
+
+- extracts high-signal fragments  
+- generates platform-native posts  
+- writes captions in brand voice  
+- schedules distribution  
+- tracks performance  
+
+Result:
+
+A single asset becomes a continuous content stream.
+
+---
+
+## SLIDE 5 — CORE MECHANISM
+
+The system operates as a closed loop:
+
+```text
+asset → fragments → generated units → publish → metrics → attribution → learning
+```
+
+Each output is:
+
+- derived from source material  
+- constrained by identity  
+- adapted to platform state  
+
+fileciteturn1file13  
+
+---
+
+## SLIDE 6 — DIFFERENTIATION
+
+Existing tools:
+
+Schedule posts.
+
+This system:
+
+Creates posts from assets.
+
+Existing tools operate at:
+
+```text
+post-level optimization
+```
+
+This system operates at:
+
+```text
+asset-level yield optimization
+```
+
+---
+
+## SLIDE 7 — IDENTITY ENGINE
+
+Every output is constrained by a computable identity model.
+
+Natural Center:
+
+- themes  
+- tone  
+- aesthetic  
+- narrative bias  
+- symbolic markers  
+- negative space  
+
+This ensures:
+
+Consistency at scale without manual oversight
+
+fileciteturn1file16  
+
+---
+
+## SLIDE 8 — OUTPUT MULTIPLIER
+
+One asset becomes:
+
+- 10–15 clips  
+- 30–90 posts  
+- 30–90 days of content  
+
+The system converts:
+
+```text
+fixed content cost → recurring output stream
+```
+
+---
+
+## SLIDE 9 — ATTRIBUTION
+
+Every result is traceable:
+
+```text
+asset → fragment → post → performance → outcome
+```
+
+Metrics include:
+
+- engagement  
+- followers  
+- leads  
+- revenue  
+
+Content becomes measurable as an economic asset.
+
+fileciteturn1file14  
+
+---
+
+## SLIDE 10 — AUDIENCE ENGINE
+
+The system optimizes audience movement:
+
+```text
+viewer → engaged → follower → returning → converted
+```
+
+Each piece of content contributes to state transitions.
+
+This is not posting.  
+This is audience formation.
+
+---
+
+## SLIDE 11 — MARKET
+
+Three entry points:
+
+1. Premium brands with existing content budgets  
+2. Agencies converting projects into retainers  
+3. DTC brands spending monthly on social  
+
+The system attaches to existing spend.
+
+It does not require new behavior.
+
+---
+
+## SLIDE 12 — BUSINESS MODEL
+
+Per brand / per month pricing.
+
+Value drivers:
+
+- content volume  
+- platform coverage  
+- reporting depth  
+
+Agencies use it to convert:
+
+```text
+one-time project → recurring revenue stream
+```
+
+---
+
+## SLIDE 13 — ROADMAP
+
+Phase 1: content generation + publishing  
+Phase 2: attribution + scoring  
+Phase 3: audience modeling + experimentation  
+Phase 4: platform intelligence + SaaS scale  
+
+fileciteturn1file15  
+
+---
+
+## SLIDE 14 — END STATE
+
+Content is no longer a deliverable.
+
+It is an economic engine.
+
+---
+
+# II. FIGMA COMPONENT SYSTEM (PRODUCTION-READY)
+
+## 1. GLOBAL TOKENS
+
+```json
+$TOKENS = {
+  "color": {
+    "bg": "#0A0A0A",
+    "surface": "#121212",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#A0A0A0",
+    "accent": "linear-gradient(135deg, #5B8CFF, #9B5CFF)"
+  },
+  "type": {
+    "display": 72,
+    "h1": 48,
+    "h2": 32,
+    "body": 20,
+    "meta": 16
+  },
+  "spacing": {
+    "xs": 8,
+    "sm": 16,
+    "md": 24,
+    "lg": 40,
+    "xl": 80
+  },
+  "radius": {
+    "card": 16
+  }
+}
+```
+
+---
+
+## 2. GRID SYSTEM
+
+```text
+$GRID_COLUMNS = 12
+$GRID_MARGIN = 80px
+$GRID_GUTTER = 24px
+$MAX_WIDTH = 1440px
+```
+
+---
+
+## 3. TYPOGRAPHY STYLES
+
+```text
+Display:
+  font-size: 72
+  weight: 600
+  line-height: 1.05
+
+H1:
+  font-size: 48
+  weight: 600
+
+H2:
+  font-size: 32
+  weight: 500
+
+Body:
+  font-size: 20
+  weight: 400
+
+Meta:
+  font-size: 16
+  weight: 400
+  color: secondary
+```
+
+---
+
+## 4. CORE COMPONENTS
+
+### A. TITLE BLOCK
+
+```text
+AutoLayout: vertical
+Spacing: 24
+
+[Title]
+[Subtitle]
+[Tagline]
+```
+
+Constraints:
+
+- centered OR left-aligned  
+- max width: 900px  
+
+---
+
+### B. SPLIT SECTION
+
+```text
+AutoLayout: horizontal
+Columns: 6 / 6
+Gap: 40
+
+Left:
+  text block
+
+Right:
+  visual container
+```
+
+---
+
+### C. FLOW DIAGRAM
+
+```text
+AutoLayout: horizontal
+Spacing: 24
+
+Node → Arrow → Node → Arrow → Node
+```
+
+Node component:
+
+```text
+Card
+Padding: 24
+Radius: 16
+Content: icon + label
+```
+
+---
+
+### D. BEFORE / AFTER
+
+```text
+AutoLayout: horizontal
+Gap: 40
+
+Left:
+  state A
+
+Right:
+  state B
+```
+
+Include:
+
+```text
+arrow or transformation indicator
+```
+
+---
+
+### E. STACKED SYSTEM
+
+```text
+AutoLayout: vertical
+Spacing: 16
+
+Layer cards stacked
+```
+
+Each layer:
+
+```text
+height: 80–120
+full width
+subtle elevation
+```
+
+---
+
+### F. METRIC BLOCK
+
+```text
+AutoLayout: vertical
+
+Metric value (large)
+Label (small)
+```
+
+Use:
+
+- 3–4 per row  
+- equal width  
+
+---
+
+## 5. AUTO-LAYOUT FRAMES (SLIDE TEMPLATES)
+
+### FRAME_01 — TITLE
+
+```text
+AutoLayout: vertical
+Align: center
+Spacing: 40
+Padding: 120 top/bottom
+```
+
+---
+
+### FRAME_02 — TEXT + VISUAL
+
+```text
+AutoLayout: horizontal
+Padding: 80
+Gap: 40
+```
+
+---
+
+### FRAME_03 — FULL WIDTH STATEMENT
+
+```text
+Centered text
+Max width: 800px
+```
+
+---
+
+### FRAME_04 — SYSTEM FLOW
+
+```text
+Horizontal chain
+Centered vertically
+```
+
+---
+
+### FRAME_05 — GRID OUTPUT
+
+```text
+Grid: 3x3 or 4x4
+Gap: 16
+Cards uniform
+```
+
+---
+
+## 6. INTERACTION BEHAVIOR (FOR LANDING VARIANT)
+
+```text
+Hover:
+  card elevation + slight scale
+
+Scroll:
+  staggered fade-in
+
+Transitions:
+  200–300ms ease
+```
+
+---
+
+# III. SYSTEM CONSISTENCY NOTE
+
+This deck + system is aligned with:
+
+```text
+S = ⟨A, F, NC, BE, P, U, O, Ψ, Λ⟩
+```
+
+fileciteturn1file23  
+
+And preserves core invariants:
+
+```text
+asset → system → yield
+identity → constraint → consistency
+metrics → attribution → learning
+```
+
+---
+
+# IV. NEXT STEP (HIGH LEVERAGE)
+
+If you continue, the correct next artifact is:
+
+```text
+$OUTPUT = "FIGMA_FILE_SPEC + COMPONENT JSON EXPORT + DESIGN TOKENS SYNC SCRIPT"
+```
+
+That would allow:
+
+- direct import into Figma  
+- design system reuse across product + marketing  
+- alignment with frontend implementation  
+
+At that point, this transitions from **deck → system interface layer**.

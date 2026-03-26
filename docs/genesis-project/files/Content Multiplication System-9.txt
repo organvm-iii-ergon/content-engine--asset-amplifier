@@ -1,0 +1,402 @@
+You are now shifting the system from **content yield engine → audience formation engine**.
+
+That requires adding a second layer:
+
+```text
+Layer 1: Content Multiplication (already defined)
+Layer 2: Audience Capture, Retention, Expansion (new)
+```
+
+Below is the **full system expansion**, preserving your core:
+
+---
+
+# I. SYSTEM REDEFINITION
+
+```bash
+$SYSTEM_NAME  = "Cronus-Metabolus"
+$SYSTEM_ROLE  = "Temporal Content Yield + Audience Formation Engine"
+```
+
+---
+
+# II. CORE TRANSFORMATION
+
+Current system:
+```text
+Asset → Content → Metrics
+```
+
+Required system:
+```text
+Asset → Content → Attention → Audience → Retention → Compounding Growth
+```
+
+---
+
+# III. PRIMARY AXIOM
+
+```text
+Content does not matter unless it produces audience state transitions.
+```
+
+---
+
+# IV. AUDIENCE SYSTEM LAYER
+
+## $SUBSYSTEM_AUDIENCE_ENGINE
+
+### Function
+
+Convert distributed content into:
+
+- followers
+- subscribers
+- leads
+- returning users
+
+---
+
+## Core Model
+
+```text
+Viewer → Engaged Viewer → Follower → Returning Follower → Converted User → Advocate
+```
+
+Each stage must be explicitly engineered.
+
+---
+
+# V. REQUIRED SUBSYSTEMS
+
+## 1. $SUBSYSTEM_ATTENTION_CAPTURE
+
+### Function
+Maximize first-contact engagement.
+
+### Inputs
+- fragments (from Cronus-Metabolus)
+
+### Mechanisms
+- hook optimization (first 1–3 seconds)
+- visual interrupt patterns
+- curiosity gap construction
+
+---
+
+## 2. $SUBSYSTEM_IDENTITY_BINDING
+
+### Function
+Ensure audience recognizes and remembers the source.
+
+### Required Elements
+- visual signature layer
+- tonal consistency
+- symbolic recurrence
+
+Without this, content becomes **fungible noise**.
+
+---
+
+## 3. $SUBSYSTEM_CALL_TO_ACTION_ENGINE
+
+### Function
+Convert passive viewers → active transitions.
+
+### CTA Types
+- follow
+- save
+- click
+- subscribe
+
+### Formal Model
+
+```text
+CTA = f(context, content_type, audience_state)
+```
+
+---
+
+## 4. $SUBSYSTEM_RETENTION_LOOP
+
+### Function
+Create return behavior.
+
+### Mechanisms
+- episodic content structuring
+- unresolved narrative hooks
+- serialized drops
+
+---
+
+## 5. $SUBSYSTEM_FEEDBACK_INTELLIGENCE
+
+### Function
+Continuously refine output based on audience behavior.
+
+### Data Sources
+- watch time
+- drop-off points
+- repeat engagement
+- saves vs likes ratio
+
+---
+
+## 6. $SUBSYSTEM_GROWTH_ORCHESTRATOR
+
+### Function
+Direct system-level expansion.
+
+### Controls
+- posting frequency modulation
+- format allocation (video vs carousel vs static)
+- platform weighting
+
+---
+
+# VI. NATURAL CENTER (CRITICAL CONCEPT)
+
+You referenced:
+
+> “natural center's output”
+
+We formalize that:
+
+---
+
+## $SUBSYSTEM_NATURAL_CENTER
+
+### Definition
+
+The **irreducible signal core** extracted from the brand or creator.
+
+This is not content.
+
+This is:
+
+```text
+The consistent, repeatable attractor of attention.
+```
+
+---
+
+## Components
+
+```text
+NaturalCenter = {
+    thematic_core,
+    aesthetic_signature,
+    tonal_vector,
+    narrative bias,
+    symbolic markers
+}
+```
+
+---
+
+## Function
+
+All outputs must map back to this:
+
+```text
+Content → projection(NaturalCenter)
+```
+
+---
+
+## Failure Condition
+
+If absent:
+
+- growth becomes volatile
+- audience does not compound
+- engagement does not convert
+
+---
+
+# VII. INTEGRATED SYSTEM FLOW
+
+```text
+[ASSET]
+
+→ Cronus-Metabolus (decompose + expand)
+
+→ Natural Center Alignment
+
+→ Content Deployment
+
+→ Attention Capture
+
+→ Audience State Transition
+
+→ Retention Loop
+
+→ Feedback Intelligence
+
+→ System Optimization
+
+→ (recursive loop)
+```
+
+---
+
+# VIII. AUDIENCE STATE MACHINE
+
+```text
+STATE_0: unaware
+STATE_1: viewer
+STATE_2: engaged viewer
+STATE_3: follower
+STATE_4: returning follower
+STATE_5: converted (lead/customer)
+STATE_6: advocate
+```
+
+---
+
+## Transition Logic Example
+
+```text
+viewer → engaged viewer:
+    requires: hook retention > threshold
+
+engaged viewer → follower:
+    requires: identity binding + CTA
+
+follower → returning:
+    requires: retention loop
+```
+
+---
+
+# IX. METRICS (NON-NEGOTIABLE)
+
+## Replace Vanity Metrics with System Metrics
+
+### 1. $ATTENTION_EFFICIENCY
+```text
+watch_time / total_views
+```
+
+---
+
+### 2. $FOLLOW_CONVERSION_RATE
+```text
+followers_gained / total_viewers
+```
+
+---
+
+### 3. $RETENTION_RATIO
+```text
+returning_viewers / total_followers
+```
+
+---
+
+### 4. $ASSET_YIELD_TO_AUDIENCE
+```text
+followers_generated / single_asset
+```
+
+---
+
+### 5. $CONTENT_HALF_LIFE
+Time until content stops producing meaningful engagement.
+
+---
+
+# X. KEY STRATEGIC SHIFT
+
+You are no longer selling:
+
+```text
+"content automation"
+```
+
+You are selling:
+
+```text
+"audience generation from existing assets"
+```
+
+---
+
+# XI. PRODUCT SUITE EXPANSION
+
+## Tier 1 — Core Engine
+- asset → content → schedule
+
+---
+
+## Tier 2 — Growth Layer
+- CTA optimization
+- retention structuring
+- audience analytics
+
+---
+
+## Tier 3 — Intelligence Layer
+- predictive posting
+- cross-client learning
+- audience modeling
+
+---
+
+## Tier 4 — Autonomous Mode (future)
+
+```text
+System self-directs:
+- what to post
+- when to post
+- how to evolve content
+```
+
+---
+
+# XII. FINAL SYNTHESIS
+
+```bash
+$SYSTEM_NAME  = "Cronus-Metabolus"
+$SYSTEM_ROLE  = "Temporal Content Yield + Audience Formation Engine"
+```
+
+---
+
+## True Function
+
+```text
+Transform static assets into:
+→ continuous attention
+→ structured audience growth
+→ measurable conversion
+→ compounding brand presence
+```
+
+---
+
+# XIII. NEXT LOGICAL STEP
+
+You now need to define:
+
+```bash
+$NATURAL_CENTER_SCHEMA
+```
+
+Specifically:
+
+- how it is extracted
+- how it is encoded
+- how it constrains generation
+
+Without that, the system produces volume but not identity.
+
+---
+
+If you want, next I will:
+
+- formalize **Natural Center extraction algorithm**
+- define **brand embedding structure**
+- or build **full repo architecture ($ENV variables, services, pipelines)**
+
+Choose direction.

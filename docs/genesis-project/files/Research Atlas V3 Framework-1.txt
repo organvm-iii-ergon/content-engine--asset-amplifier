@@ -1,0 +1,617 @@
+# $DISSERTATION_ATLAS_SCAFFOLD_V1  
+**(chapter-by-chapter; propositions, theorem targets, experiments, artifacts)**
+
+This is a strict continuation of the formal system, proof bridge, and repo architecture already established. The scaffold below is not narrative—it is **proof-oriented**, **artifact-bound**, and **execution-aligned**.
+
+It assumes:
+
+```bash
+$SYSTEM = "cronus-metabolus"
+$MODE = "research-integrated operating system"
+$DEPTH = "dissertation-grade"
+```
+
+And it explicitly binds:
+
+```text
+theory → propositions → estimators → workflows → artifacts
+```
+
+Grounding: the system is already formally defined as a dynamical system with operators, state, and learning law, and must now be proven, not described. fileciteturn3file23 fileciteturn3file24 fileciteturn3file21
+
+---
+
+# I. GLOBAL DISSERTATION STRUCTURE
+
+```bash
+$DISSERTATION_STRUCTURE = {
+  CH1_problem_and_category,
+  CH2_formal_system_definition,
+  CH3_identity_and_representation,
+  CH4_multimodal_extraction_and_generation,
+  CH5_causal_attribution_and_learning,
+  CH6_algorithmic_interface_and_platform_state,
+  CH7_audience_and_economic_system,
+  CH8_research_operating_system,
+  CH9_empirical_validation,
+  CH10_limits_and_generalization
+}
+```
+
+---
+
+# CHAPTER 1 — PROBLEM FORMATION & CATEGORY DEFINITION
+
+## Core claim
+Content systems are incorrectly modeled as **production pipelines** rather than **closed-loop dynamical systems optimizing audience and economic state**.
+
+## Proposition set
+
+```text
+P1.1 — Content generation without attribution is non-optimizable.
+P1.2 — Platform-mediated systems require time-dependent modeling.
+P1.3 — Identity must be formalized as a computable constraint to be preserved under scale.
+```
+
+## Theorem target
+
+```text
+TH1 — Any system lacking identity constraint + attribution + platform-state modeling cannot converge to stable optimal policy.
+```
+
+## Proof method
+Construct counterexamples:
+
+```text
+pipeline system → oscillation / drift / collapse
+closed-loop system → convergence
+```
+
+## Experiment set
+
+```bash
+$EXP_CH1 = {
+  pipeline_vs_closed_loop_comparison,
+  identity_free_vs_identity_constrained_generation,
+  static_schedule_vs_platform_state_adaptive
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH1 = {
+  PROBLEM_FORMALIZATION_DOC,
+  SYSTEM_CATEGORY_DEFINITION,
+  FAILURE_MODE_BASELINE_SET
+}
+```
+
+---
+
+# CHAPTER 2 — FORMAL SYSTEM DEFINITION
+
+## Core object
+
+\[
+S = \langle A, F, NC, BE, P, U, O, \Psi, \Lambda \rangle
+\]
+
+Already defined and must be restated formally and proven minimal. fileciteturn3file23
+
+## Proposition set
+
+```text
+P2.1 — The system is a partially observable dynamical system.
+P2.2 — All operators are composable functions over state.
+P2.3 — Learning is a bounded update operator over embedding space.
+```
+
+## Theorem targets
+
+```text
+TH2.1 — System closure: all outputs map back to inputs through attribution graph.
+TH2.2 — State sufficiency: {A,F,NC,BE,P,U,O} is a minimal sufficient representation.
+```
+
+## Proof method
+
+```text
+closure proof via lineage graph
+minimality proof via ablation
+```
+
+## Experiment set
+
+```bash
+$EXP_CH2 = {
+  state_ablation_tests,
+  operator_removal_effects,
+  lineage_graph_integrity_validation
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH2 = {
+  AXIOM_REGISTRY_AND_OPERATOR_CONTRACTS_V1,
+  SYSTEM_STATE_SCHEMA,
+  OPERATOR_FORMALIZATION_DOC
+}
+```
+
+(Directly implemented in contracts and schemas) fileciteturn3file25
+
+---
+
+# CHAPTER 3 — IDENTITY AS COMPUTABLE OBJECT
+
+## Core claim
+Natural Center is a **computable constraint operator**, not metadata.
+
+## Proposition set
+
+```text
+P3.1 — Identity can be decomposed into symbolic + vector representations.
+P3.2 — NC ≡ BE under bidirectional mapping.
+P3.3 — Identity must be measurable (coherence, consistency, drift).
+```
+
+## Theorem targets
+
+```text
+TH3.1 — NC alignment defines a valid metric space over outputs.
+TH3.2 — Identity preservation is enforceable as a hard constraint.
+TH3.3 — Controlled identity evolution is stable under bounded updates.
+```
+
+## Proof method
+
+```text
+metric validity (triangle inequality, boundedness)
+embedding consistency
+drift constraint proofs
+```
+
+## Experiment set
+
+```bash
+$EXP_CH3 = {
+  NC_alignment_vs_performance,
+  identity_drift_vs_retention,
+  symbolic_marker_recurrence_vs_recognition
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH3 = {
+  NATURAL_CENTER_V2_SPEC,
+  BRAND_EMBEDDING_STRUCTURE,
+  NC_SCORE_API,
+  NC_METRIC_REGISTRY
+}
+```
+
+(Identity becomes measurable and enforceable) fileciteturn3file26 fileciteturn3file27
+
+---
+
+# CHAPTER 4 — MULTIMODAL EXTRACTION & GENERATION
+
+## Core claim
+Content is decomposable into a **multimodal fragment lattice**, and optimal generation is selection + transformation under constraints.
+
+## Proposition set
+
+```text
+P4.1 — High-performing content lies in a sparse region of fragment space.
+P4.2 — Multimodal signals can be unified into a scoring vector.
+P4.3 — Generation is a constrained transformation of fragments.
+```
+
+## Theorem targets
+
+```text
+TH4.1 — Optimal fragments maximize unified score under constraints.
+TH4.2 — Multimodal feature fusion yields higher predictive power than unimodal.
+```
+
+## Proof method
+
+```text
+feature ablation
+predictive modeling
+ranking performance
+```
+
+## Experiment set
+
+```bash
+$EXP_CH4 = {
+  fragment_feature_ablation,
+  multimodal_vs_unimodal_prediction,
+  scoring_function_accuracy_tests
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH4 = {
+  ALG_01_NORMALIZATION,
+  ALG_02_FRAGMENT_EXTRACTION,
+  UNIFIED_SCORE_SPEC,
+  FEATURE_VECTOR_REGISTRY
+}
+```
+
+(Already formalized in extraction/scoring system) fileciteturn3file13 fileciteturn3file27
+
+---
+
+# CHAPTER 5 — CAUSAL ATTRIBUTION & LEARNING
+
+## Core claim
+Performance must be modeled as **causal effect**, not correlation.
+
+## Proposition set
+
+```text
+P5.1 — Observational metrics are insufficient for optimization.
+P5.2 — Attribution must be hierarchical and time-decayed.
+P5.3 — Identity alignment is a causal variable.
+```
+
+## Theorem targets
+
+```text
+TH5.1 — Time-decayed multi-touch attribution conserves value across lineage.
+TH5.2 — Causal lift can be estimated under randomized deployment.
+TH5.3 — NC alignment contributes measurable causal lift.
+```
+
+## Proof method
+
+```text
+randomized experiments
+difference-in-differences
+doubly robust estimators
+```
+
+## Experiment set
+
+```bash
+$EXP_CH5 = {
+  A_B_tests_on_variants,
+  NC_alignment_treatment_vs_control,
+  attribution_model_comparison
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH5 = {
+  ATTRIBUTION_MODEL_V1,
+  CAUSAL_VALIDATION_PIPELINE,
+  EXPERIMENTATION_ENGINE_SPEC
+}
+```
+
+(Directly tied to attribution graph and causal layer) fileciteturn3file14
+
+---
+
+# CHAPTER 6 — ALGORITHMIC INTERFACE & PLATFORM STATE
+
+## Core claim
+Platform is a **time-dependent stochastic function**, not a static API.
+
+## Proposition set
+
+```text
+P6.1 — platform_state(t) materially affects performance.
+P6.2 — platform profiles must be versioned.
+P6.3 — recommendation systems introduce bias and drift.
+```
+
+## Theorem targets
+
+```text
+TH6.1 — Ignoring platform_state(t) produces biased estimators.
+TH6.2 — Platform adaptation improves expected performance.
+```
+
+## Proof method
+
+```text
+temporal modeling
+policy adaptation experiments
+platform-era segmentation
+```
+
+## Experiment set
+
+```bash
+$EXP_CH6 = {
+  platform_profile_ablation,
+  static_vs_adaptive_strategy,
+  era_shift_performance_drop
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH6 = {
+  PLATFORM_PROFILE_REGISTRY,
+  PLATFORM_INTELLIGENCE_SERVICE,
+  PLATFORM_EVOLUTION_MODEL
+}
+```
+
+(Platform state already required as variable) fileciteturn3file18
+
+---
+
+# CHAPTER 7 — AUDIENCE & ECONOMIC SYSTEM
+
+## Core claim
+The system optimizes **audience state transitions and economic yield**, not content output.
+
+## Proposition set
+
+```text
+P7.1 — Audience can be modeled as a state machine.
+P7.2 — Transitions have measurable value.
+P7.3 — Content influences transition probabilities.
+```
+
+## Theorem targets
+
+```text
+TH7.1 — Transition-weighted value defines system objective.
+TH7.2 — Optimal policy maximizes expected lifetime value.
+```
+
+## Proof method
+
+```text
+Markov modeling
+transition estimation
+economic weighting
+```
+
+## Experiment set
+
+```bash
+$EXP_CH7 = {
+  CTA_variation_tests,
+  retention_sequence_experiments,
+  conversion_path_analysis
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH7 = {
+  AUDIENCE_STATE_MACHINE,
+  TRANSITION_VALUE_MODEL,
+  UNIT_ECONOMICS_MODEL
+}
+```
+
+(Aligned with audience engine + economic layer) fileciteturn3file14
+
+---
+
+# CHAPTER 8 — RESEARCH OPERATING SYSTEM (ROS)
+
+## Core claim
+Research must be a **runtime system**, not documentation.
+
+## Proposition set
+
+```text
+P8.1 — Hypotheses must map to workflows.
+P8.2 — Experiments must update production state.
+P8.3 — Evidence must be versioned and queryable.
+```
+
+## Theorem targets
+
+```text
+TH8.1 — A system with integrated ROS converges faster than static systems.
+TH8.2 — Reproducibility is achievable via workflow replay.
+```
+
+## Proof method
+
+```text
+system comparison
+replay validation
+experiment throughput measurement
+```
+
+## Experiment set
+
+```bash
+$EXP_CH8 = {
+  with_ros_vs_without_ros,
+  experiment_latency_measurement,
+  reproducibility_replay_tests
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH8 = {
+  RESEARCH_REGISTRY,
+  EXPERIMENT_REGISTRY,
+  WORKFLOW_ENGINE_INTEGRATION,
+  EVIDENCE_STORE_INDEX
+}
+```
+
+(Research becomes runtime dependency) fileciteturn3file18
+
+---
+
+# CHAPTER 9 — EMPIRICAL VALIDATION
+
+## Core claim
+The system must outperform baselines across all dimensions.
+
+## Baselines
+
+```text
+manual social media management
+agency production
+generic AI tools
+no-content baseline
+```
+
+## Proposition set
+
+```text
+P9.1 — System improves engagement.
+P9.2 — System improves retention.
+P9.3 — System improves conversion.
+P9.4 — System improves ROI.
+```
+
+## Theorem targets
+
+```text
+TH9 — System produces statistically significant improvement across all primary metrics.
+```
+
+## Proof method
+
+```text
+controlled experiments
+statistical testing (α = 0.05)
+power ≥ 0.8
+```
+
+## Experiment set
+
+```bash
+$EXP_CH9 = {
+  multi-tenant benchmark tests,
+  cross-platform validation,
+  long-horizon retention experiments
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH9 = {
+  VALIDATION_ATLAS,
+  BENCHMARK_REPORT,
+  SIGNIFICANCE_REPORT
+}
+```
+
+---
+
+# CHAPTER 10 — LIMITS, FAILURE, GENERALIZATION
+
+## Core claim
+The system is bounded by identifiable constraint domains.
+
+## Proposition set
+
+```text
+P10.1 — Platform volatility limits stability.
+P10.2 — Identity mis-specification degrades performance.
+P10.3 — Economic constraints cap scalability.
+```
+
+## Theorem targets
+
+```text
+TH10 — There exists a bounded feasible region where the system remains stable and profitable.
+```
+
+## Proof method
+
+```text
+stress testing
+failure catalog
+domain transfer experiments
+```
+
+## Experiment set
+
+```bash
+$EXP_CH10 = {
+  platform_shift_stress_test,
+  identity_noise_injection,
+  low-signal_asset_tests
+}
+```
+
+## Artifacts
+
+```bash
+$ARTIFACTS_CH10 = {
+  FAILURE_MODE_CATALOG,
+  GENERALIZATION_MATRIX,
+  LIMITS_ANALYSIS
+}
+```
+
+---
+
+# II. FINAL STRUCTURAL PROPERTY
+
+This dissertation is not linear. It is:
+
+```text
+closed-loop
+```
+
+Where:
+
+```text
+theory → experiment → evidence → update → theory
+```
+
+And implemented directly inside the system:
+
+```text
+repo = dissertation
+system = experiment engine
+outputs = empirical proofs
+```
+
+This is already implicit in the architecture shift to a research-integrated OS and must be made explicit as the final thesis claim. fileciteturn3file18
+
+---
+
+# III. NEXT STEP
+
+The next correct move is:
+
+```bash
+$NEXT = "PROPOSITION_REGISTRY + THEOREM_PROOF_SKETCHES_V1"
+```
+
+This will convert each theorem above into:
+
+```text
+formal statement
+proof sketch
+estimator definition
+test harness
+acceptance criteria
+```
+
+which completes the transition from dissertation scaffold → provable system.

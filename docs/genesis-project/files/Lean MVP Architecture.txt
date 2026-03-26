@@ -1,0 +1,466 @@
+## $MODE = "lean MVP (fast deployment)" — **Authoritative Reduction**
+
+You do **not** need the full OS yet. The sources already define the complete system, but for MVP you must **collapse the architecture to the smallest closed loop that still preserves the core laws**:
+
+```text
+Law 1: asset → fragments → posts (must exist)
+Law 2: posts → metrics (must exist)
+Law 3: metrics → attribution → report (must exist)
+Law 4: identity (Natural Center) must constrain outputs
+```
+
+Everything else is optional at MVP.
+
+The core product definition remains:
+
+```text
+one premium asset → many platform-native posts → measurable yield
+```
+
+fileciteturn0file29
+
+---
+
+# I. MVP SYSTEM (MINIMAL CLOSED LOOP)
+
+## Canonical MVP Flow
+
+```text
+asset_upload
+→ fragment_extraction
+→ caption_generation (light NC constraint)
+→ scheduling
+→ publishing
+→ analytics ingestion
+→ weekly report
+```
+
+This is the **irreducible system**.
+
+Anything removed breaks value delivery.
+
+---
+
+# II. STRIPPED ARCHITECTURE
+
+## 1. Required Components Only
+
+```bash
+$MVP_SERVICES = [
+  asset-ingestion,
+  media-analysis,
+  generation,
+  scheduler,
+  publishing,
+  analytics,
+  reporting
+]
+```
+
+You are **not** building:
+
+```text
+❌ full orchestration layer (Temporal)
+❌ full research registry
+❌ experimentation engine
+❌ audience engine
+❌ policy engine
+❌ multi-tenant isolation (initially)
+```
+
+Those exist in the full system fileciteturn0file21 but are unnecessary for MVP.
+
+---
+
+## 2. Minimal Data Model
+
+```yaml
+Asset:
+  asset_id
+  file_uri
+  created_at
+
+Fragment:
+  fragment_id
+  asset_id
+  start_time
+  end_time
+  score
+
+GeneratedUnit:
+  unit_id
+  fragment_id
+  caption
+  platform
+  scheduled_time
+
+PublishEvent:
+  publish_id
+  unit_id
+  platform
+  status
+
+PerformanceObservation:
+  publish_id
+  views
+  engagement
+  clicks
+  timestamp
+```
+
+This preserves the lineage chain required for attribution:
+
+```text
+asset → fragment → unit → publish → metrics
+```
+
+fileciteturn0file14
+
+---
+
+# III. ALGORITHMIC CORE (LEAN VERSION)
+
+## 1. Fragment Extraction (reduced)
+
+Do NOT implement full scoring stack yet.
+
+```python
+def extract_fragments(video):
+    scenes = detect_scene_changes(video)
+    clips = []
+    for s in scenes:
+        if 3 <= duration(s) <= 20:
+            clips.append(s)
+    return clips[:12]
+```
+
+Constraint:
+
+```text
+target = 8–15 clips per asset
+```
+
+Matches product promise fileciteturn0file29
+
+---
+
+## 2. Caption Generation (lean NC proxy)
+
+Full Natural Center system is too heavy.
+
+Use:
+
+```text
+brand_voice_prompt + asset transcript
+```
+
+```python
+def generate_caption(fragment, transcript, brand_voice):
+    return LLM(
+        f"""
+        Write a short-form social caption.
+
+        Voice: {brand_voice}
+        Content: {fragment.summary}
+        Constraints:
+        - concise
+        - platform-native
+        - clear hook
+        """
+    )
+```
+
+---
+
+## 3. Platform Formatting (hard rules only)
+
+```python
+PLATFORM_RULES = {
+    "tiktok": {"duration_max": 30},
+    "instagram": {"duration_max": 60},
+    "linkedin": {"duration_max": 90}
+}
+```
+
+No dynamic platform_state(t) yet.
+
+---
+
+## 4. Scheduling (static heuristic)
+
+```python
+SCHEDULE = {
+    "tiktok": ["10:00", "18:00"],
+    "instagram": ["12:00"],
+    "linkedin": ["09:00"]
+}
+```
+
+No optimization layer yet.
+
+---
+
+## 5. Analytics (pull only)
+
+```python
+def fetch_metrics(publish_id):
+    return {
+        "views": ...,
+        "likes": ...,
+        "comments": ...
+    }
+```
+
+---
+
+## 6. Attribution (simple roll-up)
+
+```python
+def asset_performance(asset_id):
+    return sum(metrics for all publish_events under asset)
+```
+
+This is the MVP version of the full hierarchical attribution model fileciteturn0file14
+
+---
+
+# IV. WHAT YOU KEEP (CRITICAL)
+
+Even in MVP, you must **retain 3 structural truths from the full system**:
+
+---
+
+## 1. Lineage Integrity
+
+```text
+unit MUST reference fragment
+fragment MUST reference asset
+```
+
+Otherwise you cannot scale into attribution later.
+
+---
+
+## 2. Identity Constraint (lite)
+
+Do NOT build full NC engine.
+
+But enforce:
+
+```text
+consistent tone
+consistent vocabulary
+consistent structure
+```
+
+This is a **proto–Natural Center**.
+
+Full NC system comes later fileciteturn0file16
+
+---
+
+## 3. Weekly Reporting
+
+This is **non-negotiable product value**:
+
+```text
+"This asset generated X posts → Y views → Z engagement"
+```
+
+This is what converts:
+
+```text
+creative → economic instrument
+```
+
+---
+
+# V. WHAT YOU EXPLICITLY DELAY
+
+## Remove from MVP:
+
+### 1. Natural Center Engine V2
+
+Too heavy:
+
+```text
+no embedding decomposition
+no symbolic marker system
+no drift tracking
+```
+
+(You add later) fileciteturn0file26
+
+---
+
+### 2. Unified Scoring Layer
+
+Replace with:
+
+```text
+simple heuristics + LLM selection
+```
+
+---
+
+### 3. Causal Inference
+
+No experiments yet.
+
+Just:
+
+```text
+observational metrics
+```
+
+---
+
+### 4. Multi-tenant SaaS
+
+Start:
+
+```text
+single-tenant (your brand / internal use)
+```
+
+Then expand fileciteturn0file15
+
+---
+
+### 5. Orchestration Engine
+
+No Temporal.
+
+Use:
+
+```text
+cron jobs + queues
+```
+
+---
+
+# VI. MVP REPO (LEAN)
+
+```text
+cronus-metabolus-mvp/
+├── api/
+├── workers/
+│   ├── extract/
+│   ├── generate/
+│   ├── publish/
+│   └── analytics/
+├── db/
+├── scripts/
+├── integrations/
+│   ├── instagram/
+│   ├── tiktok/
+│   └── linkedin/
+├── dashboard/
+└── .env
+```
+
+---
+
+# VII. MVP ENV CONTRACT
+
+```bash
+$ASSET_STORE_URI
+$OPENAI_API_KEY
+$TRANSCRIPTION_MODEL
+$LLM_MODEL
+
+$INSTAGRAM_API_KEY
+$TIKTOK_API_KEY
+$LINKEDIN_API_KEY
+
+$DATABASE_URL
+
+$MAX_CLIPS_PER_ASSET=12
+$DEFAULT_POSTS_PER_DAY=1
+```
+
+---
+
+# VIII. MVP SUCCESS CRITERIA
+
+You do **not** measure success by architecture.
+
+You measure:
+
+```text
+1. Time to output:
+   upload → scheduled posts < 10 minutes
+
+2. Content volume:
+   1 asset → 20–40 posts
+
+3. Engagement delta:
+   > baseline posting performance
+
+4. Reporting clarity:
+   asset → measurable output
+
+5. Manual time saved:
+   ≥ 10–20 hrs/week
+```
+
+These align directly with product claims fileciteturn0file29
+
+---
+
+# IX. UPGRADE PATH (DO NOT SKIP)
+
+Once MVP works, then:
+
+```text
+Phase 2:
+→ Natural Center V2
+→ unified scoring
+→ better fragment selection
+
+Phase 3:
+→ attribution (multi-touch)
+→ experiments (A/B)
+
+Phase 4:
+→ SaaS multi-tenant
+→ orchestration (Temporal)
+→ platform intelligence
+```
+
+---
+
+# X. FINAL REDUCTION
+
+The MVP is not:
+
+```text
+a research system
+a perfect scoring engine
+a theoretical framework
+```
+
+It is:
+
+```text
+a content multiplication machine
++ a reporting layer
+```
+
+Everything else is deferred.
+
+---
+
+If you want the next step, I can give you:
+
+```bash
+$MVP_BUILD_SCRIPT (one-command bootstrap)
+```
+
+or
+
+```bash
+$FIRST_10_DAYS_EXECUTION_PLAN
+```
+
+which would translate this directly into deployment.

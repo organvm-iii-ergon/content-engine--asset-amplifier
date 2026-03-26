@@ -1,0 +1,579 @@
+# $RESEARCH_ATLAS_V3
+
+I reviewed the source set. The internal direction is already consistent on five points.
+
+First, the atlas must be **dissertation-grade before operator-grade**. Second, the missing pieces are explicitly **methodological rigor pillars** and **constraint-domain pillars**. Third, the immediate priority order is **$PILLAR_CAUSAL_INFERENCE**, **$PILLAR_UNIT_ECONOMICS**, and **$PILLAR_ALGORITHMIC_INTERFACE**. Fourth, every pillar should be structured as **past / present gap / future system intervention / experiment design**. Fifth, the live research layer must sit inside the repo as a first-class runtime subsystem, not as a passive notes folder. fileciteturn1file7 fileciteturn1file8 fileciteturn1file9 fileciteturn1file10 fileciteturn1file11
+
+## I. Exact atlas architecture
+
+Use this exact top-level form:
+
+```bash
+$RESEARCH_ATLAS_V3 = {
+  reading_ladder,
+  pillar_registry,
+  methodological_rigor_pillars,
+  constraint_domain_pillars,
+  canonical_source_registry,
+  milestone_map,
+  artifact_map,
+  research_operating_system
+}
+```
+
+And use this exact per-pillar schema:
+
+```bash
+$PILLAR_SCHEMA = {
+  purpose,
+  canonical_sources,
+  core_claims,
+  past_state,
+  present_gap,
+  system_intervention,
+  proof_methods,
+  constraint_domains,
+  milestone_outputs,
+  failure_conditions
+}
+```
+
+That structure is the direct synthesis of the atlas specification already implied in the source set. fileciteturn1file9 fileciteturn2file2
+
+---
+
+## II. Exact reading ladder
+
+This is the dependency order. It is not arbitrary.
+
+### Stage 0 — mathematical and computational foundations
+
+Read this first because the source set is trying to make Natural Center, embedding, scoring, attribution, and learning into **computable objects**, not metaphors. fileciteturn2file0 fileciteturn2file1
+
+1. Cormen, Leiserson, Rivest, Stein — *Introduction to Algorithms*  
+2. Knuth — *Concrete Mathematics*  
+3. Boolos, Burgess, Jeffrey — *Computability and Logic*  
+4. Spivak — *Category Theory for the Sciences*  
+5. Bishop — *Pattern Recognition and Machine Learning*  
+6. MacKay — *Information Theory, Inference, and Learning Algorithms*
+
+### Stage 1 — signal, information, and representation
+
+This stage grounds the extraction side of the system: signal compression, multimodal representation, and embedding-space identity. That is already the logic of your extraction → Natural Center → Brand Embedding chain. fileciteturn2file1 fileciteturn2file0
+
+7. Shannon — “A Mathematical Theory of Communication”  
+8. Cover and Thomas — *Elements of Information Theory*  
+9. Vaswani et al. — “Attention Is All You Need”  
+10. Devlin et al. — “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding”  
+11. Radford et al. — “Learning Transferable Visual Models From Natural Language Supervision”  
+12. Baltrušaitis, Ahuja, Morency — “Multimodal Machine Learning: A Survey and Taxonomy”  
+13. Sun et al. — “VideoBERT”  
+14. Bertasius et al. — “TimeSformer”
+
+### Stage 2 — causal inference and experimentation
+
+This is the first non-negotiable rigor block. Your own sources explicitly flag causal inference and statistical power as missing pillars and put causal inference first. fileciteturn1file7 fileciteturn1file8
+
+15. Pearl — *Causality*  
+16. Hernán and Robins — *Causal Inference: What If*  
+17. Imbens and Rubin — *Causal Inference for Statistics, Social, and Biomedical Sciences*  
+18. Angrist and Pischke — *Mostly Harmless Econometrics*  
+19. Cunningham — *Causal Inference: The Mixtape*  
+20. Fisher — *The Design of Experiments*  
+21. Box, Hunter, Hunter — *Statistics for Experimenters*  
+22. Kohavi, Tang, Xu — *Trustworthy Online Controlled Experiments*
+
+### Stage 3 — algorithmic interface and platform ranking
+
+This is the second priority block from the internal source set: opaque ranking systems, probabilistic recommendation, feature weighting, and platform co-evolution. fileciteturn1file3 fileciteturn1file4
+
+23. Sutton and Barto — *Reinforcement Learning: An Introduction*  
+24. Ricci, Rokach, Shapira — *Recommender Systems Handbook*  
+25. Covington, Adams, Sargin — “Deep Neural Networks for YouTube Recommendations”  
+26. Amatriain and Basilico — “Recommender Systems in Industry”  
+27. Mladenov et al. — “Optimization and Uncertainty in Recommender Systems”  
+28. Agarwal et al. — “A/B Testing at Scale”  
+29. Joachims, Swaminathan, Schnabel — “Unbiased Learning-to-Rank with Biased Feedback”  
+30. Rendle et al. — “BPR: Bayesian Personalized Ranking from Implicit Feedback”
+
+### Stage 4 — attention, cognition, and behavioral response
+
+The source corpus already frames the audience engine as a state-transition engine: viewer → engaged viewer → follower → returning follower → converted user → advocate. That requires cognitive and behavioral science, not just media craft. fileciteturn1file4 fileciteturn1file19
+
+31. Kahneman — *Attention and Effort*  
+32. Kahneman — *Thinking, Fast and Slow*  
+33. Simon — “Designing Organizations for an Information-Rich World”  
+34. Cialdini — *Influence*  
+35. Thaler and Sunstein — *Nudge*  
+36. Wood and Neal — “A New Look at Habits and the Habit-Goal Interface”  
+37. Fogg — *Persuasive Technology*  
+38. Eyal — *Hooked*
+
+### Stage 5 — systems, control, and adaptive learning
+
+Your formal system is already described internally as a constrained, multimodal, stochastic, partially observable, closed-loop dynamical system with embedded causal inference. This block is what mathematically hardens that claim. fileciteturn2file0 fileciteturn1file16
+
+39. Wiener — *Cybernetics*  
+40. von Bertalanffy — *General System Theory*  
+41. Meadows — *Thinking in Systems*  
+42. Åström and Murray — *Feedback Systems*  
+43. Bertsekas — *Dynamic Programming and Optimal Control*  
+44. Sutton — “Dyna, an Integrated Architecture for Learning, Planning, and Reacting”
+
+### Stage 6 — economics, platforms, and unit economics
+
+This is the third immediate priority from the internal files. The system must move from content-as-cost-center to asset-as-economic-instrument. fileciteturn1file8 fileciteturn1file18
+
+45. Rochet and Tirole — “Platform Competition in Two-Sided Markets”  
+46. Armstrong — “Competition in Two-Sided Markets”  
+47. Rysman — “The Economics of Two-Sided Markets”  
+48. Varian — “Position Auctions”  
+49. Parker, Van Alstyne, Choudary — *Platform Revolution*  
+50. Chen — *The Cold Start Problem*  
+51. Fader and Hardie — “Customer-Base Valuation in a Contractual Setting”  
+52. Gupta and Lehmann — *Managing Customers as Investments*
+
+### Stage 7 — identity, semiotics, aesthetics, and narrative
+
+Without this block, Natural Center collapses into generic feature engineering. Your own source set already says that directly. fileciteturn2file1 fileciteturn1file19
+
+53. Saussure — *Course in General Linguistics*  
+54. Barthes — *Mythologies*  
+55. Eco — *A Theory of Semiotics*  
+56. Benjamin — “The Work of Art in the Age of Mechanical Reproduction”  
+57. Manovich — *The Language of New Media*  
+58. McLuhan — *Understanding Media*  
+59. Campbell — *The Hero with a Thousand Faces*  
+60. McKee — *Story*
+
+That gives you a 60-source canonical ladder. It sits inside the requested 30–80 range.
+
+---
+
+## III. Methodological rigor pillars
+
+These are the “how you prove things are true” pillars the source set says were missing. fileciteturn1file7
+
+### 1. $PILLAR_CAUSAL_INFERENCE
+
+Purpose: identify whether the system caused the outcome rather than platform timing, noise, or coincidence.
+
+Canonical core:
+Pearl; Hernán and Robins; Imbens and Rubin; Angrist and Pischke; Cunningham. fileciteturn2file2
+
+Proof methods:
+randomized A/B tests, holdouts, difference-in-differences, propensity modeling, uplift estimation.
+
+Primary artifact:
+```bash
+$CAUSAL_VALIDATION_REPORT
+```
+
+### 2. $PILLAR_STATISTICAL_POWER
+
+Purpose: determine whether observed deltas are real, stable, and adequately powered.
+
+Canonical core:
+Fisher; Box/Hunter/Hunter; Kohavi/Tang/Xu.
+
+Proof methods:
+power analysis, confidence intervals, sequential testing discipline, pre-registered primary metrics.
+
+Primary artifact:
+```bash
+$STATISTICAL_SIGNIFICANCE_REPORT
+```
+
+### 3. $PILLAR_MEASUREMENT_VALIDITY
+
+Purpose: ensure the metrics actually measure the intended latent construct.
+
+Canonical core:
+Shannon; MacKay; Kahneman; Simon; psychometrics and measurement-model literature.
+
+Proof methods:
+construct validity checks for attention, conversion, retention, identity coherence, and yield.
+
+Primary artifact:
+```bash
+$METRIC_VALIDITY_REGISTRY
+```
+
+### 4. $PILLAR_REPRODUCIBILITY
+
+Purpose: make the system scientific rather than anecdotal.
+
+Canonical core:
+Fisher; Box; online experimentation literature.
+
+Proof methods:
+fixed pipelines, frozen dataset versions, reproducible runs, versioned scoring models, replayable workflows.
+
+Primary artifact:
+```bash
+$REPRODUCIBILITY_PROTOCOL
+```
+
+### 5. $PILLAR_EXTERNAL_VALIDITY
+
+Purpose: determine whether results transfer across industries, formats, audiences, and platform mixes.
+
+Canonical core:
+market segmentation, domain adaptation, heterogeneous treatment effects.
+
+Proof methods:
+cross-domain validation matrix, subgroup analyses, stress-testing under different platform eras.
+
+Primary artifact:
+```bash
+$GENERALIZATION_MATRIX
+```
+
+---
+
+## IV. Constraint-domain pillars
+
+These are the “what can break the system in reality” pillars the source set says also needed to be added. fileciteturn1file7 fileciteturn1file8
+
+### 1. $PILLAR_ALGORITHMIC_INTERFACE
+
+Failure mode:
+opaque ranking changes, undocumented feature shifts, unstable platform incentives.
+
+Research object:
+```bash
+platform_state(t)
+```
+
+Primary artifact:
+```bash
+$PLATFORM_INTERFACE_MODEL
+```
+
+### 2. $PILLAR_UNIT_ECONOMICS
+
+Failure mode:
+the system works statistically but fails economically.
+
+Research object:
+```bash
+Profitability = value_generated_per_asset - full_system_cost
+```
+
+Primary artifact:
+```bash
+$UNIT_ECONOMICS_MODEL
+```
+
+### 3. $PILLAR_IDENTITY_PERSISTENCE
+
+Failure mode:
+outputs drift; performance rises briefly but recognition and retention collapse.
+
+Research object:
+Natural Center coherence, consistency, drift, recognition.
+
+Primary artifact:
+```bash
+$IDENTITY_COHERENCE_INDEX
+```
+
+### 4. $PILLAR_INFORMATION_DECAY
+
+Failure mode:
+short-lived spikes, no lifetime yield optimization, poor repost/remix cadence.
+
+Research object:
+half-life, decay curve, repost timing, remix timing.
+
+Primary artifact:
+```bash
+$DECAY_AND_HALFLIFE_MODEL
+```
+
+### 5. $PILLAR_COMPETITIVE_BASELINE
+
+Failure mode:
+the system looks good in isolation but underperforms agencies, social managers, or other AI stacks.
+
+Research object:
+normalized benchmark against manual, agency, AI-native, and no-post baselines.
+
+Primary artifact:
+```bash
+$COMPETITIVE_DELTA_ANALYSIS
+```
+
+### 6. $PILLAR_FAILURE_ANALYSIS
+
+Failure mode:
+weak source assets, low-confidence Natural Center, oversaturation, suppression, broken connectors, invalid attribution.
+
+Primary artifact:
+```bash
+$FAILURE_MODE_CATALOG
+```
+
+### 7. $PILLAR_PLATFORM_EVOLUTION
+
+Failure mode:
+the system overfits current platform conditions and decays when platform logic mutates.
+
+Primary artifact:
+```bash
+$PLATFORM_EVOLUTION_REPORT
+```
+
+This platform-evolution axis is already explicit in the source corpus and must remain first-class. fileciteturn1file13
+
+---
+
+## V. Exact canonical papers per requested priority pillar
+
+### $PILLAR_CAUSAL_INFERENCE
+
+Use these as the exact canonical core:
+
+1. Pearl — *Causality*  
+2. Hernán and Robins — *Causal Inference: What If*  
+3. Imbens and Rubin — *Causal Inference for Statistics, Social, and Biomedical Sciences*  
+4. Angrist and Pischke — *Mostly Harmless Econometrics*  
+5. Cunningham — *Causal Inference: The Mixtape*  
+6. Fisher — *The Design of Experiments*  
+
+These titles align with the atlas direction already in the internal source set, and Pearl plus Hernán/Robins are directly verified in the external sources. fileciteturn2file2 citeturn709466search1turn921857search48
+
+### $PILLAR_UNIT_ECONOMICS
+
+Use these as the exact canonical core:
+
+1. Rochet and Tirole — “Platform Competition in Two-Sided Markets”  
+2. Armstrong — “Competition in Two-Sided Markets”  
+3. Rysman — “The Economics of Two-Sided Markets”  
+4. Varian — “Position Auctions”  
+5. Fader and Hardie — customer-base valuation papers  
+6. Gupta and Lehmann — *Managing Customers as Investments*  
+
+This is the correct bridge from platform economics to CAC/LTV/yield logic. The internal source set already identifies platform economics and unit economics as core pillars, and the external sources confirm Rochet–Tirole as seminal in the two-sided market literature. fileciteturn1file8 fileciteturn1file19 citeturn921857search0turn921857search9
+
+### $PILLAR_ALGORITHMIC_INTERFACE
+
+Use these as the exact canonical core:
+
+1. Covington, Adams, Sargin — “Deep Neural Networks for YouTube Recommendations”  
+2. Ricci, Rokach, Shapira — *Recommender Systems Handbook*  
+3. Joachims, Swaminathan, Schnabel — “Unbiased Learning-to-Rank with Biased Feedback”  
+4. Rendle et al. — “BPR: Bayesian Personalized Ranking from Implicit Feedback”  
+5. Sutton and Barto — *Reinforcement Learning*  
+6. Amatriain and Basilico — recommender systems in industry  
+
+This is the right literature block because the source set defines the system as co-evolving with opaque platform ranking systems rather than operating outside them. fileciteturn1file3 fileciteturn1file4
+
+---
+
+## VI. Live research operating system spec
+
+The source corpus already gives the repo form of the live ROS: `research/`, `research-registry`, `experimentation-engine`, `platform-intelligence`, `policy-engine`, environment-scoped infra, and Temporal-backed workflows. fileciteturn1file2 fileciteturn1file6 fileciteturn1file11 fileciteturn1file15
+
+Use this exact identity:
+
+```bash
+$ROS_ID = "cronus-metabolus-research-os"
+$ROS_MODE = "live, versioned, experiment-driven, workflow-bound"
+```
+
+### Core runtime services
+
+```bash
+$ROS_SERVICES = {
+  research_registry,
+  experimentation_engine,
+  attribution_engine,
+  platform_intelligence,
+  policy_engine,
+  model_registry,
+  evidence_store_indexer,
+  reporting_dashboard
+}
+```
+
+### Core directories
+
+```bash
+$ROS_DIRS = {
+  research/sources/canonical,
+  research/hypotheses,
+  research/experiments,
+  research/evidence,
+  research/memos,
+  research/reports,
+  research/platform-change-log,
+  research/temporal-models,
+  research/validation
+}
+```
+
+### Core workflow lanes
+
+```bash
+$ROS_WORKFLOWS = {
+  hypothesis_registration,
+  experiment_design,
+  treatment_assignment,
+  deployment,
+  telemetry_ingestion,
+  attribution_recompute,
+  significance_evaluation,
+  causal_update_gate,
+  platform_change_detection,
+  policy_revalidation
+}
+```
+
+### Core registries
+
+```bash
+$ROS_REGISTRIES = {
+  hypothesis_registry,
+  metric_registry,
+  experiment_registry,
+  evidence_registry,
+  platform_profile_registry,
+  policy_snapshot_registry,
+  model_version_registry
+}
+```
+
+### Required environment variables
+
+These are already implied in the repo update and architecture overview and should be treated as mandatory research-plane infrastructure. fileciteturn1file6 fileciteturn1file17
+
+```bash
+$RESEARCH_DIR
+$EVIDENCE_DIR
+$MODEL_REGISTRY_URI
+$EVIDENCE_STORE_URI
+$WORKFLOW_ENGINE_URI
+$WORKFLOW_NAMESPACE
+$HYPOTHESIS_REGISTRY_ENABLED=true
+$EXPERIMENT_REGISTRY_ENABLED=true
+$EXPERIMENT_MIN_SAMPLE_SIZE=1000
+$SIGNIFICANCE_ALPHA=0.05
+$EXPERIMENT_DEFAULT_POWER=0.80
+$PLATFORM_DOCS_REFRESH_CRON="0 */12 * * *"
+$PLATFORM_ERA_MODEL_ENABLED=true
+$PLATFORM_PROFILE_CONFIDENCE_FLOOR=0.60
+$NC_SCORE_THRESHOLD=0.82
+$NC_CONFIDENCE_FLOOR=0.60
+```
+
+---
+
+## VII. Dissertation-grade milestone map
+
+### Milestone 1 — ontology hardening
+
+Output:
+```bash
+$ARTIFACT = "FORMAL_THEORETICAL_FRAMEWORK_PHD_GRADE"
+```
+
+Deliverables:
+axioms, operators, state space, metric space, constraint system, evolution law. This is already the formal level your source set reached. fileciteturn2file0
+
+### Milestone 2 — source canon lock
+
+Output:
+```bash
+$ARTIFACT = "CANONICAL_SOURCE_REGISTRY_V1"
+```
+
+Deliverables:
+the 60-source ladder above, pillar mapping, reading order, exclusions.
+
+### Milestone 3 — proof and measurement layer
+
+Output:
+```bash
+$ARTIFACT = "PROOF_IMPLEMENTATION_BRIDGE_V1"
+```
+
+Deliverables:
+axiom registry, operator contracts, score API, metric registry, causal update gate. This is the strict next-step logic already recorded in the source set. fileciteturn1file12
+
+### Milestone 4 — empirical validation layer
+
+Output:
+```bash
+$ARTIFACT = "VALIDATION_ATLAS_V1"
+```
+
+Deliverables:
+A/B test templates, power plan, causal inference plan, competitive baseline design, external-validity design.
+
+### Milestone 5 — runtime research OS
+
+Output:
+```bash
+$ARTIFACT = "ROS_RUNTIME_SPEC_V1"
+```
+
+Deliverables:
+repo implementation, workflows, registries, evidence indexes, dashboards, approval gates.
+
+### Milestone 6 — dissertation synthesis
+
+Output:
+```bash
+$ARTIFACT = "DISSERTATION_ATLAS_COMPLETE"
+```
+
+Deliverables:
+chapter map, figures, theorem/proposition list, experiment summaries, failure appendix, future-work section.
+
+---
+
+## VIII. Recommended dissertation chapter spine
+
+1. Problem formation and category definition  
+2. Ontological and mathematical framework  
+3. Natural Center and computational identity systems  
+4. Multimodal extraction and representation  
+5. Causal attribution and experimentation  
+6. Platform-state modeling and algorithmic interface  
+7. Audience transition and economic value  
+8. Research operating system implementation  
+9. Empirical validation, baselines, and failure modes  
+10. Limits, generalization, and future field formation  
+
+---
+
+## IX. Final recommendation
+
+Do not expand every pillar equally right now. Follow the source-priority order exactly:
+
+```bash
+$PHASE_1 = {
+  $PILLAR_CAUSAL_INFERENCE,
+  $PILLAR_UNIT_ECONOMICS,
+  $PILLAR_ALGORITHMIC_INTERFACE
+}
+
+$PHASE_2 = {
+  $PILLAR_STATISTICAL_POWER,
+  $PILLAR_IDENTITY_PERSISTENCE,
+  $PILLAR_INFORMATION_DECAY
+}
+
+$PHASE_3 = {
+  $PILLAR_COMPETITIVE_BASELINE,
+  $PILLAR_GENERALIZATION,
+  $PILLAR_FAILURE_ANALYSIS,
+  $PILLAR_REPRODUCIBILITY,
+  $PILLAR_PLATFORM_EVOLUTION
+}
+```
+
+That ordering is the cleanest match to the internal source logic and gives you the fastest path from theory to defensible proof. fileciteturn1file8
+
+I can turn this next into a chapter-by-chapter dissertation scaffold with exact propositions, theorem targets, experiment sets, and artifact names.

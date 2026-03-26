@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "paths": {
+      "@cronus/*": [
+        "packages/*/src",
+        "services/*/src",
+        "apps/*/src"
+      ]
+    }
+  },
+  "references": [
+    { "path": "apps/api" },
+    { "path": "apps/dashboard" },
+    { "path": "apps/cli" },
+    { "path": "services/asset-ingestion" },
+    { "path": "services/fragment-extraction" },
+    { "path": "services/natural-center" },
+    { "path": "services/content-generation" },
+    { "path": "services/scoring" },
+    { "path": "services/platform-adapter" },
+    { "path": "services/scheduler" },
+    { "path": "services/analytics" },
+    { "path": "services/design-resizer" },
+    { "path": "services/audience-engine" },
+    { "path": "packages/domain" },
+    { "path": "packages/db" },
+    { "path": "packages/queue" },
+    { "path": "packages/storage" },
+    { "path": "packages/logger" },
+    { "path": "packages/config" }
+  ],
+  "exclude": ["node_modules", "dist"]
+}

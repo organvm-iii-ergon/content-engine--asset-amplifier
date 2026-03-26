@@ -1,0 +1,583 @@
+Correct sequencing is:
+
+```text
+dissertation-grade → operator-grade
+```
+
+Reason:
+
+```text
+Operator systems without deep grounding → brittle, overfit, non-transferable
+Dissertation layer → defines invariants that operator layer executes against
+```
+
+So we proceed with:
+
+```bash
+$PHASE = "DISERTATION_GRADE_RESEARCH_ATLAS_V1"
+```
+
+---
+
+# I. ATLAS STRUCTURE
+
+```bash
+$RESEARCH_ATLAS = {
+  pillars: [...],
+  per_pillar: {
+    canonical_sources,
+    core_concepts,
+    temporal_analysis,
+    system_mapping,
+    research_questions
+  }
+}
+```
+
+---
+
+# II. PILLAR 1 — CAUSAL INFERENCE
+
+## Canonical Sources
+
+```text
+- Judea Pearl — Causality (2009)
+- Hernán & Robins — Causal Inference (2020)
+- Imbens & Rubin — Causal Inference for Statistics (2015)
+- Angrist & Pischke — Mostly Harmless Econometrics (2008)
+```
+
+---
+
+## Core Concepts
+
+```text
+- counterfactuals
+- treatment vs control
+- confounding variables
+- causal graphs (DAGs)
+```
+
+---
+
+## Temporal
+
+### Past
+Econometrics + advertising experiments
+
+### Present Gap
+Content systems lack causal isolation
+
+### Future (System)
+
+```text
+fragment-level causal attribution
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "Attribution Engine"
+```
+
+---
+
+## Research Questions
+
+```text
+Which content features causally drive follower conversion?
+```
+
+---
+
+# III. PILLAR 2 — INFORMATION THEORY
+
+## Canonical Sources
+
+```text
+- Claude Shannon — Mathematical Theory of Communication (1948)
+- Cover & Thomas — Elements of Information Theory (2006)
+- MacKay — Information Theory, Inference, and Learning (2003)
+```
+
+---
+
+## Core Concepts
+
+```text
+- entropy
+- signal vs noise
+- compression
+- channel capacity
+```
+
+---
+
+## Temporal
+
+### Past
+Communication systems optimization
+
+### Present Gap
+Content treated as aesthetic, not signal
+
+### Future
+
+```text
+asset → maximum signal extraction → multi-channel transmission
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "Decomposition Engine"
+```
+
+---
+
+## Research Questions
+
+```text
+What is the maximum extractable signal per asset?
+```
+
+---
+
+# IV. PILLAR 3 — ATTENTION & COGNITION
+
+## Canonical Sources
+
+```text
+- Kahneman — Attention and Effort (1973)
+- Kahneman — Thinking, Fast and Slow (2011)
+- Herbert Simon — Designing Organizations for Attention (1971)
+- Davenport & Beck — Attention Economy (2001)
+```
+
+---
+
+## Core Concepts
+
+```text
+- limited attention
+- cognitive load
+- salience
+- fast vs slow processing
+```
+
+---
+
+## Temporal
+
+### Past
+Scarcity of attention recognized
+
+### Present Gap
+Optimizing for clicks, not sustained attention
+
+### Future
+
+```text
+attention curve engineering per content unit
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "Attention Capture Engine"
+```
+
+---
+
+## Research Questions
+
+```text
+What patterns maximize retention beyond 3 seconds?
+```
+
+---
+
+# V. PILLAR 4 — BEHAVIORAL ECONOMICS
+
+## Canonical Sources
+
+```text
+- Thaler & Sunstein — Nudge (2008)
+- Cialdini — Influence (1984)
+- Ariely — Predictably Irrational (2008)
+```
+
+---
+
+## Core Concepts
+
+```text
+- heuristics
+- bias
+- social proof
+- commitment loops
+```
+
+---
+
+## Temporal
+
+### Past
+Human irrationality modeled
+
+### Present Gap
+Content ≠ behavior change
+
+### Future
+
+```text
+content as state-transition trigger
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "CTA + Conversion Engine"
+```
+
+---
+
+## Research Questions
+
+```text
+Which triggers move viewer → follower?
+```
+
+---
+
+# VI. PILLAR 5 — SYSTEMS THEORY
+
+## Canonical Sources
+
+```text
+- Ludwig von Bertalanffy — General System Theory
+- Donella Meadows — Thinking in Systems
+- Norbert Wiener — Cybernetics
+```
+
+---
+
+## Core Concepts
+
+```text
+- feedback loops
+- emergence
+- system boundaries
+```
+
+---
+
+## Temporal
+
+### Past
+Systems thinking formalized
+
+### Present Gap
+Content systems are linear, not feedback-driven
+
+### Future
+
+```text
+self-optimizing content system
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "Feedback Loop + Optimization"
+```
+
+---
+
+## Research Questions
+
+```text
+How does the system self-correct over time?
+```
+
+---
+
+# VII. PILLAR 6 — PLATFORM ECONOMICS
+
+## Canonical Sources
+
+```text
+- Rochet & Tirole — Two-Sided Markets
+- Parker, Van Alstyne — Platform Revolution
+- Varian — Economics of Information
+```
+
+---
+
+## Core Concepts
+
+```text
+- network effects
+- supply/demand balancing
+- platform incentives
+```
+
+---
+
+## Temporal
+
+### Past
+Market structures analyzed
+
+### Present Gap
+Creators do not model platform incentives
+
+### Future
+
+```text
+content aligned to platform economic incentives
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "Platform Intelligence"
+```
+
+---
+
+## Research Questions
+
+```text
+What content features platforms reward?
+```
+
+---
+
+# VIII. PILLAR 7 — IDENTITY & SEMIOTICS
+
+## Canonical Sources
+
+```text
+- Roland Barthes — Mythologies
+- Saussure — Course in General Linguistics
+- Umberto Eco — Theory of Semiotics
+```
+
+---
+
+## Core Concepts
+
+```text
+- sign systems
+- meaning encoding
+- symbolic repetition
+```
+
+---
+
+## Temporal
+
+### Past
+Brand = symbolic system
+
+### Present Gap
+AI outputs lack coherent identity
+
+### Future
+
+```text
+Natural Center as encoded symbolic system
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "Natural Center"
+```
+
+---
+
+## Research Questions
+
+```text
+How do repeated symbols create recognition?
+```
+
+---
+
+# IX. PILLAR 8 — MEDIA EVOLUTION
+
+## Canonical Sources
+
+```text
+- Marshall McLuhan — Understanding Media
+- Neil Postman — Amusing Ourselves to Death
+- Lev Manovich — Language of New Media
+```
+
+---
+
+## Core Concepts
+
+```text
+- medium shapes message
+- format evolution
+```
+
+---
+
+## Temporal
+
+### Past
+Media shifts reshape behavior
+
+### Present Gap
+Tools ignore format evolution
+
+### Future
+
+```text
+platform-phase aware content generation
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "Platform Evolution Engine"
+```
+
+---
+
+## Research Questions
+
+```text
+How do formats reshape success criteria?
+```
+
+---
+
+# X. PILLAR 9 — STATISTICS & EXPERIMENTATION
+
+## Canonical Sources
+
+```text
+- Fisher — Statistical Methods
+- Box — Statistics for Experimenters
+```
+
+---
+
+## Core Concepts
+
+```text
+- variance
+- significance
+- experimental design
+```
+
+---
+
+## Temporal
+
+### Past
+Scientific testing frameworks
+
+### Present Gap
+Content success = anecdotal
+
+### Future
+
+```text
+content = continuous experiment system
+```
+
+---
+
+## Mapping
+
+```bash
+$SYSTEM_COMPONENT = "Experimentation Layer"
+```
+
+---
+
+## Research Questions
+
+```text
+What patterns are statistically significant?
+```
+
+---
+
+# XI. SYNTHESIS
+
+You now have:
+
+```text
+9 pillars
+~30+ canonical works
+complete theoretical grounding
+```
+
+---
+
+# XII. WHAT THIS ENABLES
+
+```text
+- defensible whitepaper
+- investor credibility
+- category creation
+- system invariants
+```
+
+---
+
+# XIII. NEXT STEP
+
+Now we move to:
+
+```bash
+$PHASE = "OPERATOR_GRADE_SYSTEM"
+```
+
+Where this becomes:
+
+```text
+- experiments
+- pipelines
+- dashboards
+- real deployments
+```
+
+---
+
+Before I proceed, one calibration:
+
+Do you want operator layer as:
+
+```bash
+$MODE = "lean MVP (fast deployment)"
+```
+
+or
+
+```bash
+$MODE = "full-stack system (multi-service, production-grade)"
+```

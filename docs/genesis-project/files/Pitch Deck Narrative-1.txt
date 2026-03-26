@@ -1,0 +1,585 @@
+Below is the **full structured output**, in the exact order requested, with each layer progressively refining the same underlying system.
+
+---
+
+# 1. VC-GRADE vs CLIENT-GRADE LANGUAGE
+
+## A. VC-GRADE (CAPITAL NARRATIVE)
+
+### Positioning
+
+**Cronus Metabolus** is a **content-to-audience-to-revenue operating system**.
+
+Not a tool.  
+Not SaaS in the narrow sense.  
+A **closed-loop optimization system**.
+
+---
+
+### Problem (Reframed Precisely)
+
+```text
+High-cost content assets are underutilized,
+while downstream content generation is manual,
+non-attributable, and non-compounding.
+```
+
+Market inefficiency:
+
+- CAPEX (hero content) is **decoupled from yield**
+- OPEX (content teams) is **non-scalable**
+- No system ties content → audience → revenue causally
+
+---
+
+### Solution (System Definition)
+
+```text
+S = ⟨A, F, NC, BE, P, U, O, Ψ, Λ⟩
+```
+
+Where:
+
+- A = assets  
+- F = fragments  
+- NC = identity constraint (Natural Center)  
+- BE = embedding (computable identity)  
+- P = platform state  
+- U = generated units  
+- O = observations  
+- Ψ = operators  
+- Λ = learning  
+
+fileciteturn0file23
+
+---
+
+### Core Mechanism
+
+```text
+content = f(asset, identity, platform_state)
+value   = g(content → audience transitions → outcomes)
+```
+
+This is a **stateful system**, not a pipeline.
+
+---
+
+### Insight (Why This Wins)
+
+Three structural innovations:
+
+1. **Identity as a computable constraint**
+2. **Content as decomposable + recomposable fragments**
+3. **Attribution across full lineage graph**
+
+Competitors operate on:
+
+```text
+post-level optimization
+```
+
+This system operates on:
+
+```text
+asset-level yield optimization
+```
+
+---
+
+### Outcome
+
+```text
+1 asset → 30–90 outputs → measurable ROI → compounding audience
+```
+
+---
+
+### Category Creation
+
+> “Content Yield Infrastructure”
+
+Analogous to:
+
+- Snowflake → data warehousing  
+- Stripe → payments infrastructure  
+
+This → **content-to-revenue infrastructure**
+
+---
+
+### Expansion Surface
+
+```text
+Phase 1 → content loop
+Phase 2 → attribution + scoring
+Phase 3 → audience engine
+Phase 4 → experimentation + causal optimization
+Phase 5 → multi-tenant adaptive OS
+```
+
+fileciteturn0file73
+
+---
+
+### Investment Thesis
+
+- Converts sunk creative cost → recurring yield
+- Creates **lock-in via identity + data + attribution**
+- Scales across:
+  - brands
+  - agencies
+  - platforms
+
+---
+
+## B. CLIENT-GRADE (BUYER NARRATIVE)
+
+### Positioning
+
+> We turn your existing content into a full content system that actually drives results.
+
+---
+
+### Problem
+
+You already:
+
+- spend $20K–$50K on content  
+- post it once  
+- then pay monthly for manual social media  
+
+Result:
+
+- wasted content  
+- inconsistent posting  
+- unclear ROI  
+
+---
+
+### Solution
+
+Upload:
+
+- a video  
+- product renders  
+
+We:
+
+- extract clips  
+- generate posts  
+- write captions  
+- schedule across platforms  
+- track performance  
+
+---
+
+### Output
+
+```text
+1 video → 30+ posts → 30–90 days of content
+```
+
+---
+
+### What Makes This Different
+
+Other tools:
+
+```text
+help you schedule posts
+```
+
+We:
+
+```text
+create the posts FROM your content
+```
+
+---
+
+### Value
+
+- save 15–25 hours/week  
+- increase posting consistency  
+- improve engagement  
+- show actual ROI  
+
+---
+
+### Result
+
+> You don’t just get a video.  
+> You get a system that turns that video into ongoing results.
+
+---
+
+# 2. FIGMA-READY VISUAL SLIDE LAYOUTS
+
+Below is a **precise layout system** (grid, hierarchy, spacing, components).
+
+---
+
+## GLOBAL DESIGN SYSTEM
+
+```text
+$GRID = 12-column
+$MARGIN = 80px
+$GUTTER = 24px
+$TYPE_SCALE = [72, 48, 32, 20, 16]
+$COLOR = neutral + 1 accent gradient
+```
+
+---
+
+## SLIDE 1 — TITLE
+
+**Layout**
+
+```text
+[ CENTERED ]
+
+Title (72pt)
+Subtitle (24pt)
+System tag (16pt)
+```
+
+**Design**
+
+- Minimal
+- Large negative space
+- Subtle gradient background
+
+---
+
+## SLIDE 2 — PROBLEM
+
+**Layout**
+
+```text
+[ LEFT TEXT | RIGHT VISUAL ]
+
+Left:
+  headline
+  3 short lines
+
+Right:
+  diagram (waste / inefficiency)
+```
+
+---
+
+## SLIDE 3 — CATEGORY SHIFT
+
+**Layout**
+
+```text
+[ FULL WIDTH COMPARISON ]
+
+OLD        →       NEW
+pipeline           system
+```
+
+Use:
+
+- arrows
+- stark contrast
+
+---
+
+## SLIDE 4 — PRODUCT FLOW
+
+**Layout**
+
+```text
+[ HORIZONTAL FLOW DIAGRAM ]
+
+asset → fragments → posts → metrics
+```
+
+Each node = icon + label
+
+---
+
+## SLIDE 5 — ENGINE
+
+**Layout**
+
+```text
+[ STACKED SYSTEM DIAGRAM ]
+
+Layer 1: Asset
+Layer 2: NC (identity)
+Layer 3: Generation
+Layer 4: Distribution
+Layer 5: Feedback
+```
+
+---
+
+## SLIDE 6 — DIFFERENTIATOR
+
+**Layout**
+
+```text
+[ SPLIT ]
+
+Left: generic AI outputs (messy grid)
+Right: consistent branded outputs
+```
+
+---
+
+## SLIDE 7 — OUTPUT MULTIPLIER
+
+**Layout**
+
+```text
+[ BEFORE / AFTER ]
+
+Left:
+  1 asset → 1 post
+
+Right:
+  1 asset → 30+ posts
+```
+
+Use:
+
+- multiplication visual
+- grid explosion
+
+---
+
+## SLIDE 8 — ATTRIBUTION
+
+**Layout**
+
+```text
+[ VERTICAL GRAPH ]
+
+asset
+↓
+fragment
+↓
+post
+↓
+performance
+↓
+revenue
+```
+
+---
+
+## SLIDE 9 — AUDIENCE ENGINE
+
+**Layout**
+
+```text
+[ STATE MACHINE ]
+
+viewer → engaged → follower → converted
+```
+
+Circular loop to show retention
+
+---
+
+## SLIDE 10 — MARKET
+
+**Layout**
+
+```text
+[ 3 COLUMN ]
+
+clients | agencies | DTC
+```
+
+Each:
+
+- icon
+- 1 line description
+
+---
+
+## SLIDE 11 — ROADMAP
+
+**Layout**
+
+```text
+[ TIMELINE ]
+
+MVP → attribution → audience → SaaS OS
+```
+
+---
+
+## SLIDE 12 — END STATE
+
+**Layout**
+
+```text
+[ BIG STATEMENT ]
+
+Content → Asset
+
++ supporting line
+```
+
+Minimal, bold
+
+---
+
+# 3. THREE VARIANTS
+
+---
+
+# A. INVESTOR PITCH (ABSTRACTION + SCALE)
+
+### Emphasis
+
+- system
+- category
+- defensibility
+- expansion
+
+### Slide Modifications
+
+- Slide 2 → add market inefficiency data
+- Slide 6 → emphasize “identity constraint system”
+- Slide 8 → emphasize attribution model
+- Slide 11 → emphasize SaaS + platform expansion
+
+### Tone
+
+```text
+analytical
+category-defining
+systems-oriented
+```
+
+---
+
+# B. AGENCY SALES DECK (REVENUE + UPSSELL)
+
+### Emphasis
+
+- client value
+- upsell mechanics
+- recurring revenue
+
+### Replace key slides:
+
+**Slide 3 → “How you sell this”**
+
+```text
+project → retainer
+video → content system
+```
+
+**Slide 10 → pricing logic**
+
+```text
+$X/month per client
+margin expansion
+```
+
+### Add slide:
+
+```text
+"This turns every project into a recurring revenue stream"
+```
+
+---
+
+# C. PRODUCT LANDING NARRATIVE
+
+### Structure (scroll-based)
+
+---
+
+## Section 1 — Hero
+
+> Turn one piece of content into months of posts
+
+CTA: Upload asset
+
+---
+
+## Section 2 — Problem
+
+Visual: content sitting unused
+
+---
+
+## Section 3 — How it works
+
+```text
+upload → generate → schedule → track
+```
+
+---
+
+## Section 4 — Output
+
+Grid of generated posts
+
+---
+
+## Section 5 — Differentiator
+
+“Not scheduling — creation”
+
+---
+
+## Section 6 — Results
+
+```text
++ engagement
++ consistency
++ time saved
+```
+
+---
+
+## Section 7 — Proof
+
+Metrics dashboard
+
+---
+
+## Section 8 — CTA
+
+> Turn your content into a system
+
+---
+
+# FINAL NOTE (STRATEGIC)
+
+Across all three:
+
+The invariant is:
+
+```text
+asset → system → yield
+```
+
+What changes is:
+
+```text
+investor → system + scale
+agency → revenue + leverage
+client → output + ease
+```
+
+---
+
+If you want next step, the highest-leverage move is:
+
+```text
+convert this into:
+- exact copy deck (final wording, no placeholders)
+- AND a Figma component system (tokens + styles + auto-layout frames)
+```
+
+That would take this from structured → immediately deployable.
