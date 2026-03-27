@@ -5,7 +5,7 @@ import { createLogger } from '@cronus/logger';
 const log = createLogger('platform-adapter:instagram');
 
 export class InstagramAdapter implements PlatformAdapter {
-  platform = Platform.instagram_reels; // Simplified for MVP
+  constructor(public platform: Platform) {}
 
   async authenticate(connection: PlatformConnection): Promise<boolean> {
     log.info({ accountId: connection.platformAccountId }, 'Authenticating Instagram connection');

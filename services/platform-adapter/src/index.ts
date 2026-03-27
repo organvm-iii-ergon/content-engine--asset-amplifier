@@ -10,7 +10,9 @@ export function registerAdapter(adapter: PlatformAdapter) {
 }
 
 // Pre-register known adapters for MVP
-registerAdapter(new InstagramAdapter());
+registerAdapter(new InstagramAdapter(Platform.instagram_feed));
+registerAdapter(new InstagramAdapter(Platform.instagram_story));
+registerAdapter(new InstagramAdapter(Platform.instagram_reels));
 registerAdapter(new LinkedInAdapter());
 
 export function getAdapter(platform: Platform): PlatformAdapter {
