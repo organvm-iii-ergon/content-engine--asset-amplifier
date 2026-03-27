@@ -141,11 +141,11 @@ export interface NaturalCenter {
   brandId: string;
   version: number;
   thematicCore: Record<string, unknown>;
-  aestheticSignature: string;
-  tonalVector: string;
-  narrativeBias: string;
-  symbolicMarkers: string[];
-  negativeSpace: string[];
+  aestheticSignature: Record<string, unknown> | string;
+  tonalVector: Record<string, unknown> | string;
+  narrativeBias: Record<string, unknown> | string;
+  symbolicMarkers: Record<string, unknown>[] | string[];
+  negativeSpace: Record<string, unknown>[] | string[];
   brandEmbedding: number[];
   confidenceScores: Record<string, number>;
   overallConfidence: number;
@@ -253,6 +253,9 @@ export interface PlatformConnection {
   platformAccountId: string;
   platformAccountName?: string;
   status: PlatformConnectionStatus;
+  accessToken?: string;
+  refreshToken?: string;
+  tokenExpiresAt?: Date;
   scopes: string[];
   rateLimitState: Record<string, unknown>;
   createdAt: Date;

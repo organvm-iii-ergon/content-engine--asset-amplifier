@@ -13,6 +13,7 @@ import { scheduleRoutes } from './routes/schedule.js';
 import { platformRoutes } from './routes/platforms.js';
 import { analyticsRoutes } from './routes/analytics.js';
 import { resizeRoutes } from './routes/resize.js';
+import { authPlugin } from './plugins/auth.js';
 
 const log = createLogger('api');
 
@@ -20,6 +21,7 @@ export async function buildApp() {
   const app = Fastify({ logger: false }); // we use our own logger
 
   await app.register(cors, { origin: true });
+  await app.register(authPlugin);
   await app.register(multipart, { limits: { fileSize: 2 * 1024 * 1024 * 1024 } });
 
   // Error handler
