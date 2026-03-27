@@ -1,6 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
-import { OpenAI } from 'openai';
-import { getConfig } from '@cronus/config';
+import { getConfig, resolveProviders } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
 import { eq, inArray, and, sql } from '@cronus/db';
 import { createLogger } from '@cronus/logger';
@@ -28,8 +26,11 @@ export async function deriveNaturalCenter(params: {
   const { brandId, assetIds, toneDescription } = params;
   const config = getConfig();
   const db = getDb();
-  const anthropic = new Anthropic({ apiKey: config.ANTHROPIC_API_KEY }); // allow-secret
-  const openai = new OpenAI({ apiKey: config.OPENAI_API_KEY }); // allow-secret
+  const { llm, embedding } = await resolveProviders();
+
+  if (!llm) {
+    throw new Error('No LLM provider available');
+  }
 
   log.info({ brandId, assetCount: assetIds.length }, 'Deriving brand identity');
 
@@ -74,26 +75,21 @@ export async function deriveNaturalCenter(params: {
       - summary (string)
     `;
 
-    const response = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20240620',
-      max_tokens: 2048,
-      messages: [{ role: 'user', content: synthesisPrompt }],
-    });
+    const synthesisText = await llm.generate(synthesisPrompt, { maxTokens: 2048 });
 
     let profile;
     try {
-      profile = JSON.parse((response.content[0] as any).text);
+      profile = JSON.parse(synthesisText);
     } catch {
       log.error({ brandId }, 'Failed to parse AI synthesis response');
       throw new Error('Identity derivation failed: unparseable AI response');
     }
 
-    // 4. Master Brand Embedding (OpenAI)
-    const embeddingResponse = await openai.embeddings.create({
-      model: 'text-embedding-3-small',
-      input: `${profile.summary} ${profile.tonal_vector} ${profile.aesthetic_signature}`,
-    });
-    const brandEmbedding = embeddingResponse.data[0].embedding;
+    // 4. Master Brand Embedding
+    const embeddingInput = `${profile.summary} ${profile.tonal_vector} ${profile.aesthetic_signature}`;
+    const brandEmbedding = embedding
+      ? await embedding.embed(embeddingInput)
+      : [];
 
     // 5. System Prompt Compilation (T036)
     const systemPrompt = `

@@ -1,5 +1,4 @@
-import { OpenAI } from 'openai';
-import { getConfig } from '@cronus/config';
+import { resolveProviders } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
 import { eq, inArray } from '@cronus/db';
 import { ApprovalStatus } from '@cronus/domain';
@@ -16,15 +15,13 @@ const log = createLogger('scoring');
  * 4. Updates ContentUnit with score and flags for review if below threshold.
  */
 export async function scoreContentUnits(contentUnitIds: string[]) {
-  const config = getConfig();
   const db = getDb();
-  
-  if (!config.OPENAI_API_KEY) {
-    log.warn('OPENAI_API_KEY not set, skipping scoring');
+  const { embedding } = await resolveProviders();
+
+  if (!embedding) {
+    log.warn('No embedding provider available, skipping scoring');
     return;
   }
-
-  const openai = new OpenAI({ apiKey: config.OPENAI_API_KEY }); // allow-secret
 
   // 1. Fetch content units
   const units = await db
@@ -53,11 +50,7 @@ export async function scoreContentUnits(contentUnitIds: string[]) {
   for (const unit of units) {
     try {
       // 3. Generate Unit Embedding
-      const response = await openai.embeddings.create({
-        model: 'text-embedding-3-small',
-        input: unit.caption,
-      });
-      const unitEmbedding = response.data[0].embedding;
+      const unitEmbedding = await embedding.embed(unit.caption);
 
       // 4. Calculate Cosine Similarity
       const score = calculateCosineSimilarity(unitEmbedding, brandEmbedding);
