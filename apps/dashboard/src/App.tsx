@@ -63,10 +63,40 @@ const NavIcon: React.FC<{ icon: string; className?: string }> = ({ icon, classNa
   }
 };
 
+const BRAND_ID = '03fd240d-93d3-4f3c-b28a-b1e6b6e5570f'; // TODO: dynamic from brand selector
+const API_URL = import.meta.env.VITE_API_URL || 'https://cronus-api.ivixivi.workers.dev';
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const form = new FormData();
+      form.append('file', file);
+      const res = await fetch(`${API_URL}/api/v1/brands/${BRAND_ID}/assets`, {
+        method: 'POST',
+        body: form,
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const asset = await res.json();
+      alert(`Uploaded: ${asset.originalFilename} (${(asset.fileSizeBytes / 1024).toFixed(0)} KB)`);
+      // Navigate to assets page
+      window.location.href = '/assets';
+    } catch (err: any) {
+      alert(`Upload failed: ${err.message}`);
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
   return (
     <div className="flex h-screen bg-gray-50 text-gray-900">
@@ -187,19 +217,36 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Hidden file input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="video/mp4,video/quicktime,image/png,image/jpeg,image/tiff"
+              onChange={handleUpload}
+              className="hidden"
+            />
             {/* Upload button: icon on mobile, full on desktop */}
-            <button className="hidden md:inline-flex px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors min-h-[44px] items-center">
-              Upload Asset
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="hidden md:inline-flex px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors min-h-[44px] items-center disabled:opacity-50"
+            >
+              {uploading ? 'Uploading...' : 'Upload Asset'}
             </button>
-            <Link
-              to="/assets"
-              className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center bg-black text-white rounded-lg active:bg-gray-800"
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center bg-black text-white rounded-lg active:bg-gray-800 disabled:opacity-50"
               aria-label="Upload Asset"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-            </Link>
+              {uploading ? (
+                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/></svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              )}
+            </button>
             {/* Hamburger (mobile only) */}
             <button
               onClick={() => setMobileMenuOpen(true)}

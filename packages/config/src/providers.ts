@@ -276,8 +276,10 @@ export class WhisperTranscription implements TranscriptionProvider {
 // ── Provider Resolution ───────────────────────────────────────
 
 async function isOllamaAvailable(host: string = 'http://localhost:11434'): Promise<boolean> {
+  // Skip Ollama check in production/Worker environments (localhost doesn't exist)
+  if (process.env.NODE_ENV === 'production') return false;
   try {
-    const res = await fetch(`${host}/api/tags`, { signal: AbortSignal.timeout(2000) });
+    const res = await fetch(`${host}/api/tags`, { signal: AbortSignal.timeout(500) });
     return res.ok;
   } catch { return false; }
 }
