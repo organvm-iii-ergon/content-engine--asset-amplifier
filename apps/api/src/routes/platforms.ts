@@ -1,8 +1,8 @@
 import { FastifyPluginAsync } from 'fastify';
-import { getDb, schema } from '@cronus/db';
+import { getDb, schema, toCamel, mapRows } from '@cronus/db';
 import { eq } from 'drizzle-orm';
 import { Platform } from '@cronus/domain';
-import { getConfig, encrypt } from '@cronus/config';
+import { getConfig, encrypt } from '@cronus/config'; // allow-secret
 import axios from 'axios';
 import { randomUUID } from 'node:crypto';
 import { createLogger } from '@cronus/logger';
@@ -15,10 +15,12 @@ export const platformRoutes: FastifyPluginAsync = async (app) => {
     const { brandId } = request.params as { brandId: string };
     const db = getDb();
 
-    return db
+    const rows = await db
       .select()
       .from(schema.platformConnections)
-      .where(eq(schema.platformConnections.brandId, brandId));
+      .where(eq(schema.platformConnections.brand_id, brandId));
+
+    return mapRows(rows);
   });
 
   // GET /brands/:brandId/platforms/connect/:platform
@@ -27,12 +29,12 @@ export const platformRoutes: FastifyPluginAsync = async (app) => {
     const config = getConfig();
 
     if (platform === 'linkedin') {
-      const clientId = config.LINKEDIN_CLIENT_ID;
+      const clientId = config.LINKEDIN_CLIENT_ID; // allow-secret
       const redirectUri = `${process.env.API_URL}/api/v1/platforms/callback/linkedin`;
       const scope = encodeURIComponent('w_member_social r_liteprofile');
-      
+
       const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${brandId}`;
-      
+
       return reply.redirect(authUrl);
     }
 
@@ -51,27 +53,36 @@ export const platformRoutes: FastifyPluginAsync = async (app) => {
         params: {
           grant_type: 'authorization_code',
           code,
-          client_id: config.LINKEDIN_CLIENT_ID,
-          client_secret: config.LINKEDIN_CLIENT_SECRET,
+          client_id: config.LINKEDIN_CLIENT_ID, // allow-secret
+          client_secret: config.LINKEDIN_CLIENT_SECRET, // allow-secret
           redirect_uri: `${process.env.API_URL}/api/v1/platforms/callback/linkedin`,
         },
       });
 
-      const { access_token } = response.data;
+      const { access_token } = response.data; // allow-secret
 
       // 2. Encrypt token
-      const encryptedToken = encrypt(access_token);
+      const encryptedToken = encrypt(access_token); // allow-secret
 
       // 3. Upsert platform connection
       await db.insert(schema.platformConnections).values({
         id: randomUUID(),
-        brandId,
+        brand_id: brandId,
         platform: Platform.linkedin,
-        accessToken: encryptedToken,
+        platform_account_id: 'linkedin-user',
+        access_token: encryptedToken, // allow-secret
+        scopes: ['w_member_social', 'r_liteprofile'],
         status: 'active',
       }).onConflictDoUpdate({
-        target: [schema.platformConnections.brandId, schema.platformConnections.platform],
-        set: { accessToken: encryptedToken, status: 'active' },
+        target: [
+          schema.platformConnections.brand_id,
+          schema.platformConnections.platform,
+          schema.platformConnections.platform_account_id,
+        ],
+        set: {
+          access_token: encryptedToken, // allow-secret
+          status: 'active',
+        },
       });
 
       return reply.redirect(`${process.env.DASHBOARD_URL}/platforms?status=success`);
