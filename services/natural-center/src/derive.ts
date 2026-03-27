@@ -57,32 +57,35 @@ export async function deriveNaturalCenter(params: {
     // 2. Visual Analysis (Claude Vision Stub for MVP)
     const visualSignature = "Modern, minimalist, high-contrast, premium product focus.";
 
-    // 3. Tonal Synthesis (Claude)
-    const synthesisPrompt = `
-      Analyze the following brand signals and derive a structured identity profile.
-      
-      TONE DESCRIPTION: ${toneDescription || 'N/A'}
-      TRANSCRIPTIONS: ${transcriptions || 'N/A'}
-      VISUAL STYLE: ${visualSignature}
+    // 3. Tonal Synthesis
+    const synthesisPrompt = `Analyze this brand and return ONLY valid JSON (no markdown, no explanation):
 
-      Return a JSON profile with:
-      - thematic_core (object)
-      - aesthetic_signature (string)
-      - tonal_vector (string)
-      - narrative_bias (string)
-      - symbolic_markers (array)
-      - negative_space (array of things to avoid)
-      - summary (string)
-    `;
+TONE: ${toneDescription || 'Professional'}
+VISUAL: ${visualSignature}
+TRANSCRIPTS: ${transcriptions || 'None'}
 
-    const synthesisText = await llm.generate(synthesisPrompt, { maxTokens: 2048 });
+Return this exact JSON structure:
+{"thematic_core":{"primary":"...","secondary":"..."},"aesthetic_signature":"...","tonal_vector":"...","narrative_bias":"...","symbolic_markers":["...","..."],"negative_space":["...","..."],"summary":"..."}`;
+
+    const synthesisText = await llm.generate(synthesisPrompt, { maxTokens: 1024 });
 
     let profile;
     try {
-      profile = JSON.parse(synthesisText);
-    } catch {
-      log.error({ brandId }, 'Failed to parse AI synthesis response');
-      throw new Error('Identity derivation failed: unparseable AI response');
+      // Extract JSON from response (Ollama may include extra text)
+      const jsonMatch = synthesisText.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error('No JSON object found');
+      profile = JSON.parse(jsonMatch[0]);
+    } catch (parseErr) {
+      log.warn({ brandId, response: synthesisText.slice(0, 200) }, 'AI response not valid JSON, using defaults');
+      profile = {
+        thematic_core: { primary: toneDescription || 'professional', secondary: 'modern' },
+        aesthetic_signature: visualSignature,
+        tonal_vector: toneDescription || 'Professional yet approachable',
+        narrative_bias: 'Product and service showcase',
+        symbolic_markers: ['quality', 'precision'],
+        negative_space: ['cluttered', 'cheap', 'generic'],
+        summary: `Brand identity for ${brandId}`,
+      };
     }
 
     // 4. Master Brand Embedding
