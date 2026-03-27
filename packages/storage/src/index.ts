@@ -104,10 +104,63 @@ export class S3StorageClient implements StorageClient {
 }
 
 // ---------------------------------------------------------------------------
+// Filesystem adapter — for deployments without S3 (e.g., Render persistent disk)
+// ---------------------------------------------------------------------------
+
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+class FilesystemStorageClient implements StorageClient {
+  private basePath: string;
+
+  constructor(basePath: string) {
+    this.basePath = basePath;
+  }
+
+  private resolve(key: string): string {
+    return path.join(this.basePath, key);
+  }
+
+  async upload(key: string, data: Buffer): Promise<void> {
+    const filePath = this.resolve(key);
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    await fs.writeFile(filePath, data);
+  }
+
+  async download(key: string): Promise<Buffer> {
+    return fs.readFile(this.resolve(key));
+  }
+
+  async getSignedUrl(key: string): Promise<string> {
+    return `/files/${key}`;
+  }
+
+  async delete(key: string): Promise<void> {
+    await fs.unlink(this.resolve(key)).catch(() => {});
+  }
+
+  async exists(key: string): Promise<boolean> {
+    try {
+      await fs.access(this.resolve(key));
+      return true;
+    } catch {
+      return false;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Factory — reads connection details from environment variables
 // ---------------------------------------------------------------------------
 
 export function createStorage(): StorageClient {
+  const storageMode = process.env.STORAGE_MODE;
+
+  if (storageMode === 'filesystem') {
+    const storagePath = process.env.STORAGE_PATH ?? './data/assets';
+    return new FilesystemStorageClient(storagePath);
+  }
+
   const endpoint = process.env.STORAGE_ENDPOINT;
   const accessKey = process.env.STORAGE_ACCESS_KEY;
   const secretKey = process.env.STORAGE_SECRET_KEY;
@@ -115,9 +168,9 @@ export function createStorage(): StorageClient {
   const region = process.env.STORAGE_REGION ?? 'auto';
 
   if (!endpoint || !accessKey || !secretKey || !bucket) {
-    throw new Error(
-      'Missing required storage env vars: STORAGE_ENDPOINT, STORAGE_ACCESS_KEY, STORAGE_SECRET_KEY, STORAGE_BUCKET',
-    );
+    // Fall back to filesystem if no S3 config
+    const fallbackPath = process.env.STORAGE_PATH ?? './data/assets';
+    return new FilesystemStorageClient(fallbackPath);
   }
 
   return new S3StorageClient({ endpoint, accessKey, secretKey, bucket, region });
