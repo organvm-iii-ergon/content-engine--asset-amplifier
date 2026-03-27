@@ -29,6 +29,13 @@ const envSchema = z.object({
   LINKEDIN_CLIENT_ID: z.string().optional(),
   LINKEDIN_CLIENT_SECRET: z.string().optional(),
 
+  // Security
+  ENCRYPTION_KEY: z.string().optional(),
+
+  // URLs
+  DASHBOARD_URL: z.string().default('http://localhost:5173'),
+  API_URL: z.string().default('http://localhost:3000'),
+
   // API
   API_PORT: z.coerce.number().default(3000),
   API_HOST: z.string().default('0.0.0.0'),
