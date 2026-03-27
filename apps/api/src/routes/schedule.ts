@@ -1,5 +1,5 @@
 import { FastifyPluginAsync } from 'fastify';
-import { getDb, schema } from '@cronus/db';
+import { getDb, schema, mapRows } from '@cronus/db';
 import { eq, and, gte, lte } from 'drizzle-orm';
 import { scheduleContent } from '@cronus/scheduler';
 import { ScheduleStrategy } from '@cronus/domain';
@@ -39,23 +39,16 @@ export const scheduleRoutes: FastifyPluginAsync = async (app) => {
     const { start_date, end_date } = request.query as { start_date?: string; end_date?: string };
     const db = getDb();
 
-    // Joining publishEvents with contentUnits to show what's scheduled
-    const conditions = []; // We need a better way to filter by brandId via relationship
-    
-    // Simplification for MVP: filter by dates if provided
-    let query = db.select().from(schema.publishEvents);
-    
-    if (start_date) {
-      // @ts-ignore
-      conditions.push(gte(schema.publishEvents.scheduled_at, new Date(start_date)));
-    }
-    if (end_date) {
-      // @ts-ignore
-      conditions.push(lte(schema.publishEvents.scheduled_at, new Date(end_date)));
-    }
+    // Must join through content_units to filter by brand
+    let query = db
+      .select()
+      .from(schema.publishEvents)
+      .innerJoin(schema.contentUnits, eq(schema.publishEvents.content_unit_id, schema.contentUnits.id))
+      .where(eq(schema.contentUnits.brand_id, brandId));
 
-    return conditions.length > 0 
-      ? db.select().from(schema.publishEvents).where(and(...conditions))
-      : db.select().from(schema.publishEvents);
+    // TODO: add date range filters if start_date/end_date provided
+
+    const rows = await query;
+    return mapRows(rows.map(r => r.publish_events));
   });
 };
