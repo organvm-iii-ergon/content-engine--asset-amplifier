@@ -15,6 +15,7 @@
     "fastify": "*",
     "@fastify/cors": "*",
     "@fastify/multipart": "*",
+    "axios": "*",
     "@cronus/domain": "workspace:*",
     "@cronus/db": "workspace:*",
     "@cronus/queue": "workspace:*",

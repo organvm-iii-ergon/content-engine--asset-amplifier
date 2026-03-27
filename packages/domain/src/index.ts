@@ -151,6 +151,17 @@ export interface NaturalCenter {
   overallConfidence: number;
   sourceAssetIds: string[];
   systemPrompt: string;
+  inquiries: IdentityInquiry[];
+  createdAt: Date;
+}
+
+export interface IdentityInquiry {
+  id: string;
+  question: string;
+  options?: string[];
+  dimension: 'tonal' | 'aesthetic' | 'thematic';
+  status: 'pending' | 'answered';
+  answer?: string;
   createdAt: Date;
 }
 

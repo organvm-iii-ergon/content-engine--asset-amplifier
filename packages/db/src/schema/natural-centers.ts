@@ -16,5 +16,6 @@ export const naturalCenters = pgTable('natural_centers', {
   overall_confidence: real('overall_confidence').notNull(),
   source_asset_ids: jsonb('source_asset_ids').notNull(),
   system_prompt: text('system_prompt').notNull(),
+  inquiries: jsonb('inquiries').default('[]'),
   created_at: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });

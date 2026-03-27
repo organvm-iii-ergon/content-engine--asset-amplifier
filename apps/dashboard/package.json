@@ -14,7 +14,9 @@
   "dependencies": {
     "react": "*",
     "react-dom": "*",
-    "react-router-dom": "*"
+    "react-router-dom": "*",
+    "axios": "*",
+    "@cronus/domain": "workspace:*"
   },
   "devDependencies": {
     "vite": "*",

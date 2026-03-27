@@ -25,6 +25,10 @@ const envSchema = z.object({
   ANTHROPIC_API_KEY: z.string().startsWith('sk-ant-'),
   OPENAI_API_KEY: z.string().startsWith('sk-').optional(),
 
+  // Platform OAuth
+  LINKEDIN_CLIENT_ID: z.string().optional(),
+  LINKEDIN_CLIENT_SECRET: z.string().optional(),
+
   // API
   API_PORT: z.coerce.number().default(3000),
   API_HOST: z.string().default('0.0.0.0'),
@@ -53,3 +57,5 @@ export function getConfig(): Env {
 export function getConfigSafe(): Partial<Env> {
   return envSchema.partial().parse(process.env);
 }
+
+export * from './crypto.js';

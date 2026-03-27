@@ -2,10 +2,11 @@ import Anthropic from '@anthropic-ai/sdk';
 import { OpenAI } from 'openai';
 import { getConfig } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
-import { eq, inArray } from 'drizzle-orm';
+import { eq, inArray, and, sql } from 'drizzle-orm';
 import { createLogger } from '@cronus/logger';
 import { FragmentType } from '@cronus/domain';
 import { randomUUID } from 'node:crypto';
+import { generateIdentityInquiries } from './inquiry.js';
 
 const log = createLogger('natural-center:derive');
 
@@ -17,6 +18,7 @@ const log = createLogger('natural-center:derive');
  * 3. Syntheses these into a structured NC profile.
  * 4. Generates a master brand embedding for alignment scoring.
  * 5. Compiles a master system prompt for generation.
+ * 6. Generates clarification inquiries for low-confidence dimensions.
  */
 export async function deriveNaturalCenter(params: {
   brandId: string;
@@ -42,7 +44,7 @@ export async function deriveNaturalCenter(params: {
           eq(schema.fragments.type, FragmentType.keyframe)
         )
       )
-      .limit(5); // Analyze top 5 keyframes for visual signature
+      .limit(5);
 
     const assets = await db
       .select()
@@ -52,7 +54,6 @@ export async function deriveNaturalCenter(params: {
     const transcriptions = assets.map(a => a.transcription).filter(Boolean).join('\n\n');
 
     // 2. Visual Analysis (Claude Vision Stub for MVP)
-    // In a full implementation, we'd send base64 images to Claude.
     const visualSignature = "Modern, minimalist, high-contrast, premium product focus.";
 
     // 3. Tonal Synthesis (Claude)
@@ -97,7 +98,15 @@ export async function deriveNaturalCenter(params: {
       AVOID: ${profile.negative_space.join(', ')}
     `;
 
-    // 6. Persistence
+    // 6. Generate Inquiries if confidence is low
+    const confidenceScores = { visual: 0.8, tonal: 0.5 }; // Mock low confidence for demonstration
+    const inquiries = await generateIdentityInquiries({
+      aestheticSignature: profile.aesthetic_signature,
+      tonalVector: profile.tonal_vector,
+      confidenceScores,
+    } as any);
+
+    // 7. Persistence
     const [nc] = await db.insert(schema.naturalCenters).values({
       id: randomUUID(),
       brand_id: brandId,
@@ -109,10 +118,11 @@ export async function deriveNaturalCenter(params: {
       symbolic_markers: profile.symbolic_markers,
       negative_space: profile.negative_space,
       brand_embedding: JSON.stringify(brandEmbedding),
-      confidence_scores: { visual: 0.8, tonal: 0.7 },
-      overall_confidence: 0.75,
+      confidence_scores: confidenceScores,
+      overall_confidence: 0.65,
       source_asset_ids: assetIds,
       system_prompt: systemPrompt,
+      inquiries: inquiries,
     })
     .onConflictDoUpdate({
       target: schema.naturalCenters.brand_id,
@@ -121,7 +131,7 @@ export async function deriveNaturalCenter(params: {
         thematic_core: profile.thematic_core,
         brand_embedding: JSON.stringify(brandEmbedding),
         system_prompt: systemPrompt,
-        // ... update other fields
+        inquiries: inquiries,
       }
     })
     .returning();
@@ -134,6 +144,3 @@ export async function deriveNaturalCenter(params: {
     throw error;
   }
 }
-
-// Helper imports needed
-import { and, sql } from 'drizzle-orm';

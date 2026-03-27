@@ -58,4 +58,31 @@ export const naturalCenterRoutes: FastifyPluginAsync = async (app) => {
 
     return { status: 'refined' };
   });
+
+  // POST /brands/:brandId/natural-center/inquiries/:inquiryId/answer
+  app.post('/brands/:brandId/natural-center/inquiries/:inquiryId/answer', async (request, reply) => {
+    const { brandId, inquiryId } = request.params as { brandId: string; inquiryId: string };
+    const { answer } = request.body as { answer: string };
+    const db = getDb();
+
+    // 1. Fetch NC
+    const [nc] = await db.select().from(schema.naturalCenters).where(eq(schema.naturalCenters.brand_id, brandId));
+    if (!nc) return reply.status(404).send({ error: 'NC not found' });
+
+    // 2. Update inquiry status
+    const inquiries = (nc.inquiries as any[] || []).map(iq => {
+      if (iq.id === inquiryId) {
+        return { ...iq, status: 'answered', answer };
+      }
+      return iq;
+    });
+
+    // 3. Trigger refinement based on answer (T037)
+    // For MVP, we'll just store the answer. Production would re-derive.
+    await db.update(schema.naturalCenters)
+      .set({ inquiries })
+      .where(eq(schema.naturalCenters.id, nc.id));
+
+    return { status: 'answered' };
+  });
 };
