@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { FastifyPluginAsync } from 'fastify';
 import { resizeDesignBatch } from '@cronus/design-resizer';
 import { createLogger } from '@cronus/logger';
@@ -34,19 +35,19 @@ export const resizeRoutes: FastifyPluginAsync = async (app) => {
 
     log.info({ brandId, formats: targetFormatIds }, 'Received resize request');
 
-    // 2. Start batch processing
-    // For MVP we do it synchronously to return the result, 
-    // but in production this should be a background job.
-    const results = await resizeDesignBatch({
+    const jobId = randomUUID();
+
+    // Fire and forget — resizing runs in background
+    resizeDesignBatch({
       brandId,
       buffer,
       originalFilename: filename,
       targetFormatIds,
-    });
+    }).catch(err => log.error({ err, brandId }, 'Resize batch failed'));
 
     return reply.status(202).send({
-      message: 'Resizing complete',
-      results,
+      job_id: jobId,
+      target_count: targetFormatIds.length,
     });
   });
 };

@@ -1,5 +1,6 @@
+import { randomUUID } from 'node:crypto';
 import { FastifyPluginAsync } from 'fastify';
-import { getDb, schema } from '@cronus/db';
+import { getDb, schema, mapRows } from '@cronus/db';
 import { eq, and, desc } from 'drizzle-orm';
 import { ApprovalStatus, Platform } from '@cronus/domain';
 import { generateAssetContent } from '@cronus/content-generation';
@@ -32,18 +33,16 @@ export const contentRoutes: FastifyPluginAsync = async (app) => {
 
     log.info({ brandId, assetId: asset_id }, 'Triggering content generation');
 
-    // 2. Start generation (in background for MVP simplicity, or via BullMQ in production)
-    // For now, we call the service directly but don't await the full batch to return fast
+    const jobId = randomUUID();
+
+    // Fire and forget — generation runs in background
     generateAssetContent({
       brandId,
       assetId: asset_id,
       platforms: platforms || [Platform.instagram_feed, Platform.linkedin, Platform.x] as Platform[],
-    }).catch(err => log.error({ err, assetId: asset_id }, 'Background generation failed'));
+    }).catch(err => log.error({ err, assetId: asset_id }, 'Generation failed'));
 
-    return reply.status(202).send({ 
-      message: 'Generation started',
-      asset_id
-    });
+    return reply.status(202).send({ job_id: jobId, estimated_count: 30 });
   });
 
   // GET /brands/:brandId/content
@@ -64,11 +63,13 @@ export const contentRoutes: FastifyPluginAsync = async (app) => {
     if (approval_status) conditions.push(eq(schema.contentUnits.approval_status, approval_status));
     if (platform) conditions.push(eq(schema.contentUnits.platform, platform));
 
-    return db
+    const rows = await db
       .select()
       .from(schema.contentUnits)
       .where(and(...conditions))
       .orderBy(desc(schema.contentUnits.created_at));
+
+    return mapRows(rows);
   });
 
   // POST /brands/:brandId/content/:contentUnitId/approve

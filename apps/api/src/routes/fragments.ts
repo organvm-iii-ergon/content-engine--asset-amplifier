@@ -1,5 +1,5 @@
 import { FastifyPluginAsync } from 'fastify';
-import { getDb, schema } from '@cronus/db';
+import { getDb, schema, mapRows } from '@cronus/db';
 import { eq, and } from 'drizzle-orm';
 
 export const fragmentRoutes: FastifyPluginAsync = async (app) => {
@@ -19,9 +19,11 @@ export const fragmentRoutes: FastifyPluginAsync = async (app) => {
     }
 
     // 2. Fetch fragments
-    return db
+    const rows = await db
       .select()
       .from(schema.fragments)
       .where(eq(schema.fragments.asset_id, assetId));
+
+    return mapRows(rows);
   });
 };

@@ -1,5 +1,6 @@
+import { randomUUID } from 'node:crypto';
 import { FastifyPluginAsync } from 'fastify';
-import { getDb, schema } from '@cronus/db';
+import { getDb, schema, toCamel, mapRows } from '@cronus/db';
 import { eq } from 'drizzle-orm';
 import { deriveNaturalCenter, refineNaturalCenter } from '@cronus/natural-center';
 import { createLogger } from '@cronus/logger';
@@ -21,7 +22,7 @@ export const naturalCenterRoutes: FastifyPluginAsync = async (app) => {
       return reply.status(404).send({ error: 'No identity profile derived for this brand yet' });
     }
 
-    return nc;
+    return toCamel(nc);
   });
 
   // POST /brands/:brandId/natural-center
@@ -42,10 +43,9 @@ export const naturalCenterRoutes: FastifyPluginAsync = async (app) => {
       toneDescription: tone_description,
     }).catch(err => log.error({ err, brandId }, 'NC derivation background failed'));
 
-    return reply.status(202).send({ 
-      status: 'processing',
-      message: 'Brand identity derivation started'
-    });
+    const jobId = randomUUID();
+
+    return reply.status(202).send({ job_id: jobId, status: 'processing' });
   });
 
   // PATCH /brands/:brandId/natural-center
