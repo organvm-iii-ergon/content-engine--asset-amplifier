@@ -12,15 +12,19 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "react": "*",
-    "react-dom": "*",
-    "react-router-dom": "*",
-    "axios": "*",
-    "@cronus/domain": "workspace:*"
+    "@cronus/domain": "workspace:*",
+    "axios": "^1.13.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.2"
   },
   "devDependencies": {
-    "vite": "*",
-    "@vitejs/plugin-react": "*",
-    "tailwindcss": "*"
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "autoprefixer": "10.4.27",
+    "postcss": "8.5.8",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.0.3"
   }
 }
