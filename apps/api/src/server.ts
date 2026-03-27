@@ -77,7 +77,11 @@ async function start() {
   }
 }
 
-start().catch((err) => {
-  console.error('Failed to start API:', err);
-  process.exit(1);
-});
+// Only start the server when run directly (not imported by Worker)
+const isDirectRun = process.argv[1]?.endsWith('server.ts') || process.argv[1]?.endsWith('server.js');
+if (isDirectRun) {
+  start().catch((err) => {
+    console.error('Failed to start API:', err);
+    process.exit(1);
+  });
+}

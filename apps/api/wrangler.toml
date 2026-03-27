@@ -1,0 +1,27 @@
+name = "cronus-api"
+main = "src/worker.ts"
+compatibility_date = "2026-03-27"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+STORAGE_MODE = "filesystem"
+API_HOST = "0.0.0.0"
+LOG_LEVEL = "info"
+NODE_ENV = "production"
+
+[alias]
+"@cronus/db" = "../../packages/db/src/index.ts"
+"@cronus/domain" = "../../packages/domain/src/index.ts"
+"@cronus/logger" = "../../packages/logger/src/index.ts"
+"@cronus/config" = "../../packages/config/src/index.ts"
+"@cronus/queue" = "../../packages/queue/src/index.ts"
+"@cronus/storage" = "../../packages/storage/src/index.ts"
+"@cronus/asset-ingestion" = "../../services/asset-ingestion/src/index.ts"
+"@cronus/content-generation" = "../../services/content-generation/src/index.ts"
+"@cronus/fragment-extraction" = "../../services/fragment-extraction/src/index.ts"
+"@cronus/natural-center" = "../../services/natural-center/src/index.ts"
+"@cronus/scoring" = "../../services/scoring/src/index.ts"
+"@cronus/scheduler" = "../../services/scheduler/src/index.ts"
+"@cronus/platform-adapter" = "../../services/platform-adapter/src/index.ts"
+"@cronus/analytics" = "../../services/analytics/src/index.ts"
+"@cronus/design-resizer" = "../../services/design-resizer/src/index.ts"

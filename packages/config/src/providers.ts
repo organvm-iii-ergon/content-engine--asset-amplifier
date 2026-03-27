@@ -201,7 +201,7 @@ export class CloudflareEmbedding implements EmbeddingProvider {
   }
 }
 
-// ── Anthropic Claude (paid) ───────────────────────────────────
+// ── Anthropic Claude (paid, raw fetch — no SDK needed) ────────
 
 export class AnthropicLLM implements LLMProvider {
   name = 'anthropic';
@@ -209,19 +209,29 @@ export class AnthropicLLM implements LLMProvider {
   constructor(private key: string) {} // allow-secret
 
   async generate(prompt: string, options?: { system?: string; maxTokens?: number }): Promise<string> {
-    const { default: Anthropic } = await import('@anthropic-ai/sdk');
-    const client = new Anthropic({ apiKey: this.key }); // allow-secret
-    const msg = await client.messages.create({
+    const body: Record<string, unknown> = {
       model: 'claude-sonnet-4-5-20250514',
       max_tokens: options?.maxTokens ?? 1024,
-      system: options?.system,
       messages: [{ role: 'user', content: prompt }],
+    };
+    if (options?.system) body.system = options.system;
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': this.key, // allow-secret
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify(body),
     });
-    return (msg.content[0] as { type: string; text: string }).text;
+    if (!res.ok) throw new Error(`Anthropic error: ${res.status} ${await res.text()}`);
+    const data = await res.json() as { content: { type: string; text: string }[] };
+    return data.content[0].text;
   }
 }
 
-// ── OpenAI (paid) ─────────────────────────────────────────────
+// ── OpenAI (paid, raw fetch — no SDK needed) ──────────────────
 
 export class OpenAIEmbedding implements EmbeddingProvider {
   name = 'openai';
@@ -230,10 +240,14 @@ export class OpenAIEmbedding implements EmbeddingProvider {
   constructor(private key: string) {} // allow-secret
 
   async embed(text: string): Promise<number[]> {
-    const { OpenAI } = await import('openai');
-    const client = new OpenAI({ apiKey: this.key }); // allow-secret
-    const res = await client.embeddings.create({ model: 'text-embedding-3-small', input: text });
-    return res.data[0].embedding;
+    const res = await fetch('https://api.openai.com/v1/embeddings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.key}` }, // allow-secret
+      body: JSON.stringify({ model: 'text-embedding-3-small', input: text }),
+    });
+    if (!res.ok) throw new Error(`OpenAI embedding error: ${res.status} ${await res.text()}`);
+    const data = await res.json() as { data: { embedding: number[] }[] };
+    return data.data[0].embedding;
   }
 }
 
@@ -243,11 +257,19 @@ export class WhisperTranscription implements TranscriptionProvider {
   constructor(private key: string) {} // allow-secret
 
   async transcribe(audioPath: string): Promise<string> {
-    const { OpenAI } = await import('openai');
     const fs = await import('node:fs');
-    const client = new OpenAI({ apiKey: this.key }); // allow-secret
-    const result = await client.audio.transcriptions.create({ file: fs.createReadStream(audioPath), model: 'whisper-1' });
-    return result.text;
+    const file = fs.readFileSync(audioPath);
+    const form = new FormData();
+    form.append('file', new Blob([file]), 'audio.mp3');
+    form.append('model', 'whisper-1');
+
+    const res = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${this.key}` }, // allow-secret
+      body: form,
+    });
+    if (!res.ok) throw new Error(`OpenAI Whisper error: ${res.status} ${await res.text()}`);
+    return ((await res.json()) as { text: string }).text;
   }
 }
 
