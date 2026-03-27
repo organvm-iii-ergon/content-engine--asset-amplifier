@@ -5,7 +5,16 @@
 **Cronus Metabolus** (formerly Content Engine — Asset Amplifier) is an AI-powered content yield engine. It transforms premium visual assets (hero films, 3D renders, product photography) into 30+ days of platform-optimized social content. Built as a partnership between Padavano (engineering) and Lefler Design (UI/UX, marketing, sales).
 
 **Organ:** III (Ergon) — Commerce
-**Status:** Architecture established (Monorepo), Service scaffolding complete.
+**Status:** MVP operational. Full metabolism loop proven. Production deployed.
+
+## Live Deployments
+
+| Component | URL |
+|-----------|-----|
+| API | https://cronus-api.ivixivi.workers.dev |
+| Dashboard | https://cronus-dashboard.pages.dev |
+| Pitch Decks | https://cronus-metabolus.pages.dev |
+| Database | Neon `green-art-84790526` (PostgreSQL 16 + pgvector) |
 
 ## Architecture (Monorepo)
 
