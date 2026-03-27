@@ -27,7 +27,7 @@ export async function generateWeeklyReport(brandId: string, weekOf: Date) {
     .select({
       posts_published: sql<number>`count(distinct ${schema.publishEvents.id})`,
       total_views: sql<number>`sum(${schema.performanceObservations.views})`,
-      total_engagement: sql<number>`sum(${schema.performanceObservations.engagement})`,
+      total_engagement: sql<number>`sum(${schema.performanceObservations.likes} + ${schema.performanceObservations.comments} + ${schema.performanceObservations.shares} + ${schema.performanceObservations.saves})`,
     })
     .from(schema.performanceObservations)
     .innerJoin(

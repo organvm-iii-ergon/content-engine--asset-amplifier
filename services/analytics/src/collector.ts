@@ -47,8 +47,12 @@ export async function collectMetrics(brandId: string) {
         publish_event_id: event.id,
         observed_at: new Date(),
         views: metrics.views,
-        engagement: metrics.engagement,
         reach: metrics.reach || 0,
+        likes: metrics.raw?.likes ?? 0,
+        comments: metrics.raw?.comments ?? 0,
+        shares: metrics.raw?.shares ?? 0,
+        saves: metrics.raw?.saves ?? 0,
+        clicks: metrics.raw?.clicks ?? 0,
         raw_metrics: metrics.raw,
       });
 
