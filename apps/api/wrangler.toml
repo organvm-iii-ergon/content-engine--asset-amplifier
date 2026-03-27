@@ -4,10 +4,14 @@ compatibility_date = "2026-03-27"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-STORAGE_MODE = "filesystem"
+STORAGE_MODE = "r2"
 API_HOST = "0.0.0.0"
 LOG_LEVEL = "info"
 NODE_ENV = "production"
+
+[[r2_buckets]]
+binding = "ASSETS_BUCKET"
+bucket_name = "cronus-assets"
 
 [alias]
 "@cronus/db" = "../../packages/db/src/index.ts"
