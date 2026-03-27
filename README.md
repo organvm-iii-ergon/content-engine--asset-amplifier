@@ -1,46 +1,61 @@
-# Content Engine — Asset Amplifier
+# Cronus Metabolus (The Content Yield Engine)
 
-**AI-powered content repurposing and distribution platform for premium brands.**
+**Premium asset metabolism for high-yield content distribution.**
 
-Takes one premium visual asset (hero film, 3D render, product shoot) and generates 30+ days of platform-optimized social content automatically.
+Transforms one premium visual asset (hero film, 3D render, product shoot) into 30+ days of platform-optimized social content. Built for brands that invest heavily in original production but struggle to maintain high-frequency social presence.
 
 ---
 
-## Status: Pre-MVP
+## Status: Foundation Established
 
 - **Organ:** III (Ergon) — Commerce
-- **Partners:** Padavano (engineering) + Lefler (design/marketing/sales)
+- **Partners:** Anthony Padavano (engineering) + Scott Lefler (design/marketing/sales)
 - **Origin:** Partnership formed 2026-03-23
 
 ## The Problem
 
-Premium brands pay $15-50K for hero films and product renders. These assets get used once. Meanwhile marketing teams spend 20+ hrs/week manually creating social content.
+Premium brands pay $15-50K for hero films and product renders. These assets get used once. Meanwhile, marketing teams spend 20+ hrs/week manually creating social content. The yield on original investment is too low.
 
-## What It Does
+## The Solution: Metabolism
 
-1. **Ingest** a premium video or render set
-2. **AI extracts** 10-15 short clips at high-energy moments, resized per platform
-3. **AI generates** captions in brand voice, hashtag strategy, optimized schedule
-4. **Distributes** to Instagram, LinkedIn, TikTok, YouTube Shorts, X
-5. **Reports** weekly engagement metrics tied to content ROI
+1. **Ingest** a premium video or render set (The "Hero" asset).
+2. **AI Analysis:** Algorithmic determination of brand-aligned "high-energy" moments (The "Natural Center").
+3. **Clip/Image Fragmentation:** 10-15 short clips, stills, and carousel fragments, resized per platform.
+4. **Captions & Voice:** AI-generated captions in the brand's trained voice, including hashtag strategy and CTA variants.
+5. **Robust Distribution:** One-click distribution to Instagram, LinkedIn, TikTok, YouTube Shorts, X.
+6. **Yield Reporting:** Weekly engagement metrics tied back to source asset ROI.
 
-## Stack (proposed)
+## Architecture (pnpm monorepo)
 
-- Frontend: Next.js 15 + React 19 + Tailwind
-- Backend: Node.js/TypeScript (Fastify)
-- Database: PostgreSQL (Neon)
-- Queue: BullMQ + Redis
-- AI/ML: FFmpeg, Whisper/Deepgram, Claude API, PySceneDetect
-- Storage: Cloudflare R2
-- Social APIs: Meta Graph, LinkedIn, TikTok, YouTube Data
-- Deploy: Vercel (frontend) + Railway (workers)
+- **apps/**: Next.js dashboard, Fastify API, Management CLI.
+- **services/**: Specialized microservices for ingestion, extraction, and generation.
+- **packages/**: Shared logic for Database (Drizzle), Domain, Storage (R2), Queues (BullMQ/Temporal).
+- **infra/**: Dockerized Redis/Postgres, Temporal configuration.
+
+## Stack
+
+- **Frontend:** Next.js 15, React 19, Tailwind, Lucide.
+- **Backend:** Node.js/TypeScript (Fastify).
+- **Database:** PostgreSQL (Neon) via Drizzle ORM.
+- **Workflow:** Temporal.io for retriable processing pipelines.
+- **Queue:** BullMQ + Redis.
+- **AI/ML:** FFmpeg, PySceneDetect, Whisper/Deepgram, Claude API.
+- **Deploy:** Vercel (frontend) + Railway/Render (services).
 
 ## Quick Start
 
 ```bash
-# TBD — skeleton only
-npm install
-npm run dev
+# Clone and install
+pnpm install
+
+# Start local infra (Redis/Postgres)
+pnpm docker:up
+
+# Run migrations
+pnpm db:migrate
+
+# Start development environment
+pnpm dev
 ```
 
 ## License

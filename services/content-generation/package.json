@@ -12,6 +12,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "blockhash-core": "*",
     "@anthropic-ai/sdk": "*",
     "sharp": "*",
     "fluent-ffmpeg": "*",

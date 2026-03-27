@@ -20,6 +20,14 @@
     "@cronus/queue": "workspace:*",
     "@cronus/storage": "workspace:*",
     "@cronus/logger": "workspace:*",
-    "@cronus/config": "workspace:*"
+    "@cronus/config": "workspace:*",
+    "@cronus/asset-ingestion": "workspace:*",
+    "@cronus/content-generation": "workspace:*",
+    "@cronus/fragment-extraction": "workspace:*",
+    "@cronus/natural-center": "workspace:*",
+    "@cronus/scheduler": "workspace:*",
+    "@cronus/platform-adapter": "workspace:*",
+    "@cronus/analytics": "workspace:*",
+    "@cronus/design-resizer": "workspace:*"
   }
 }

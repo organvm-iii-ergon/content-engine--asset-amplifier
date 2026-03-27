@@ -12,9 +12,11 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "openai": "*",
     "@anthropic-ai/sdk": "*",
     "@cronus/domain": "workspace:*",
     "@cronus/db": "workspace:*",
+    "@cronus/config": "workspace:*",
     "@cronus/logger": "workspace:*"
   }
 }

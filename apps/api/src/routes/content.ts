@@ -1,0 +1,101 @@
+import { FastifyPluginAsync } from 'fastify';
+import { getDb, schema } from '@cronus/db';
+import { eq, and, desc } from 'drizzle-orm';
+import { ApprovalStatus, Platform } from '@cronus/domain';
+import { generateAssetContent } from '@cronus/content-generation';
+import { createLogger } from '@cronus/logger';
+
+const log = createLogger('api:content');
+
+export const contentRoutes: FastifyPluginAsync = async (app) => {
+  // POST /brands/:brandId/generate
+  // Starts async content generation from an asset
+  app.post('/brands/:brandId/generate', async (request, reply) => {
+    const { brandId } = request.params as { brandId: string };
+    const { asset_id, platforms, posts_per_fragment } = request.body as { 
+      asset_id: string; 
+      platforms?: Platform[]; 
+      posts_per_fragment?: number 
+    };
+
+    const db = getDb();
+
+    // 1. Verify asset and brand
+    const [asset] = await db
+      .select()
+      .from(schema.assets)
+      .where(and(eq(schema.assets.id, asset_id), eq(schema.assets.brand_id, brandId)));
+
+    if (!asset) {
+      return reply.status(404).send({ error: 'Asset not found' });
+    }
+
+    log.info({ brandId, assetId: asset_id }, 'Triggering content generation');
+
+    // 2. Start generation (in background for MVP simplicity, or via BullMQ in production)
+    // For now, we call the service directly but don't await the full batch to return fast
+    generateAssetContent({
+      brandId,
+      assetId: asset_id,
+      platforms: platforms || [Platform.instagram_feed, Platform.linkedin, Platform.x] as Platform[],
+    }).catch(err => log.error({ err, assetId: asset_id }, 'Background generation failed'));
+
+    return reply.status(202).send({ 
+      message: 'Generation started',
+      asset_id
+    });
+  });
+
+  // GET /brands/:brandId/content
+  // List generated content units with filters
+  app.get('/brands/:brandId/content', async (request) => {
+    const { brandId } = request.params as { brandId: string };
+    const { approval_status, platform } = request.query as { 
+      approval_status?: ApprovalStatus; 
+      platform?: Platform 
+    };
+
+    const db = getDb();
+    let query = db.select().from(schema.contentUnits).where(eq(schema.contentUnits.brand_id, brandId));
+
+    // Apply filters if provided
+    // Note: Drizzle query building for dynamic filters
+    const conditions = [eq(schema.contentUnits.brand_id, brandId)];
+    if (approval_status) conditions.push(eq(schema.contentUnits.approval_status, approval_status));
+    if (platform) conditions.push(eq(schema.contentUnits.platform, platform));
+
+    return db
+      .select()
+      .from(schema.contentUnits)
+      .where(and(...conditions))
+      .orderBy(desc(schema.contentUnits.created_at));
+  });
+
+  // POST /brands/:brandId/content/:contentUnitId/approve
+  app.post('/brands/:brandId/content/:contentUnitId/approve', async (request, reply) => {
+    const { contentUnitId } = request.params as { contentUnitId: string };
+    const db = getDb();
+
+    await db.update(schema.contentUnits)
+      .set({ approval_status: ApprovalStatus.approved })
+      .where(eq(schema.contentUnits.id, contentUnitId));
+
+    return { status: 'approved' };
+  });
+
+  // POST /brands/:brandId/content/:contentUnitId/reject
+  app.post('/brands/:brandId/content/:contentUnitId/reject', async (request, reply) => {
+    const { contentUnitId } = request.params as { contentUnitId: string };
+    const { reason } = request.body as { reason?: string };
+    const db = getDb();
+
+    await db.update(schema.contentUnits)
+      .set({ 
+        approval_status: ApprovalStatus.rejected,
+        flagged_reason: reason || 'Manual rejection'
+      })
+      .where(eq(schema.contentUnits.id, contentUnitId));
+
+    return { status: 'rejected' };
+  });
+};

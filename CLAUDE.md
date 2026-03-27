@@ -1,44 +1,64 @@
-# CLAUDE.md
+# CLAUDE.md — Cronus Metabolus
 
 ## What This Is
 
-AI content engine that takes premium visual assets (hero films, 3D renders, product photography) and auto-generates 30+ days of platform-optimized social content. Built as a partnership between Padavano (engineering) and Lefler Design (UI/UX, marketing, sales).
+**Cronus Metabolus** (formerly Content Engine — Asset Amplifier) is an AI-powered content yield engine. It transforms premium visual assets (hero films, 3D renders, product photography) into 30+ days of platform-optimized social content. Built as a partnership between Padavano (engineering) and Lefler Design (UI/UX, marketing, sales).
 
 **Organ:** III (Ergon) — Commerce
-**Status:** Pre-MVP skeleton
+**Status:** Architecture established (Monorepo), Service scaffolding complete.
 
-## Architecture
+## Architecture (Monorepo)
 
 ```
-src/
-  api/          # REST API (Fastify)
-  pipeline/     # AI processing pipeline (clip extraction, caption gen, scheduling)
-  social/       # Platform adapters (Instagram, LinkedIn, TikTok, YouTube, X)
-  analytics/    # Engagement tracking and ROI reporting
-tests/          # Vitest
-docs/           # Architecture docs, API reference
+apps/
+  api/          # Fastify REST API
+  cli/          # Management CLI
+  dashboard/    # React/Vite/Tailwind dashboard
+packages/
+  config/       # Shared TSConfig, ESLint, Prettier
+  db/           # Drizzle ORM, schema, migrations
+  domain/       # Shared types, business logic, validation
+  logger/       # Pino-based structured logging
+  queue/        # BullMQ shared configuration
+  storage/      # R2/S3 storage abstraction
+services/
+  analytics/    # Engagement tracking
+  asset-ingestion/ # File processing & metadata extraction
+  content-generation/ # AI-driven clip/caption gen
+  ...           # Other specialized microservices
+infra/
+  docker/       # Docker Compose for local dev (Redis, Postgres)
+  temporal/     # Workflow definitions and activities
 ```
 
 ## Key Concepts
 
-- **Asset ingestion:** Upload video/images, AI analyzes for high-energy moments and content opportunities
-- **Content generation:** FFmpeg for clip extraction, Claude API for captions in brand voice, layout generation for carousels
-- **Distribution:** Per-platform adapters with rate limit handling, optimal timing
-- **Reporting:** Weekly engagement metrics, content performance ranking, ROI per source asset
+- **Metabolism:** The process of breaking down a "Hero" asset into fragments (clips, stills, text) and re-synthesizing them for distribution.
+- **Natural Center:** Algorithmic determination of brand-aligned "high-energy" moments.
+- **Temporal Workflows:** Robust, retriable pipelines for heavy video processing and AI generation.
 
 ## Commands
 
 ```bash
-npm install
-npm run dev          # Dev server
-npm test             # Vitest
-npm run build        # Production build
+# General
+pnpm install
+pnpm dev              # Start all apps and services via Turbo
+pnpm build            # Build all projects
+pnpm test             # Run Vitest across workspace
+pnpm lint             # Lint all projects
+pnpm typecheck        # Typecheck all projects
+
+# Infrastructure
+pnpm docker:up        # Start Redis/Postgres
+pnpm docker:down      # Stop local infra
+pnpm db:migrate       # Apply Drizzle migrations
+pnpm db:seed          # Seed database
 ```
 
 ## Partnership Context
 
-Full partnership details, origin story, and pipeline entry in:
-`~/Workspace/4444J99/application-pipeline/strategy/partnership-lefler-padavano-content-engine.md`
+Full partnership details and evolution in:
+`docs/genesis-project/conversations/`
 
 <!-- ORGANVM:AUTO:START -->
 ## System Context (auto-generated — do not edit)
@@ -55,7 +75,7 @@ Full partnership details, origin story, and pipeline entry in:
 ### Governance
 - Strictly unidirectional flow: I→II→III. No dependencies on Theory (I).
 
-*Last synced: 2026-03-25T22:27:12Z*
+*Last synced: 2026-03-26T19:39:27Z*
 
 ## Session Review Protocol
 
@@ -134,35 +154,11 @@ Linked skills: api-design-patterns, cicd-resilience-and-recovery, coding-standar
 **Prompting (Anthropic)**: context 200K tokens, format: XML tags, thinking: extended thinking (budget_tokens)
 
 
-## Live System Variables (Ontologia)
-
-| Variable | Value | Scope | Updated |
-|----------|-------|-------|---------|
-| `active_repos` | 64 | global | 2026-03-25 |
-| `archived_repos` | 54 | global | 2026-03-25 |
-| `ci_workflows` | 106 | global | 2026-03-25 |
-| `code_files` | 0 | global | 2026-03-25 |
-| `dependency_edges` | 60 | global | 2026-03-25 |
-| `operational_organs` | 8 | global | 2026-03-25 |
-| `published_essays` | 29 | global | 2026-03-25 |
-| `repos_with_tests` | 0 | global | 2026-03-25 |
-| `sprints_completed` | 33 | global | 2026-03-25 |
-| `test_files` | 0 | global | 2026-03-25 |
-| `total_organs` | 8 | global | 2026-03-25 |
-| `total_repos` | 127 | global | 2026-03-25 |
-| `total_words_formatted` | 0 | global | 2026-03-25 |
-| `total_words_numeric` | 0 | global | 2026-03-25 |
-| `total_words_short` | 0K+ | global | 2026-03-25 |
-
-Metrics: 9 registered | Observations: 15536 recorded
-Resolve: `organvm ontologia status` | Refresh: `organvm refresh`
-
-
 ## System Density (auto-generated)
 
-AMMOI: 56% | Edges: 41 | Tensions: 33 | Clusters: 5 | Adv: 7 | Events(24h): 23754
-Structure: 8 organs / 127 repos / 1654 components (depth 17) | Inference: 98% | Organs: META-ORGANVM:64%, ORGAN-I:55%, ORGAN-II:47%, ORGAN-III:55% +4 more
-Last pulse: 2026-03-25T22:27:04 | Δ24h: +3.5% | Δ7d: n/a
+AMMOI: 56% | Edges: 41 | Tensions: 0 | Clusters: 0 | Adv: 8 | Events(24h): 24029
+Structure: 8 organs / 127 repos / 1654 components (depth 17) | Inference: 0% | Organs: META-ORGANVM:64%, ORGAN-I:55%, ORGAN-II:47%, ORGAN-III:55% +4 more
+Last pulse: 2026-03-26T19:39:26 | Δ24h: +3.6% | Δ7d: n/a
 
 
 ## Dialect Identity (Trivium)

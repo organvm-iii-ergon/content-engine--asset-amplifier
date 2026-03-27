@@ -3,7 +3,16 @@ import cors from '@fastify/cors';
 import multipart from '@fastify/multipart';
 import { createLogger } from '@cronus/logger';
 import { brandRoutes } from './routes/brands.js';
+import { agencyRoutes } from './routes/agencies.js';
 import { jobRoutes } from './routes/jobs.js';
+import { assetRoutes } from './routes/assets.js';
+import { contentRoutes } from './routes/content.js';
+import { fragmentRoutes } from './routes/fragments.js';
+import { naturalCenterRoutes } from './routes/natural-center.js';
+import { scheduleRoutes } from './routes/schedule.js';
+import { platformRoutes } from './routes/platforms.js';
+import { analyticsRoutes } from './routes/analytics.js';
+import { resizeRoutes } from './routes/resize.js';
 
 const log = createLogger('api');
 
@@ -30,7 +39,16 @@ export async function buildApp() {
 
   // Routes
   await app.register(brandRoutes, { prefix: '/api/v1' });
+  await app.register(agencyRoutes, { prefix: '/api/v1' });
   await app.register(jobRoutes, { prefix: '/api/v1' });
+  await app.register(assetRoutes, { prefix: '/api/v1' });
+  await app.register(contentRoutes, { prefix: '/api/v1' });
+  await app.register(fragmentRoutes, { prefix: '/api/v1' });
+  await app.register(naturalCenterRoutes, { prefix: '/api/v1' });
+  await app.register(scheduleRoutes, { prefix: '/api/v1' });
+  await app.register(platformRoutes, { prefix: '/api/v1' });
+  await app.register(analyticsRoutes, { prefix: '/api/v1' });
+  await app.register(resizeRoutes, { prefix: '/api/v1' });
 
   // Health check
   app.get('/health', async () => ({ status: 'ok', timestamp: new Date().toISOString() }));
