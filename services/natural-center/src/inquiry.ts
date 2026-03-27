@@ -41,7 +41,12 @@ export async function generateIdentityInquiries(nc: Partial<NaturalCenter>): Pro
     messages: [{ role: 'user', content: prompt }],
   });
 
-  const inquiries = JSON.parse((response.content[0] as any).text);
+  let inquiries;
+  try {
+    inquiries = JSON.parse((response.content[0] as any).text);
+  } catch {
+    return [];
+  }
 
   return inquiries.map((iq: any) => ({
     ...iq,

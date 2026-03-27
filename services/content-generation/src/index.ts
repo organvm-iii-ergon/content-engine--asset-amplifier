@@ -35,7 +35,7 @@ export async function generateAssetContent(params: {
   const [brand] = await db.select().from(schema.brands).where(eq(schema.brands.id, brandId));
   if (!brand) throw new Error('Brand not found');
 
-  const [nc] = await db.select().from(schema.naturalCenters).where(eq(schema.naturalCenters.brandId, brandId));
+  const [nc] = await db.select().from(schema.naturalCenters).where(eq(schema.naturalCenters.brand_id, brandId));
 
   const fragments = await db.select().from(schema.fragments).where(eq(schema.fragments.asset_id, assetId));
 
@@ -53,8 +53,8 @@ export async function generateAssetContent(params: {
         const systemPrompt = getBaseSystemPrompt({ 
           brandName: brand.name, 
           brandDescription: brand.description || undefined,
-          toneDescription: brand.toneDescription || undefined,
-          systemPrompt: nc?.systemPrompt || undefined
+          toneDescription: brand.tone_description || undefined,
+          systemPrompt: nc?.system_prompt || undefined
         });
         
         const userPrompt = constructUserPrompt({
@@ -71,8 +71,14 @@ export async function generateAssetContent(params: {
           messages: [{ role: 'user', content: userPrompt }],
         });
 
-        const responseText = (message.content[0] as any).text;
-        const aiOutput = JSON.parse(responseText);
+        let aiOutput;
+        try {
+          const responseText = (message.content[0] as { type: string; text: string }).text;
+          aiOutput = JSON.parse(responseText);
+        } catch {
+          log.warn({ fragmentId: fragment.id, platform }, 'Failed to parse AI response, skipping');
+          continue;
+        }
 
         // 3. Media Formatting
         const mediaType = fragment.type === FragmentType.clip ? 'video' : 'image';

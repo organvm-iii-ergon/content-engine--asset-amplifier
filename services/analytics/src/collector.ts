@@ -1,5 +1,5 @@
 import { getDb, schema } from '@cronus/db';
-import { eq, and, inArray } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { PublishStatus } from '@cronus/domain';
 import { getAdapter } from '@cronus/platform-adapter';
 import { createLogger } from '@cronus/logger';
@@ -15,36 +15,39 @@ export async function collectMetrics(brandId: string) {
 
   log.info({ brandId }, 'Collecting metrics for brand');
 
-  // 1. Find all published events for this brand
-  // Note: We'd ideally join with brand_id through content units
+  // 1. Find all published events for this brand (joined through content_units)
   const events = await db
-    .select()
+    .select({ publishEvent: schema.publishEvents })
     .from(schema.publishEvents)
-    .where(eq(schema.publishEvents.status, PublishStatus.published));
+    .innerJoin(schema.contentUnits, eq(schema.publishEvents.content_unit_id, schema.contentUnits.id))
+    .where(and(
+      eq(schema.publishEvents.status, PublishStatus.published),
+      eq(schema.contentUnits.brand_id, brandId)
+    ));
 
   if (events.length === 0) return;
 
-  for (const event of events) {
+  for (const { publishEvent } of events) {
     try {
-      if (!event.platform_post_id) continue;
+      if (!publishEvent.platform_post_id) continue;
 
       // 2. Get connection and adapter
       const [connection] = await db
         .select()
         .from(schema.platformConnections)
-        .where(eq(schema.platformConnections.id, event.platform_connection_id));
+        .where(eq(schema.platformConnections.id, publishEvent.platform_connection_id));
 
       if (!connection) continue;
 
       const adapter = getAdapter(connection.platform);
-      
+
       // 3. Fetch metrics from platform
-      const metrics = await adapter.fetchMetrics(event.platform_post_id, connection as any);
+      const metrics = await adapter.fetchMetrics(publishEvent.platform_post_id, connection as any);
 
       // 4. Record observation
       await db.insert(schema.performanceObservations).values({
         id: randomUUID(),
-        publish_event_id: event.id,
+        publish_event_id: publishEvent.id,
         observed_at: new Date(),
         views: metrics.views,
         reach: metrics.reach || 0,
@@ -56,10 +59,10 @@ export async function collectMetrics(brandId: string) {
         raw_metrics: metrics.raw,
       });
 
-      log.debug({ eventId: event.id }, 'Recorded metrics observation');
+      log.debug({ eventId: publishEvent.id }, 'Recorded metrics observation');
 
     } catch (err) {
-      log.error({ err, eventId: event.id }, 'Failed to collect metrics for event');
+      log.error({ err, eventId: publishEvent.id }, 'Failed to collect metrics for event');
     }
   }
 

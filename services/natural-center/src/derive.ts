@@ -80,7 +80,13 @@ export async function deriveNaturalCenter(params: {
       messages: [{ role: 'user', content: synthesisPrompt }],
     });
 
-    const profile = JSON.parse((response.content[0] as any).text);
+    let profile;
+    try {
+      profile = JSON.parse((response.content[0] as any).text);
+    } catch {
+      log.error({ brandId }, 'Failed to parse AI synthesis response');
+      throw new Error('Identity derivation failed: unparseable AI response');
+    }
 
     // 4. Master Brand Embedding (OpenAI)
     const embeddingResponse = await openai.embeddings.create({

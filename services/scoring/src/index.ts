@@ -38,7 +38,7 @@ export async function scoreContentUnits(contentUnitIds: string[]) {
   
   // 2. Load Brand and NC
   const [brand] = await db.select().from(schema.brands).where(eq(schema.brands.id, brandId));
-  const [nc] = await db.select().from(schema.naturalCenters).where(eq(schema.naturalCenters.brandId, brandId));
+  const [nc] = await db.select().from(schema.naturalCenters).where(eq(schema.naturalCenters.brand_id, brandId));
 
   if (!nc) {
     log.warn({ brandId }, 'No Natural Center found for brand, cannot score alignment');
@@ -63,7 +63,7 @@ export async function scoreContentUnits(contentUnitIds: string[]) {
       const score = calculateCosineSimilarity(unitEmbedding, brandEmbedding);
 
       // 5. Apply thresholds and update
-      const threshold = brand.consistencyThreshold ?? 0.75;
+      const threshold = brand.consistency_threshold ?? 0.75;
       const isLowScore = score < threshold;
       
       await db.update(schema.contentUnits)

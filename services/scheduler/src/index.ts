@@ -1,5 +1,5 @@
 import { getDb, schema } from '@cronus/db';
-import { eq, inArray } from 'drizzle-orm';
+import { eq, and, inArray } from 'drizzle-orm';
 import { ApprovalStatus, PublishStatus, ScheduleStrategy } from '@cronus/domain';
 import { createLogger } from '@cronus/logger';
 import { randomUUID } from 'node:crypto';
@@ -55,7 +55,10 @@ export async function scheduleContent(params: {
     const [connection] = await db
       .select()
       .from(schema.platformConnections)
-      .where(eq(schema.platformConnections.platform, unit.platform));
+      .where(and(
+        eq(schema.platformConnections.platform, unit.platform),
+        eq(schema.platformConnections.brand_id, brandId)
+      ));
 
     if (!connection) {
       log.warn({ platform: unit.platform, brandId }, 'No active connection found for platform, skipping schedule');
