@@ -1,5 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
-import { getConfig } from '@cronus/config';
+import { resolveProviders } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
 import { eq } from '@cronus/db';
 import { Platform, FragmentType, ApprovalStatus } from '@cronus/domain';
@@ -14,10 +13,10 @@ const log = createLogger('content-generation');
 
 /**
  * Generates platform-native content units for an asset's fragments.
- * 
+ *
  * 1. Loads brand context and Natural Center (if exists).
  * 2. Iterates through visual fragments (clips, keyframes, crops).
- * 3. Calls Claude API to generate captions and hashtags per platform.
+ * 3. Calls the resolved LLM provider to generate captions and hashtags per platform.
  * 4. Formats media for the target platform.
  * 5. Saves ContentUnit records for review.
  */
@@ -27,9 +26,13 @@ export async function generateAssetContent(params: {
   platforms: Platform[];
 }) {
   const { brandId, assetId, platforms } = params;
-  const config = getConfig();
   const db = getDb();
-  const anthropic = new Anthropic({ apiKey: config.ANTHROPIC_API_KEY }); // allow-secret
+  const { llm } = await resolveProviders();
+
+  if (!llm) {
+    log.warn('No LLM provider available — skipping content generation');
+    return;
+  }
 
   // 1. Load context
   const [brand] = await db.select().from(schema.brands).where(eq(schema.brands.id, brandId));
@@ -64,16 +67,13 @@ export async function generateAssetContent(params: {
           // TODO: link transcript hook if it matches this fragment's timestamp
         });
 
-        const message = await anthropic.messages.create({
-          model: 'claude-3-5-sonnet-20240620',
-          max_tokens: 1024,
+        const responseText = await llm.generate(userPrompt, {
           system: systemPrompt,
-          messages: [{ role: 'user', content: userPrompt }],
+          maxTokens: 1024,
         });
 
         let aiOutput;
         try {
-          const responseText = (message.content[0] as { type: string; text: string }).text;
           aiOutput = JSON.parse(responseText);
         } catch {
           log.warn({ fragmentId: fragment.id, platform }, 'Failed to parse AI response, skipping');
