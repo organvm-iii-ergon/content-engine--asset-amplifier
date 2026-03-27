@@ -1,5 +1,4 @@
-import { OpenAI } from 'openai';
-import { getConfig } from '@cronus/config';
+import { resolveProviders } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
 import { eq } from '@cronus/db';
 import { FragmentType } from '@cronus/domain';
@@ -14,54 +13,53 @@ import { createStorage } from '@cronus/storage';
 const log = createLogger('fragment-extraction:transcription');
 
 /**
- * Transcribes audio using Whisper and extracts text hooks.
- * 
- * 1. Downloads audio from storage.
- * 2. Sends to OpenAI Whisper API.
- * 3. Updates Asset record with full transcript.
- * 4. Extracts quotable "hooks" as fragments.
+ * Transcribes audio via the provider abstraction and extracts text hooks.
+ *
+ * 1. Resolves a transcription provider (Groq Whisper, OpenAI, etc.).
+ * 2. Downloads audio from storage to a tmp file.
+ * 3. Calls provider.transcribe(tmpFile).
+ * 4. Updates Asset record with full transcript.
+ * 5. Extracts quotable "hooks" as fragments.
+ *
+ * If no transcription provider is configured, logs info and returns
+ * without throwing — the orchestrator continues without text_hook fragments.
  */
 export async function transcribeAndExtractHooks(params: {
   assetId: string;
   audioStorageKey: string;
 }) {
   const { assetId, audioStorageKey } = params;
-  const config = getConfig();
+  const { transcription: provider } = await resolveProviders();
   const db = getDb();
   const storage = createStorage();
 
-  if (!config.OPENAI_API_KEY) {
-    log.warn('OPENAI_API_KEY not set, skipping transcription');
+  if (!provider) {
+    log.info('No transcription provider available, skipping');
     return;
   }
 
-  const openai = new OpenAI({ apiKey: config.OPENAI_API_KEY }); // allow-secret
   const tmpFile = path.join(os.tmpdir(), `audio-${assetId}.mp3`);
 
-  log.info({ assetId }, 'Starting transcription');
+  log.info({ assetId, provider: provider.name }, 'Starting transcription');
 
   try {
     // 1. Download audio buffer
     const audioBuffer = await storage.download(audioStorageKey);
     await fsp.writeFile(tmpFile, audioBuffer);
 
-    // 2. Call Whisper API
-    // We use the stream version because OpenAI SDK expects a ReadStream
-    const transcription = await openai.audio.transcriptions.create({
-      file: fs.createReadStream(tmpFile),
-      model: 'whisper-1',
-    });
+    // 2. Transcribe via provider abstraction
+    const text = await provider.transcribe(tmpFile);
 
     log.info({ assetId }, 'Transcription complete');
 
     // 3. Update Asset with full transcription
     await db.update(schema.assets)
-      .set({ transcription: transcription.text })
+      .set({ transcription: text })
       .where(eq(schema.assets.id, assetId));
 
     // 4. Extract text hooks (sentences)
     // Simple sentence-based extraction for MVP
-    const sentences = transcription.text
+    const sentences = text
       .split(/(?<=[.!?])\s+/)
       .map(s => s.trim())
       .filter(s => s.length > 30 && s.length < 280); // Sensible lengths for hooks
@@ -74,8 +72,8 @@ export async function transcribeAndExtractHooks(params: {
         storage_key: 'text://' + assetId, // Marker for text-only fragments
         description: sentence,
         quality_score: 1.0,
-        extraction_metadata: { 
-          source: 'whisper',
+        extraction_metadata: {
+          source: provider.name,
           char_count: sentence.length
         },
       });
