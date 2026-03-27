@@ -74,7 +74,10 @@ export async function generateAssetContent(params: {
 
         let aiOutput;
         try {
-          aiOutput = JSON.parse(responseText);
+          // Extract JSON from response (LLM may include markdown or explanation)
+          const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+          if (!jsonMatch) throw new Error('No JSON found');
+          aiOutput = JSON.parse(jsonMatch[0]);
         } catch {
           log.warn({ fragmentId: fragment.id, platform }, 'Failed to parse AI response, skipping');
           continue;
