@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { FastifyPluginAsync } from 'fastify';
 import { getDb, schema, toCamel, mapRows } from '@cronus/db';
-import { eq } from 'drizzle-orm';
+import { eq } from '@cronus/db';
 import { deriveNaturalCenter, refineNaturalCenter } from '@cronus/natural-center';
 import { createLogger } from '@cronus/logger';
 

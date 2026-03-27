@@ -32,5 +32,10 @@
     "video-processing",
     "brand-identity",
     "organvm"
-  ]
+  ],
+  "dependencies": {
+    "tsx": "4.21.0",
+    "typescript": "6.0.2",
+    "vitest": "4.1.2"
+  }
 }

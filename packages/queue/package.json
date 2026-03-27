@@ -12,8 +12,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "bullmq": "*",
     "@cronus/domain": "workspace:*",
-    "@cronus/logger": "workspace:*"
+    "@cronus/logger": "workspace:*",
+    "bullmq": "^5.71.1"
   }
 }

@@ -12,6 +12,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "pino": "*"
+    "pino": "^10.3.1",
+    "pino-pretty": "13.1.3"
   }
 }

@@ -1,6 +1,6 @@
 import { FastifyPluginAsync } from 'fastify';
 import { getDb, schema, mapRows } from '@cronus/db';
-import { eq, and, gte, lte } from 'drizzle-orm';
+import { eq, and, gte, lte } from '@cronus/db';
 import { scheduleContent } from '@cronus/scheduler';
 import { ScheduleStrategy } from '@cronus/domain';
 

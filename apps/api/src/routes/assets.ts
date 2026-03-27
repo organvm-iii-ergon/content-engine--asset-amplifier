@@ -1,6 +1,6 @@
 import { FastifyPluginAsync } from 'fastify';
 import { getDb, schema } from '@cronus/db';
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, and, desc } from '@cronus/db';
 import { ingestAsset } from '@cronus/asset-ingestion';
 import { createLogger } from '@cronus/logger';
 

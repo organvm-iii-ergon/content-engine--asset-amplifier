@@ -1,5 +1,5 @@
 import { getDb, schema } from '@cronus/db';
-import { eq, and } from 'drizzle-orm';
+import { eq, and } from '@cronus/db';
 import { MediaType, ProcessingStatus, FragmentType } from '@cronus/domain';
 import { createLogger } from '@cronus/logger';
 import { extractVideoFragments } from './video.js';

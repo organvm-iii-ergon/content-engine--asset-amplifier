@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { FastifyPluginAsync } from 'fastify';
 import { getDb, schema, mapRows } from '@cronus/db';
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, and, desc } from '@cronus/db';
 import { ApprovalStatus, Platform } from '@cronus/domain';
 import { generateAssetContent } from '@cronus/content-generation';
 import { createLogger } from '@cronus/logger';

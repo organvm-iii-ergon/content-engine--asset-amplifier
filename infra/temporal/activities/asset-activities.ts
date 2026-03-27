@@ -1,7 +1,7 @@
 import { processAssetFragments } from '@cronus/fragment-extraction';
 import { scoreContentUnits } from '@cronus/scoring';
 import { getDb, schema } from '@cronus/db';
-import { eq } from 'drizzle-orm';
+import { eq } from '@cronus/db';
 import { ProcessingStatus } from '@cronus/domain';
 
 export async function extractFragments(assetId: string): Promise<void> {

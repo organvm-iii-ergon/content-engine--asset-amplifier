@@ -1,7 +1,7 @@
 import { OpenAI } from 'openai';
 import { getConfig } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
-import { eq, inArray } from 'drizzle-orm';
+import { eq, inArray } from '@cronus/db';
 import { ApprovalStatus } from '@cronus/domain';
 import { createLogger } from '@cronus/logger';
 

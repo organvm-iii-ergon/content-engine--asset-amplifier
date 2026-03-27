@@ -2,7 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { OpenAI } from 'openai';
 import { getConfig } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
-import { eq, inArray, and, sql } from 'drizzle-orm';
+import { eq, inArray, and, sql } from '@cronus/db';
 import { createLogger } from '@cronus/logger';
 import { FragmentType } from '@cronus/domain';
 import { randomUUID } from 'node:crypto';

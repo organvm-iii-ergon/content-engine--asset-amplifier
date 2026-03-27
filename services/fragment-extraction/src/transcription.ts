@@ -1,7 +1,7 @@
 import { OpenAI } from 'openai';
 import { getConfig } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
-import { eq } from 'drizzle-orm';
+import { eq } from '@cronus/db';
 import { FragmentType } from '@cronus/domain';
 import { randomUUID } from 'node:crypto';
 import { createLogger } from '@cronus/logger';

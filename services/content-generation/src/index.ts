@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { getConfig } from '@cronus/config';
 import { getDb, schema } from '@cronus/db';
-import { eq } from 'drizzle-orm';
+import { eq } from '@cronus/db';
 import { Platform, FragmentType, ApprovalStatus } from '@cronus/domain';
 import { createLogger } from '@cronus/logger';
 import { constructUserPrompt, getBaseSystemPrompt } from './prompts.js';

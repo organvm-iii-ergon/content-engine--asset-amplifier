@@ -12,9 +12,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "drizzle-orm": "*",
-    "postgres": "*",
-    "@cronus/domain": "workspace:*"
+    "@cronus/domain": "workspace:*",
+    "drizzle-orm": "^0.45.2",
+    "postgres": "^3.4.8"
   },
   "devDependencies": {
     "drizzle-kit": "*"

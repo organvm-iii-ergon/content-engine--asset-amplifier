@@ -1,5 +1,5 @@
 import { getDb, schema } from '@cronus/db';
-import { eq, sql } from 'drizzle-orm';
+import { eq, sql } from '@cronus/db';
 import { createLogger } from '@cronus/logger';
 import { compileSystemPrompt } from './prompt.js';
 

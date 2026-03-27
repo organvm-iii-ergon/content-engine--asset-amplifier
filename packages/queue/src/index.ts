@@ -1,5 +1,7 @@
 import { Queue, Worker, Job, ConnectionOptions } from 'bullmq';
 
+export { Queue, Job } from 'bullmq';
+
 // ---------------------------------------------------------------------------
 // Job payload type map — single source of truth for all queue contracts
 // ---------------------------------------------------------------------------

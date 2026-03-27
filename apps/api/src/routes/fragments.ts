@@ -1,6 +1,6 @@
 import { FastifyPluginAsync } from 'fastify';
 import { getDb, schema, mapRows } from '@cronus/db';
-import { eq, and } from 'drizzle-orm';
+import { eq, and } from '@cronus/db';
 
 export const fragmentRoutes: FastifyPluginAsync = async (app) => {
   // GET /brands/:brandId/assets/:assetId/fragments

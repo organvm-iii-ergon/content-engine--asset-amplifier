@@ -1,6 +1,6 @@
 import { FastifyPluginAsync } from 'fastify';
 import { getDb, schema, toCamel, mapRows } from '@cronus/db';
-import { eq } from 'drizzle-orm';
+import { eq } from '@cronus/db';
 import { Platform } from '@cronus/domain';
 import { getConfig, encrypt } from '@cronus/config'; // allow-secret
 import axios from 'axios';

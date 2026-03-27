@@ -1,6 +1,5 @@
 import { FastifyPluginAsync } from 'fastify';
-import { Queue } from 'bullmq';
-import { getRedisConnection } from '@cronus/queue';
+import { Queue, getRedisConnection } from '@cronus/queue';
 
 export const jobRoutes: FastifyPluginAsync = async (app) => {
   // GET /jobs/:jobId

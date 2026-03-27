@@ -1,5 +1,5 @@
 import { getDb, schema } from '@cronus/db';
-import { eq, and, inArray } from 'drizzle-orm';
+import { eq, and, inArray } from '@cronus/db';
 import { ApprovalStatus } from '@cronus/domain';
 import { createLogger } from '@cronus/logger';
 

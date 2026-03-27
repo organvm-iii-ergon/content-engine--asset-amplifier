@@ -1,7 +1,7 @@
 import { generateAssetContent, deduplicateContentUnits } from '@cronus/content-generation';
 import { scoreContentUnits } from '@cronus/scoring';
 import { getDb, schema } from '@cronus/db';
-import { eq } from 'drizzle-orm';
+import { eq } from '@cronus/db';
 import { Platform } from '@cronus/domain';
 
 export async function generateContent(params: {
