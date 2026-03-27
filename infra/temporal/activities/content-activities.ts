@@ -10,13 +10,16 @@ export async function generateContent(params: {
   platforms: Platform[];
 }): Promise<string[]> {
   await generateAssetContent(params);
-  
-  // Return IDs of generated units for next activity
+
   const db = getDb();
-  const units = await db.select({ id: schema.contentUnits.id })
+
+  // Get all content units generated from this asset's fragments
+  const units = await db
+    .select({ id: schema.contentUnits.id })
     .from(schema.contentUnits)
-    .where(eq(schema.contentUnits.fragment_id, params.assetId)); // Simplification: assuming we want to score what we just made
-  
+    .innerJoin(schema.fragments, eq(schema.contentUnits.fragment_id, schema.fragments.id))
+    .where(eq(schema.fragments.asset_id, params.assetId));
+
   return units.map(u => u.id);
 }
 
