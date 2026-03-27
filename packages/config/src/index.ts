@@ -66,3 +66,4 @@ export function getConfigSafe(): Partial<Env> {
 }
 
 export * from './crypto.js';
+export { resolveProviders, type LLMProvider, type EmbeddingProvider, type TranscriptionProvider, type ProviderConfig } from './providers.js';
