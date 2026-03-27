@@ -99,7 +99,7 @@ Linked skills: api-design-patterns, cicd-resilience-and-recovery, coding-standar
 | `active_repos` | 64 | global | 2026-03-26 |
 | `archived_repos` | 54 | global | 2026-03-26 |
 | `ci_workflows` | 106 | global | 2026-03-26 |
-| `code_files` | 203 | global | 2026-03-26 |
+| `code_files` | 213 | global | 2026-03-26 |
 | `dependency_edges` | 60 | global | 2026-03-26 |
 | `operational_organs` | 8 | global | 2026-03-26 |
 | `published_essays` | 29 | global | 2026-03-26 |
@@ -108,19 +108,20 @@ Linked skills: api-design-patterns, cicd-resilience-and-recovery, coding-standar
 | `test_files` | 24 | global | 2026-03-26 |
 | `total_organs` | 8 | global | 2026-03-26 |
 | `total_repos` | 127 | global | 2026-03-26 |
-| `total_words_formatted` | 202K+ | global | 2026-03-26 |
-| `total_words_numeric` | 202000 | global | 2026-03-26 |
-| `total_words_short` | 202K+ | global | 2026-03-26 |
+| `total_words_formatted` | 203K+ | global | 2026-03-26 |
+| `total_words_numeric` | 203638 | global | 2026-03-26 |
+| `total_words_short` | 203K+ | global | 2026-03-26 |
 
-Metrics: 9 registered | Observations: 15714 recorded
+Metrics: 9 registered | Observations: 15786 recorded
 Resolve: `organvm ontologia status` | Refresh: `organvm refresh`
 
 
 ## System Density (auto-generated)
 
 AMMOI: 56% | Edges: 41 | Tensions: 0 | Clusters: 0 | Adv: 8 | Events(24h): 24029
-Structure: 8 organs / 127 repos / 1654 components (depth 17) | Inference: 0% | Organs: META-ORGANVM:64%, ORGAN-I:55%, ORGAN-II:47%, ORGAN-III:55% +4 more
-Last pulse: 2026-03-26T19:39:26 | Δ24h: +3.6% | Δ7d: +12.4%
+Structure: 8 organs / 127 repos / 1654 components (depth 17) | Inference: 85% | Organs: META-ORGANVM:64%, ORGAN-I:55%, ORGAN-II:47%, ORGAN-III:55% +4 more
+Last pulse: 2026-03-26T19:39:26 | Δ24h: +3.6% | Δ7d: +15.2%
+
 
 
 ## Dialect Identity (Trivium)
@@ -132,3 +133,4 @@ Strongest translations: I (formal), II (structural), VII (structural)
 Scan: `organvm trivium scan III <OTHER>` | Matrix: `organvm trivium matrix` | Synthesize: `organvm trivium synthesize`
 
 <!-- ORGANVM:AUTO:END -->
+GANVM:AUTO:END -->

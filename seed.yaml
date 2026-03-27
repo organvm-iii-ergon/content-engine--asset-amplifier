@@ -10,7 +10,7 @@ metadata:
   promotion_status: LOCAL
   last_validated: "2026-03-26"
   generated: "2026-03-23"
-  sprint: null
+  sprint: 1
 
 agents:
   - name: ci
@@ -21,7 +21,7 @@ agents:
 produces:
   - type: service
     description: AI content repurposing and social distribution platform
-    consumers: []
+    consumers: ["brands", "agencies", "dtc-marketing-teams"]
 
 subscriptions:
   - event: governance.updated
