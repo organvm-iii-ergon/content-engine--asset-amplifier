@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { Brand, Asset, ContentUnit, NaturalCenter } from '@cronus/domain';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://cronus-api.ivixivi.workers.dev';
+
 const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL: `${API_URL}/api/v1`,
 });
 
 export const brandService = {
