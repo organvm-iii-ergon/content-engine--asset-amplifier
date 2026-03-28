@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import ReviewQueue from './pages/ReviewQueue.js';
 import Settings from './pages/Settings.js';
 import Dashboard from './pages/Dashboard.js';
 import Assets from './pages/Assets.js';
+import Calendar from './pages/Calendar.js';
+import Identity from './pages/Identity.js';
 
 const navItems = [
   { path: '/', label: 'Dashboard', icon: 'home' },
@@ -68,40 +70,79 @@ const NavIcon: React.FC<{ icon: string; className?: string }> = ({ icon, classNa
 const BRAND_ID = '03fd240d-93d3-4f3c-b28a-b1e6b6e5570f'; // TODO: dynamic from brand selector
 const API_URL = import.meta.env.VITE_API_URL || 'https://cronus-api.ivixivi.workers.dev';
 
+type UploadPhase = 'idle' | 'uploading' | 'generating';
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [uploading, setUploading] = useState(false);
+  const [uploadPhase, setUploadPhase] = useState<UploadPhase>('idle');
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const showToast = useCallback((message: string, type: 'success' | 'error') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  }, []);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setUploading(true);
+    setUploadPhase('uploading');
     try {
       const form = new FormData();
       form.append('file', file);
+
+      setUploadPhase('generating');
       const res = await fetch(`${API_URL}/api/v1/brands/${BRAND_ID}/assets`, {
         method: 'POST',
         body: form,
       });
       if (!res.ok) throw new Error(await res.text());
       const asset = await res.json();
-      alert(`Uploaded: ${asset.originalFilename} (${(asset.fileSizeBytes / 1024).toFixed(0)} KB)`);
-      // Navigate to assets page
-      window.location.href = '/assets';
+
+      showToast(
+        `Uploaded ${asset.originalFilename} — generating content for 3 platforms...`,
+        'success',
+      );
+
+      // Brief delay so the user reads the toast before navigation
+      setTimeout(() => navigate('/review'), 1200);
     } catch (err: any) {
-      alert(`Upload failed: ${err.message}`);
+      showToast(`Upload failed: ${err.message}`, 'error');
     } finally {
-      setUploading(false);
+      setUploadPhase('idle');
       if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  /** Label for the desktop upload button based on current phase */
+  const uploadButtonLabel = (): string => {
+    switch (uploadPhase) {
+      case 'uploading':
+        return 'Uploading...';
+      case 'generating':
+        return 'Generating content...';
+      default:
+        return 'Upload Asset';
     }
   };
 
   return (
     <div className="flex h-screen bg-gray-50 text-gray-900">
+      {/* ── Toast notification ── */}
+      {toast && (
+        <div
+          className={`fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-96 z-[100] px-4 py-3 rounded-xl shadow-lg text-sm font-medium ${
+            toast.type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
+
       {/* ── Desktop sidebar ── */}
       <aside
         className={`hidden md:flex flex-col bg-white border-r border-gray-200 transition-all duration-200 ${
@@ -230,18 +271,18 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             {/* Upload button: icon on mobile, full on desktop */}
             <button
               onClick={() => fileInputRef.current?.click()}
-              disabled={uploading}
+              disabled={uploadPhase !== 'idle'}
               className="hidden md:inline-flex px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors min-h-[44px] items-center disabled:opacity-50"
             >
-              {uploading ? 'Uploading...' : 'Upload Asset'}
+              {uploadButtonLabel()}
             </button>
             <button
               onClick={() => fileInputRef.current?.click()}
-              disabled={uploading}
+              disabled={uploadPhase !== 'idle'}
               className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center bg-black text-white rounded-lg active:bg-gray-800 disabled:opacity-50"
               aria-label="Upload Asset"
             >
-              {uploading ? (
+              {uploadPhase !== 'idle' ? (
                 <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/></svg>
               ) : (
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -294,8 +335,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-const Calendar = () => <h2 className="text-xl md:text-2xl font-bold text-gray-900">Publishing Calendar</h2>;
-const Identity = () => <h2 className="text-xl md:text-2xl font-bold text-gray-900">Natural Center</h2>;
+// Calendar and Identity are now full components imported above
 
 export default function App() {
   return (
