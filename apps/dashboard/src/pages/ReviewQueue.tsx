@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { contentService } from '../services/api.js';
-import { ContentUnit, ApprovalStatus } from '@cronus/domain';
+import { contentService, brandService } from '../services/api.js';
 
 export default function ReviewQueue() {
   const [units, setUnits] = useState<ContentUnit[]>([]);
   const [loading, setLoading] = useState(true);
-  const brandId = "placeholder-brand-id"; // TODO: get from context
+  const [brandId, setBrandId] = useState<string | null>(null);
+
+  // Fetch first brand on mount
+  useEffect(() => {
+    brandService.list().then(brands => {
+      if (brands.length > 0) setBrandId(brands[0].id);
+    });
+  }, []);
 
   useEffect(() => {
-    contentService.list(brandId, { approval_status: ApprovalStatus.pending })
+    if (!brandId) return;
+    setLoading(true);
+    contentService.list(brandId)
       .then(setUnits)
+      .catch(() => setUnits([]))
       .finally(() => setLoading(false));
   }, [brandId]);
 

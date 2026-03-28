@@ -1,6 +1,6 @@
 /**
  * Cloudflare Worker — Cronus Metabolus API
- * Hono + Neon PostgreSQL + Cloudflare R2 storage
+ * Hono + Neon PostgreSQL + Cloudflare R2 + Multi-provider AI
  */
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
@@ -9,16 +9,28 @@ import { resolveProviders } from '@cronus/config';
 
 type Bindings = {
   ASSETS_BUCKET: R2Bucket;
+  DATABASE_URL: string;
+  API_KEY: string; // allow-secret
+  ENCRYPTION_KEY: string; // allow-secret
+  GROQ_API_KEY?: string; // allow-secret
+  GEMINI_API_KEY?: string; // allow-secret
+  CEREBRAS_API_KEY?: string; // allow-secret
+  ANTHROPIC_API_KEY?: string; // allow-secret
+  OPENAI_API_KEY?: string; // allow-secret
+  CLOUDFLARE_ACCOUNT_ID?: string;
+  CLOUDFLARE_API_TOKEN?: string; // allow-secret
   [key: string]: unknown;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
 
-// Inject env vars on every request
+// Inject env vars from Worker bindings into process.env
 app.use('*', async (c, next) => {
   for (const [key, value] of Object.entries(c.env)) {
     if (typeof value === 'string') process.env[key] = value;
   }
+  // Ensure production mode (skips Ollama localhost check)
+  process.env.NODE_ENV = 'production';
   await next();
 });
 
@@ -55,28 +67,22 @@ app.post('/api/v1/brands', async (c) => {
   return c.json(toCamel(brand), 201);
 });
 
-// ── Asset Upload (R2) ─────────────────────────────────────────
+// ── Asset Upload (R2) + Auto-Generation ───────────────────────
 app.post('/api/v1/brands/:brandId/assets', async (c) => {
   const brandId = c.req.param('brandId');
   const db = getDb();
 
-  // Verify brand exists
   const [brand] = await db.select().from(schema.brands).where(eq(schema.brands.id, brandId));
   if (!brand) return c.json({ error: 'Brand not found' }, 404);
 
-  // Parse multipart form data
   const formData = await c.req.formData();
   const file = formData.get('file') as File | null;
   if (!file) return c.json({ error: 'No file uploaded' }, 400);
 
   const assetId = crypto.randomUUID();
   const ext = file.name.split('.').pop()?.toLowerCase() ?? 'bin';
-
-  // Validate file type
   const allowedExts = ['mp4', 'mov', 'png', 'jpg', 'jpeg', 'tiff', 'tif'];
-  if (!allowedExts.includes(ext)) {
-    return c.json({ error: `Unsupported file type: .${ext}` }, 400);
-  }
+  if (!allowedExts.includes(ext)) return c.json({ error: `Unsupported file type: .${ext}` }, 400);
 
   const mediaType = ['mp4', 'mov'].includes(ext) ? 'video' : 'image';
   const storageKey = `brands/${brandId}/assets/${assetId}.${ext}`;
@@ -88,7 +94,7 @@ app.post('/api/v1/brands/:brandId/assets', async (c) => {
     customMetadata: { brandId, assetId, originalFilename: file.name },
   });
 
-  // Create asset record in DB
+  // Create asset record
   const [asset] = await db.insert(schema.assets).values({
     id: assetId,
     brand_id: brandId,
@@ -98,6 +104,60 @@ app.post('/api/v1/brands/:brandId/assets', async (c) => {
     file_size_bytes: file.size,
     processing_status: 'uploaded',
   }).returning();
+
+  // Auto-generate content if an LLM provider is available
+  const { llm } = await resolveProviders();
+  if (llm) {
+    try {
+      // Create a synthetic fragment (edge can't run FFmpeg, so the whole asset is one "fragment")
+      const fragmentId = crypto.randomUUID();
+      await db.insert(schema.fragments).values({
+        id: fragmentId,
+        asset_id: assetId,
+        type: mediaType === 'video' ? 'clip' : 'crop',
+        storage_key: storageKey,
+        quality_score: 1.0,
+        extraction_metadata: { source: 'edge-upload', synthetic: true },
+      });
+
+      await db.update(schema.assets)
+        .set({ processing_status: 'extracted', fragment_count: 1 })
+        .where(eq(schema.assets.id, assetId));
+
+      const platforms = ['instagram_feed', 'linkedin', 'x'];
+      const toneDesc = brand.tone_description || 'Professional and engaging';
+
+      for (const platform of platforms) {
+        const prompt = `Create a social media post for the brand "${brand.name}" on ${platform}.
+Brand tone: ${toneDesc}. Asset: "${file.name}".
+Return ONLY valid JSON, no markdown: {"caption": "your caption", "hashtags": ["tag1", "tag2"]}`;
+
+        const response = await llm.generate(prompt, { maxTokens: 256 });
+        const jsonMatch = response.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) continue;
+
+        let parsed;
+        try { parsed = JSON.parse(jsonMatch[0]); } catch { continue; }
+
+        await db.insert(schema.contentUnits).values({
+          id: crypto.randomUUID(),
+          fragment_id: fragmentId,
+          brand_id: brandId,
+          platform,
+          caption: parsed.caption || '',
+          media_key: storageKey,
+          media_type: mediaType,
+          hashtags: parsed.hashtags || [],
+          nc_score: 0,
+          nc_score_breakdown: {},
+          approval_status: 'pending',
+          similarity_hash: crypto.randomUUID(),
+        });
+      }
+    } catch (err) {
+      console.error('Auto-generation failed:', err);
+    }
+  }
 
   return c.json(toCamel(asset), 201);
 });
@@ -176,13 +236,48 @@ app.get('/api/v1/brands/:brandId/assets/:assetId/fragments', async (c) => {
   return c.json(mapRows(rows));
 });
 
-// ── Providers Status ──────────────────────────────────────────
+// ── Settings & Providers ──────────────────────────────────────
 app.get('/api/v1/settings/providers', async (c) => {
   const providers = await resolveProviders();
   return c.json({
-    llm: providers.llm ? { name: providers.llm.name, status: 'active' } : { name: 'none', status: 'not configured' },
-    embedding: providers.embedding ? { name: providers.embedding.name, status: 'active' } : { name: 'none', status: 'not configured' },
-    transcription: providers.transcription ? { name: providers.transcription.name, status: 'active' } : { name: 'none', status: 'not configured' },
+    llm: providers.llm
+      ? { name: providers.llm.name, tier: providers.llm.tier, status: 'active' }
+      : { name: 'none', status: 'not configured' },
+    embedding: providers.embedding
+      ? { name: providers.embedding.name, tier: providers.embedding.tier, status: 'active' }
+      : { name: 'none', status: 'not configured' },
+    transcription: providers.transcription
+      ? { name: providers.transcription.name, tier: providers.transcription.tier, status: 'active' }
+      : { name: 'none', status: 'not configured' },
+    all: {
+      llm: providers.allLLMs.map(p => ({ name: p.name, tier: p.tier })),
+      embedding: providers.allEmbeddings.map(p => ({ name: p.name, tier: p.tier })),
+      transcription: providers.allTranscriptions.map(p => ({ name: p.name, tier: p.tier })),
+    },
+  });
+});
+
+app.get('/api/v1/settings/keys', async (c) => {
+  // In production, keys come from Worker secrets (process.env), not filesystem
+  const env = process.env;
+  return c.json({
+    groq_api_key: env.GROQ_API_KEY ? `${env.GROQ_API_KEY.slice(0, 8)}...` : null, // allow-secret
+    gemini_api_key: env.GEMINI_API_KEY ? `${env.GEMINI_API_KEY.slice(0, 8)}...` : null, // allow-secret
+    cerebras_api_key: env.CEREBRAS_API_KEY ? `${env.CEREBRAS_API_KEY.slice(0, 8)}...` : null, // allow-secret
+    anthropic_api_key: env.ANTHROPIC_API_KEY ? `${env.ANTHROPIC_API_KEY.slice(0, 10)}...` : null, // allow-secret
+    openai_api_key: env.OPENAI_API_KEY ? `${env.OPENAI_API_KEY.slice(0, 7)}...` : null, // allow-secret
+    cloudflare_account_id: env.CLOUDFLARE_ACCOUNT_ID ? `${env.CLOUDFLARE_ACCOUNT_ID.slice(0, 8)}...` : null,
+    ollama_host: 'N/A (production — use cloud providers)',
+  });
+});
+
+app.put('/api/v1/settings/keys', async (c) => {
+  // In production, keys must be set as Worker secrets via wrangler CLI:
+  // echo "key" | npx wrangler secret put GROQ_API_KEY -c apps/api/wrangler.toml
+  return c.json({
+    status: 'info',
+    message: 'In production, API keys are set as Cloudflare Worker secrets. Use: echo "your-key" | npx wrangler secret put KEY_NAME -c apps/api/wrangler.toml',
+    available_keys: ['GROQ_API_KEY', 'GEMINI_API_KEY', 'CEREBRAS_API_KEY', 'ANTHROPIC_API_KEY', 'OPENAI_API_KEY'],
   });
 });
 
