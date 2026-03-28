@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import ReviewQueue from './pages/ReviewQueue.js';
 import Settings from './pages/Settings.js';
+import Dashboard from './pages/Dashboard.js';
+import Assets from './pages/Assets.js';
 
 const navItems = [
   { path: '/', label: 'Dashboard', icon: 'home' },
@@ -292,8 +294,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-const DashboardHome = () => <h2 className="text-xl md:text-2xl font-bold text-gray-900">Brand Overview</h2>;
-const AssetList = () => <h2 className="text-xl md:text-2xl font-bold text-gray-900">Source Assets</h2>;
 const Calendar = () => <h2 className="text-xl md:text-2xl font-bold text-gray-900">Publishing Calendar</h2>;
 const Identity = () => <h2 className="text-xl md:text-2xl font-bold text-gray-900">Natural Center</h2>;
 
@@ -301,8 +301,8 @@ export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<DashboardHome />} />
-        <Route path="/assets" element={<AssetList />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/assets" element={<Assets />} />
         <Route path="/review" element={<ReviewQueue />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/identity" element={<Identity />} />
