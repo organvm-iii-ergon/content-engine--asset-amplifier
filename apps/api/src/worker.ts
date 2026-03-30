@@ -124,13 +124,26 @@ app.post('/api/v1/brands/:brandId/assets', async (c) => {
         .set({ processing_status: 'extracted', fragment_count: 1 })
         .where(eq(schema.assets.id, assetId));
 
-      const platforms = ['instagram_feed', 'linkedin', 'x'];
+      const platforms = ['instagram_feed', 'instagram_reels', 'linkedin', 'x', 'tiktok'];
       const toneDesc = brand.tone_description || 'Professional and engaging';
+      const brandDesc = brand.description || '';
+
+      const platformGuide: Record<string, string> = {
+        instagram_feed: 'Instagram Feed: visual-first, 3-5 hashtags, engaging but not cluttered, lifestyle tone',
+        instagram_reels: 'Instagram Reels: hook in first line, high energy, 5-8 hashtags, trending feel',
+        linkedin: 'LinkedIn: professional thought-leadership, value-add insight, 2-3 broad hashtags, structured with line breaks',
+        x: 'X/Twitter: concise and punchy, max 280 chars, conversational, 1-2 hashtags max',
+        tiktok: 'TikTok: informal, relatable, strong hook, trend-aware, minimal corporate speak',
+      };
 
       for (const platform of platforms) {
-        const prompt = `Create a social media post for the brand "${brand.name}" on ${platform}.
-Brand tone: ${toneDesc}. Asset: "${file.name}".
-Return ONLY valid JSON, no markdown: {"caption": "your caption", "hashtags": ["tag1", "tag2"]}`;
+        const prompt = `You are a social media expert for "${brand.name}"${brandDesc ? ` — ${brandDesc}` : ''}.
+Brand voice: ${toneDesc}.
+Platform: ${platformGuide[platform] || platform}.
+Asset being promoted: "${file.name}" (${mediaType}).
+
+Write a high-performing native post for this platform. Be specific, not generic.
+Return ONLY valid JSON, no markdown: {"caption": "your full caption here", "hashtags": ["relevant", "tags"]}`;
 
         const response = await llm.generate(prompt, { maxTokens: 256 });
         const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -159,7 +172,16 @@ Return ONLY valid JSON, no markdown: {"caption": "your caption", "hashtags": ["t
     }
   }
 
-  return c.json(toCamel(asset), 201);
+  // Return the updated asset with content count
+  const [updatedAsset] = await db.select().from(schema.assets).where(eq(schema.assets.id, assetId));
+  const contentCount = await db.select({ id: schema.contentUnits.id }).from(schema.contentUnits)
+    .where(eq(schema.contentUnits.brand_id, brandId));
+  const assetContent = contentCount.filter(() => true); // all content for brand
+
+  return c.json({
+    ...toCamel(updatedAsset || asset),
+    contentGenerated: assetContent.length,
+  }, 201);
 });
 
 // ── Asset List & Get ──────────────────────────────────────────

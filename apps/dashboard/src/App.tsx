@@ -103,8 +103,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       if (!res.ok) throw new Error(await res.text());
       const asset = await res.json();
 
+      const count = asset.contentGenerated || 0;
       showToast(
-        `Uploaded ${asset.originalFilename} — generating content for 3 platforms...`,
+        count > 0
+          ? `${asset.originalFilename} → ${count} content units generated across 5 platforms`
+          : `Uploaded ${asset.originalFilename} — content generation pending`,
         'success',
       );
 
