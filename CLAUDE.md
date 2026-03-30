@@ -15,8 +15,8 @@
 | Dashboard | https://cronus-dashboard.pages.dev |
 | Pitch Decks | https://cronus-metabolus.pages.dev |
 | Database | Neon `green-art-84790526` (PostgreSQL 16 + pgvector) |
-| Issues | [14 open issues](https://github.com/organvm-iii-ergon/content-engine--asset-amplifier/issues) |
-| Project Board | [Operating Board](https://github.com/orgs/organvm-iii-ergon/projects/4) |
+| Issues | [20 open issues](https://github.com/organvm-iii-ergon/content-engine--asset-amplifier/issues) |
+| Project Board | [Operating Board](https://github.com/orgs/organvm-iii-ergon/projects/6) |
 
 ## Roadmap (GitHub Issues)
 
