@@ -15,6 +15,16 @@
 | Dashboard | https://cronus-dashboard.pages.dev |
 | Pitch Decks | https://cronus-metabolus.pages.dev |
 | Database | Neon `green-art-84790526` (PostgreSQL 16 + pgvector) |
+| Issues | [14 open issues](https://github.com/organvm-iii-ergon/content-engine--asset-amplifier/issues) |
+
+## Roadmap (GitHub Issues)
+
+| Phase | Issues | Priority |
+|-------|--------|----------|
+| α (Dashboard) | #6 Asset ROI, #7 Identity Mirror, #8 Brand selector, #9 Content detail | P1-P2 |
+| β (Platform) | #1 X adapter, #2 TikTok, #3 YouTube, #4 Instagram OAuth, #5 Real publishing | P1-P2 |
+| γ (Scale) | #13 Agency dashboard, #14 Design resizing | P3 |
+| infra | #10 CI/CD, #11 BullMQ/Temporal, #12 pgvector migration | P1-P2 |
 
 ## Architecture (Monorepo)
 
