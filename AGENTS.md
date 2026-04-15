@@ -7,7 +7,7 @@ This repo participates in the **ORGAN-III (Commerce)** swarm.
 - Event: `governance.updated` → Action: Check compliance with updated governance rules
 
 ### Production Responsibilities
-- **Produce** `service` for unspecified
+- **Produce** `service` for brands, agencies, dtc-marketing-teams
 
 ### External Dependencies
 - *No external dependencies*
@@ -16,5 +16,5 @@ This repo participates in the **ORGAN-III (Commerce)** swarm.
 - Adhere to unidirectional flow: I→II→III
 - Never commit secrets or credentials
 
-*Last synced: 2026-03-26T19:39:27Z*
+*Last synced: 2026-04-14T21:31:56Z*
 <!-- ORGANVM:AUTO:END -->

@@ -5,15 +5,24 @@
 **Org:** `organvm-iii-ergon` | **Repo:** `content-engine--asset-amplifier`
 
 ### Edges
-- **Produces** → `unspecified`: service
+- **Produces** → `brands, agencies, dtc-marketing-teams`: service
 
 ### Siblings in Commerce
-`classroom-rpg-aetheria`, `gamified-coach-interface`, `trade-perpetual-future`, `fetch-familiar-friends`, `sovereign-ecosystem--real-estate-luxury`, `public-record-data-scrapper`, `search-local--happy-hour`, `multi-camera--livestream--framework`, `universal-mail--automation`, `mirror-mirror`, `the-invisible-ledger`, `enterprise-plugin`, `virgil-training-overlay`, `tab-bookmark-manager`, `a-i-chat--exporter` ... and 14 more
+`classroom-rpg-aetheria`, `gamified-coach-interface`, `trade-perpetual-future`, `fetch-familiar-friends`, `sovereign-ecosystem--real-estate-luxury`, `public-record-data-scrapper`, `search-local--happy-hour`, `multi-camera--livestream--framework`, `universal-mail--automation`, `mirror-mirror`, `the-invisible-ledger`, `enterprise-plugin`, `virgil-training-overlay`, `tab-bookmark-manager`, `a-i-chat--exporter` ... and 16 more
 
 ### Governance
 - Strictly unidirectional flow: I→II→III. No dependencies on Theory (I).
 
-*Last synced: 2026-03-26T19:39:27Z*
+*Last synced: 2026-04-14T21:31:56Z*
+
+## Active Handoff Protocol
+
+If `.conductor/active-handoff.md` exists, **READ IT FIRST** before doing any work.
+It contains constraints, locked files, conventions, and completed work from the
+originating agent. You MUST honor all constraints listed there.
+
+If the handoff says "CROSS-VERIFICATION REQUIRED", your self-assessment will
+NOT be trusted. A different agent will verify your output against these constraints.
 
 ## Session Review Protocol
 
@@ -29,10 +38,22 @@ Transcripts are on-demand (never committed):
 - `organvm session prompts <id>` — human prompts only
 
 
+## System Library
+
+Plans: 269 indexed | Chains: 5 available | SOPs: 121 active
+Discover: `organvm plans search <query>` | `organvm chains list` | `organvm sop lifecycle`
+Library: `meta-organvm/praxis-perpetua/library/`
+
+
 ## Active Directives
 
 | Scope | Phase | Name | Description |
 |-------|-------|------|-------------|
+| system | any | atomic-clock | The Atomic Clock |
+| system | any | execution-sequence | Execution Sequence |
+| system | any | multi-agent-dispatch | Multi-Agent Dispatch |
+| system | any | session-handoff-avalanche | Session Handoff Avalanche |
+| system | any | system-loops | System Loops |
 | system | any | prompting-standards | Prompting Standards |
 | system | any | research-standards-bibliography | APPENDIX: Research Standards Bibliography |
 | system | any | phase-closing-and-forward-plan | METADOC: Phase-Closing Commemoration & Forward Attack Plan |
@@ -85,6 +106,14 @@ Transcripts are on-demand (never committed):
 | system | any | theoretical-concept-versioning | SOP: Theoretical Concept Versioning (The Epistemic Protocol) |
 | system | any | theory-to-concrete-gate | theory-to-concrete-gate |
 | system | any | typological-hermeneutic-analysis | SOP: Typological & Hermeneutic Analysis (The Archaeology) |
+| unknown | any | SOP-SS-ATM-001_001-atomic-decomposition | SOP-SS-ATM-001_001: Atomic Decomposition & Coverage Proof |
+| unknown | any | SOP-SS-CLT-001_001-ontology_client_decisions | SOP-SS-CLT-001_001-ontology_client_decisions |
+| unknown | any | SOP-SS-CNT-001_001-content-extraction-and-node-injection | SOP-SS-CNT-001_001: Content Extraction & Node Injection |
+| unknown | any | SOP-SS-ISS-001-001-ontology-issue-specification | SOP-SS-ISS-001-001-ontology-issue-specification |
+| unknown | any | SOP-SS-PRC-001_001-ontology_meta_process | SOP-SS-PRC-001-001-ontology-meta-process |
+| unknown | any | SOP-SS-QAB-001_001-project-board-qa | SOP-SS-QAB-001_001-project-board-qa |
+| unknown | any | SOP-SS-TRK-001_001-ontology_issue_tracking | SOP-SS-TRK-001_001-ontology_issue_tracking |
+| unknown | any | registry | SOP Registry — Sovereign Systems |
 
 Linked skills: api-design-patterns, cicd-resilience-and-recovery, coding-standards-enforcer, continuous-learning-agent, contract-risk-analyzer, cross-agent-handoff, evaluation-to-growth, gdpr-compliance-check, genesis-dna, multi-agent-workforce-planner, planning-and-roadmapping, promotion-and-state-transitions, quality-gate-baseline-calibration, repo-onboarding-and-habitat-creation, security-threat-modeler, structural-integrity-audit
 
@@ -96,32 +125,31 @@ Linked skills: api-design-patterns, cicd-resilience-and-recovery, coding-standar
 
 | Variable | Value | Scope | Updated |
 |----------|-------|-------|---------|
-| `active_repos` | 64 | global | 2026-03-26 |
-| `archived_repos` | 54 | global | 2026-03-26 |
-| `ci_workflows` | 106 | global | 2026-03-26 |
-| `code_files` | 213 | global | 2026-03-26 |
-| `dependency_edges` | 60 | global | 2026-03-26 |
-| `operational_organs` | 8 | global | 2026-03-26 |
-| `published_essays` | 29 | global | 2026-03-26 |
-| `repos_with_tests` | 12 | global | 2026-03-26 |
-| `sprints_completed` | 33 | global | 2026-03-26 |
-| `test_files` | 24 | global | 2026-03-26 |
-| `total_organs` | 8 | global | 2026-03-26 |
-| `total_repos` | 127 | global | 2026-03-26 |
-| `total_words_formatted` | 203K+ | global | 2026-03-26 |
-| `total_words_numeric` | 203638 | global | 2026-03-26 |
-| `total_words_short` | 203K+ | global | 2026-03-26 |
+| `active_repos` | 89 | global | 2026-04-14 |
+| `archived_repos` | 54 | global | 2026-04-14 |
+| `ci_workflows` | 107 | global | 2026-04-14 |
+| `code_files` | 0 | global | 2026-04-14 |
+| `dependency_edges` | 60 | global | 2026-04-14 |
+| `operational_organs` | 10 | global | 2026-04-14 |
+| `published_essays` | 29 | global | 2026-04-14 |
+| `repos_with_tests` | 0 | global | 2026-04-14 |
+| `sprints_completed` | 33 | global | 2026-04-14 |
+| `test_files` | 0 | global | 2026-04-14 |
+| `total_organs` | 10 | global | 2026-04-14 |
+| `total_repos` | 145 | global | 2026-04-14 |
+| `total_words_formatted` | 0 | global | 2026-04-14 |
+| `total_words_numeric` | 0 | global | 2026-04-14 |
+| `total_words_short` | 0K+ | global | 2026-04-14 |
 
-Metrics: 9 registered | Observations: 15786 recorded
+Metrics: 9 registered | Observations: 32128 recorded
 Resolve: `organvm ontologia status` | Refresh: `organvm refresh`
 
 
 ## System Density (auto-generated)
 
-AMMOI: 56% | Edges: 41 | Tensions: 0 | Clusters: 0 | Adv: 8 | Events(24h): 24029
-Structure: 8 organs / 127 repos / 1654 components (depth 17) | Inference: 85% | Organs: META-ORGANVM:64%, ORGAN-I:55%, ORGAN-II:47%, ORGAN-III:55% +4 more
-Last pulse: 2026-03-26T19:39:26 | Δ24h: +3.6% | Δ7d: +15.2%
-
+AMMOI: 58% | Edges: 42 | Tensions: 33 | Clusters: 5 | Adv: 23 | Events(24h): 32336
+Structure: 8 organs / 145 repos / 1654 components (depth 17) | Inference: 98% | Organs: META-ORGANVM:65%, ORGAN-I:53%, ORGAN-II:48%, ORGAN-III:54% +5 more
+Last pulse: 2026-04-14T21:31:36 | Δ24h: -1.0% | Δ7d: n/a
 
 
 ## Dialect Identity (Trivium)
@@ -132,5 +160,34 @@ Strongest translations: I (formal), II (structural), VII (structural)
 
 Scan: `organvm trivium scan III <OTHER>` | Matrix: `organvm trivium matrix` | Synthesize: `organvm trivium synthesize`
 
+
+## Logos Documentation Layer
+
+**Status:** MISSING | **Symmetry:** 0.0 (VACUUM)
+
+Nature demands a documentation counterpart. This formation maintains its narrative record in `docs/logos/`.
+
+### The Tetradic Counterpart
+- **[Telos (Idealized Form)](../docs/logos/telos.md)** — The dream and theoretical grounding.
+- **[Pragma (Concrete State)](../docs/logos/pragma.md)** — The honest account of what exists.
+- **[Praxis (Remediation Plan)](../docs/logos/praxis.md)** — The attack vectors for evolution.
+- **[Receptio (Reception)](../docs/logos/receptio.md)** — The account of the constructed polis.
+
+### Alchemical I/O
+- **[Source & Transmutation](../docs/logos/alchemical-io.md)** — Narrative of inputs, process, and returns.
+
+
+
+*Compliance: Formation is currently void.*
+
 <!-- ORGANVM:AUTO:END -->
+
+
+
+
+
+
+
+
+
 GANVM:AUTO:END -->
