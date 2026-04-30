@@ -19,6 +19,14 @@ not to design the plan that changes the project. Its job is to say how the
 conversation could have been conducted better, what each side of the argument
 would claim, and which interpretation should win.
 
+Some bundles will contain multiple macro entities. Do not collapse them into one
+ladder just because they appear together. A project-formation sequence and a
+session-closeout governance sequence, for example, are related phases in one
+lifecycle, but they do different work. Formation asks how an idea becomes a
+rigorous system. Closure asks whether the work survived, propagated, and can be
+safely left. When multiple macro entities appear, name each one, describe how
+they wrap or depend on each other, and identify any missing connective layer.
+
 ```text
 I am giving you a bundle of information. Much of it is prompts, prompt
 fragments, repeated asks, notes-to-self, intended outputs, or commands I have
@@ -63,6 +71,10 @@ Primary goals:
 9. Produce the final interpretive artifact that best fits the bundle, including
    any specific report, critique, study, response, or discussion format
    requested inside the bundle.
+10. If the bundle contains lifecycle phases, show the macro sequence and the
+    micro sequence inside each phase.
+11. Identify what should repeat every time, what should remain where it is, and
+    what connective tissue is missing between phases.
 
 For each item or cluster, identify:
 
@@ -94,6 +106,11 @@ Start with this broad taxonomy, then revise it to fit the material:
 - Marketing / persuasion / packaging.
 - Documentation / handoff / memory.
 - Governance / rules / process.
+- Closure / persistence / registry governance.
+- Adversarial audit / hall-monitor review.
+- Vacuum detection from N/A / missing state.
+- Local-remote parity / durable survival.
+- External-index propagation.
 - Next action / next artifact.
 - Other corpus-specific function.
 
@@ -132,16 +149,19 @@ Use this general sequence unless the bundle proves another order is better:
 1. Identify what the bundle is.
 2. Preserve raw language and provenance.
 3. Cluster related items.
-4. Infer each cluster's function and expected output.
-5. Separate sequence items from standalone items.
-6. Collapse duplicates and variants.
-7. Lift the specific examples into their universal ideal form.
-8. Build the strongest dependency order for the higher-purpose use.
-9. Extract reusable prompt/process templates.
-10. Critique the resulting method.
-11. Stage the argument: strongest defense, strongest objection, outside view,
+4. Separate macro entities before sequencing micro items.
+5. Infer each cluster's function and expected output.
+6. Separate sequence items from standalone items.
+7. Collapse duplicates and variants.
+8. Lift the specific examples into their universal ideal form.
+9. Build the strongest dependency order for the higher-purpose use.
+10. Identify any traceability spine needed between phases: artifact ledger,
+    obligation ledger, registry links, open vacuums, and closure evidence.
+11. Extract reusable prompt/process templates.
+12. Critique the resulting method.
+13. Stage the argument: strongest defense, strongest objection, outside view,
     and judgment criteria.
-12. Name the next interpretive artifact only if the bundle asks for one.
+14. Name the next interpretive artifact only if the bundle asks for one.
 
 Important constraints:
 
@@ -160,6 +180,53 @@ Important constraints:
   operating rules.
 - If the bundle contains explicit asks for specific outputs, honor them inside
   the final artifact.
+- Do not treat closeout, registry, or persistence language as ordinary
+  documentation. It is usually governance: a demand for proof that work was
+  saved, indexed, propagated, and made recoverable.
+
+Closure-governance pattern:
+
+If a bundle asks whether a session is safe to close, whether everything was
+saved, whether GitHub/issues/registries were updated, whether `N/A` means a
+vacuum, or whether local and remote are `1:1`, classify it as closure
+governance. This pattern should usually be sequenced as:
+
+1. Whole-session overview: all that was, all that is, all that needs to be.
+2. Adversarial audit stance: the hall-monitor looking for rule breaks.
+3. Registry obligation: completed work, discovered work, IDs, statistics, and
+   interested external indices.
+4. Vacuum detection: `N/A`, no data, missing seed, missing link, or unknown
+   state creates research, planning, or logging work.
+5. Additive-history check: confirm that prior state was appended, versioned, or
+   archived rather than improperly overwritten.
+6. Persistence doctrine: local and remote should match; if the physical copy
+   dies, the remote record should preserve the work.
+7. Loss response: if anything was lost, recovery precedes normal progress.
+8. Final propagation: commit, push, and update applicable registries or external
+   indices.
+9. Closure verdict: safe, unsafe, or conditionally safe to close, with evidence.
+
+Generalized closure-governance prompt:
+
+```text
+Review the whole session as an adversarial closeout auditor. State all that was,
+all that is, and all that still needs to be. Verify saved artifacts, additive
+history, local:remote parity, GitHub/issues/registry/index propagation, missing
+N/A vacuums, and recovery needs. Treat absence as a possible obligation, not as
+a neutral blank. End with a direct safe-to-close, unsafe-to-close, or
+conditionally-safe verdict supported by evidence.
+```
+
+Nuance anchors for this pattern:
+
+- `Sisyphus` means the repeated burden of proving closure, not assuming it.
+- `Hall-monitor` means adversarial rule enforcement.
+- `N/A is a vacuum` means missing state creates work.
+- `physical manifestation dies, soul persists` means remote durability.
+- `local:remote = 1:1` means persistence parity.
+- `check-all interested indices` means broad propagation by default, with
+  inapplicable indices explicitly skipped rather than silently ignored.
+- `if lost, recover immediately` means loss detection interrupts ordinary work.
 
 Final output format:
 
@@ -177,6 +244,9 @@ Map items/clusters to function, expected output, and value.
 ## Sequence Map
 Give the recommended order and explain why each stage precedes the next.
 
+If there are multiple macro entities, show the macro sequence first, then the
+micro sequence inside each entity.
+
 ## Standalone Shelf
 List items that should remain standalone and when to use them.
 
@@ -185,6 +255,9 @@ Collapse repeated asks into canonical forms.
 
 ## Repeatable Process Library
 Provide reusable prompt templates, procedures, or rules for future use.
+
+Include any repeated formation prompts, closure-governance prompts,
+traceability prompts, or standalone audit prompts.
 
 ## Nuance Fidelity Check
 State which phrases, standards, repeated asks, and implied outputs were
