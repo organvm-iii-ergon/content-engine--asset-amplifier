@@ -1,79 +1,115 @@
-# CLAUDE.md — Cronus Metabolus
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What This Is
 
-**Cronus Metabolus** (formerly Content Engine — Asset Amplifier) is an AI-powered content yield engine. It transforms premium visual assets (hero films, 3D renders, product photography) into 30+ days of platform-optimized social content. Built as a partnership between Padavano (engineering) and Lefler Design (UI/UX, marketing, sales).
-
-**Organ:** III (Ergon) — Commerce
-**Status:** MVP operational. Full metabolism loop proven. Production deployed.
+**Cronus Metabolus** (formerly Content Engine — Asset Amplifier) is an AI-powered content yield engine. It ingests one premium asset (hero film, 3D render, product shoot), fragments it (clips, stills, captions), and synthesizes 30+ days of platform-optimized social posts. Partnership: Padavano (engineering) + Lefler Design (UI/UX, marketing, sales). Organ III (Ergon — Commerce). MVP operational, production deployed.
 
 ## Live Deployments
 
-| Component | URL |
-|-----------|-----|
-| API | https://cronus-api.ivixivi.workers.dev |
-| Dashboard | https://cronus-dashboard.pages.dev |
+| Component | URL / Identifier |
+|-----------|------------------|
+| API (Cloudflare Worker) | https://cronus-api.ivixivi.workers.dev |
+| Dashboard (Cloudflare Pages) | https://cronus-dashboard.pages.dev |
 | Pitch Decks | https://cronus-metabolus.pages.dev |
 | Database | Neon `green-art-84790526` (PostgreSQL 16 + pgvector) |
-| Issues | [20 open issues](https://github.com/organvm-iii-ergon/content-engine--asset-amplifier/issues) |
+| R2 bucket | `cronus-assets` |
+| Issues | [organvm-iii-ergon/content-engine--asset-amplifier/issues](https://github.com/organvm-iii-ergon/content-engine--asset-amplifier/issues) |
 | Project Board | [Operating Board](https://github.com/orgs/organvm-iii-ergon/projects/6) |
 
 ## Roadmap (GitHub Issues)
 
-| Phase | Issues | Priority |
-|-------|--------|----------|
-| α (Dashboard) | #6 Asset ROI, #7 Identity Mirror, #8 Brand selector, #9 Content detail | P1-P2 |
-| β (Platform) | #1 X adapter, #2 TikTok, #3 YouTube, #4 Instagram OAuth, #5 Real publishing | P1-P2 |
-| γ (Scale) | #13 Agency dashboard, #14 Design resizing | P3 |
-| infra | #10 CI/CD, #11 BullMQ/Temporal, #12 pgvector migration | P1-P2 |
+| Phase | Issues |
+|-------|--------|
+| α (Dashboard) | #6 Asset ROI, #7 Identity Mirror, #8 Brand selector, #9 Content detail |
+| β (Platform) | #1 X adapter, #2 TikTok, #3 YouTube, #4 Instagram OAuth, #5 Real publishing |
+| γ (Scale) | #13 Agency dashboard, #14 Design resizing |
+| infra | #10 CI/CD, #11 BullMQ/Temporal, #12 pgvector migration |
 
-## Architecture (Monorepo)
+## Repo Layout (pnpm + Turbo monorepo)
 
-```
-apps/
-  api/          # Fastify REST API
-  cli/          # Management CLI
-  dashboard/    # React/Vite/Tailwind dashboard
-packages/
-  config/       # Shared TSConfig, ESLint, Prettier
-  db/           # Drizzle ORM, schema, migrations
-  domain/       # Shared types, business logic, validation
-  logger/       # Pino-based structured logging
-  queue/        # BullMQ shared configuration
-  storage/      # R2/S3 storage abstraction
-services/
-  analytics/    # Engagement tracking
-  asset-ingestion/ # File processing & metadata extraction
-  content-generation/ # AI-driven clip/caption gen
-  ...           # Other specialized microservices
-infra/
-  docker/       # Docker Compose for local dev (Redis, Postgres)
-  temporal/     # Workflow definitions and activities
-```
+Workspace globs in `pnpm-workspace.yaml`: `apps/*`, `services/*`, `packages/*`. Node ≥22, pnpm ≥9, ESM throughout (`"type": "module"`).
 
-## Key Concepts
+- **`apps/api`** — REST API. **Two runtimes** (see Architecture).
+- **`apps/dashboard`** — React 19 + Vite 8 + Tailwind 3. Deployed to Cloudflare Pages.
+- **`apps/cli`** — Management CLI (`tsx`-run TS).
+- **`packages/`** — `config` (shared TS/ESLint + AI provider resolver), `db` (Drizzle + Neon), `domain` (shared types/Zod), `logger` (Pino), `queue` (BullMQ), `storage` (R2/S3 abstraction).
+- **`services/`** — `asset-ingestion`, `fragment-extraction`, `natural-center`, `content-generation`, `scoring`, `scheduler`, `platform-adapter`, `analytics`, `design-resizer`, `audience-engine`. Imported into the API as workspace deps; many are stubs/sources-only and bundled via `wrangler.toml [alias]`.
+- **`infra/docker`** — local Postgres + Redis compose.
+- **`infra/temporal`** — workflow defs (queued for #11).
 
-- **Metabolism:** The process of breaking down a "Hero" asset into fragments (clips, stills, text) and re-synthesizing them for distribution.
-- **Natural Center:** Algorithmic determination of brand-aligned "high-energy" moments.
-- **Temporal Workflows:** Robust, retriable pipelines for heavy video processing and AI generation.
+## Architecture: Dual-Runtime API
+
+`apps/api` is **deployed as a Cloudflare Worker** (`src/worker.ts`, Hono) but **also runs locally as a Fastify server** (`src/server.ts`). They are not feature-equivalent:
+
+- `worker.ts` is the canonical production surface — Hono on Cloudflare Workers, R2 binding for asset storage, Neon HTTP driver for Postgres. **Cannot run FFmpeg / native binaries** — the Worker collapses the fragment-extraction pipeline by treating the whole upload as one synthetic fragment, then calls the LLM provider directly to mint per-platform `content_units`.
+- `server.ts` is the Fastify dev/full-stack version with route plugins under `src/routes/*` and an `authPlugin`. Use this when you need the full pipeline (queues, services, FFmpeg-bound work).
+- `wrangler.toml`'s `[alias]` block is **load-bearing**: it rewrites every `@cronus/*` workspace import to that package's `src/index.ts` so the Worker can bundle without depending on built `dist/` output. When adding a new package consumed by the Worker, add an alias entry.
+- Worker secrets are managed via `wrangler secret put`. The Worker copies all bindings into `process.env` in a global middleware so shared packages (`@cronus/config`) work identically in both runtimes, and forces `NODE_ENV=production` to skip Ollama-localhost provider checks.
+
+When editing API behavior, **check whether you need to update both `server.ts` routes and `worker.ts`** — they drift easily.
+
+## DB Conventions (`packages/db`)
+
+- Drizzle ORM, dialect `postgresql`, schema files in `src/schema/*.ts`, root export `src/schema/index.ts`.
+- **Columns are `snake_case` in the DB**, and Drizzle insert/update calls use snake_case keys (`brand_id`, `processing_status`, …). API responses go through `toCamel`/`mapRows` (`src/mappers.ts`) so wire format is camelCase. Mirror this in new routes: snake_case for Drizzle, camelCase for JSON.
+- Migrations: `packages/db/src/migrations/`. Drizzle Kit reads `DATABASE_URL` from env (`drizzle.config.ts`).
+- Tables: `agencies`, `brands`, `natural_centers`, `assets`, `fragments`, `content_units`, `platform_connections`, `publish_events`, `performance_observations`.
+
+## Provider Resolution (`packages/config`)
+
+`resolveProviders()` returns the active `llm`, `embedding`, `transcription` providers plus full fallback lists. Worker uses cloud providers only (Groq, Gemini, Cerebras, Anthropic, OpenAI); Ollama is skipped when `NODE_ENV=production`.
+
+## Key Domain Concepts
+
+- **Metabolism** — break a Hero asset into fragments (clips/stills/text), then re-synthesize per-platform content.
+- **Natural Center** — per-brand identity profile derived from approved content, used to score new fragments for brand-fit. Persisted in `natural_centers`.
+- **Approval flow** — `content_units.approval_status ∈ {pending, approved, rejected}`; rejection writes `flagged_reason`.
+- **Temporal Workflows** — robust retriable pipelines for FFmpeg + AI generation (queued for #11).
 
 ## Commands
 
 ```bash
-# General
+# Workspace (Turbo orchestrated)
 pnpm install
-pnpm dev              # Start all apps and services via Turbo
-pnpm build            # Build all projects
-pnpm test             # Run Vitest across workspace
-pnpm lint             # Lint all projects
-pnpm typecheck        # Typecheck all projects
+pnpm dev                 # turbo dev — all apps/services in parallel
+pnpm build               # turbo build (depends on ^build)
+pnpm test                # turbo test (Vitest)
+pnpm lint                # turbo lint (ESLint per workspace)
+pnpm typecheck           # turbo typecheck (tsc --noEmit)
+pnpm format              # Prettier write
+pnpm format:check        # Prettier check
 
-# Infrastructure
-pnpm docker:up        # Start Redis/Postgres
-pnpm docker:down      # Stop local infra
-pnpm db:migrate       # Apply Drizzle migrations
-pnpm db:seed          # Seed database
+# Single-package work — use --filter
+pnpm --filter @cronus/api dev
+pnpm --filter @cronus/api test
+pnpm --filter @cronus/db typecheck
+
+# Single test file / pattern (Vitest)
+pnpm --filter @cronus/db test -- src/mappers.test.ts
+pnpm --filter @cronus/api test -- -t "brand creation"
+
+# Database (Drizzle)
+pnpm db:migrate          # @cronus/db migrate
+pnpm db:seed             # tsx infra/scripts/seed.ts
+
+# Local infra
+pnpm docker:up           # Redis + Postgres via infra/docker/docker-compose.yml
+pnpm docker:down
+
+# Cloudflare Worker (API)
+cd apps/api
+npx wrangler dev -c wrangler.toml                       # local Worker dev
+npx wrangler deploy -c wrangler.toml                    # deploy
+echo "<value>" | npx wrangler secret put <NAME> -c wrangler.toml
 ```
+
+## Required Env / Secrets
+
+Worker bindings (set via `wrangler secret put`): `DATABASE_URL`, `API_KEY`, `ENCRYPTION_KEY`, `GROQ_API_KEY`, `GEMINI_API_KEY`, `CEREBRAS_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_ID_CREATOR`, `STRIPE_PRICE_ID_STUDIO`, `DASHBOARD_URL`. R2 binding: `ASSETS_BUCKET` → `cronus-assets`.
+
+For local Fastify dev, mirror the same names in a `.env`.
 
 ## Partnership Context
 
