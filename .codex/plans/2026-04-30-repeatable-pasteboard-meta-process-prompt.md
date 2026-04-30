@@ -1,10 +1,11 @@
-# Repeatable Pasteboard Meta-Process Prompt Plan
+# Generic Prompt-Bundle Meta-Process Prompt Plan
 
 ## Goal
 
-Create a reusable prompt that can be used in future sessions when the user
-provides pasteboard-collected prompts that need to be sequenced, singled out, or
-converted into repeatable processes.
+Create a reusable prompt that can be used in future sessions when the user gives
+a bundle of prompt-like information and needs it sorted, interpreted, sequenced,
+soloed out, generalized, and turned into the best final artifact implied by the
+bundle.
 
 ## Deliverable
 
@@ -12,18 +13,19 @@ Create `docs/genesis-project/repeatable-pasteboard-meta-process-prompt.md`.
 
 ## Requirements
 
-- Keep it corpus-agnostic.
-- Preserve raw prompt voice as evidence.
+- Keep it source-agnostic and corpus-agnostic.
+- Preserve raw language as evidence.
 - Separate provenance from ordering authority.
-- Classify prompts by function and expected output.
-- Decide which prompts belong in a sequence and which should stand alone.
-- Produce repeatable prompt/process templates from recurring asks.
-- Include a theoretical critic/report mode for outside review.
+- Classify items by function, expected output, and value.
+- Decide which items belong in a sequence, which stand alone, and which are
+  duplicate/supporting/context-only.
+- Produce repeatable prompt/process templates from recurring asks or patterns.
+- Include a critical best-take/report mode for outside review.
 
 ## Verification
 
 - The prompt should be paste-ready.
-- The prompt should support future pasteboard batches without project-specific
-  assumptions.
-- The prompt should explicitly ask for sequence, solo artifacts, value, and
-  replicable process.
+- The prompt should support future information bundles without project-specific
+  or pasteboard-specific assumptions.
+- The prompt should explicitly ask for sequence, standalone items, value,
+  canonicalization, critical take, and replicable process.
