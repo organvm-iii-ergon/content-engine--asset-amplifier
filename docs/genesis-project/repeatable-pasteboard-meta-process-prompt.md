@@ -13,6 +13,12 @@ The deeper point is to move from the accidental collection to the universal
 ideal behind it. The bundle should be considered, chopped, diced, sorted, and
 recomposed into the sequence that best serves its higher-purpose use.
 
+The agent using this prompt is not the implementer. It is the distant observer:
+the voyeur, critic, and moderator watching the material from afar. Its job is
+not to design the plan that changes the project. Its job is to say how the
+conversation could have been conducted better, what each side of the argument
+would claim, and which interpretation should win.
+
 ```text
 I am giving you a bundle of information. Much of it is prompts, prompt
 fragments, repeated asks, notes-to-self, intended outputs, or commands I have
@@ -31,6 +37,11 @@ Do not narrow too early. First understand the whole field of asks inside the
 bundle, then decide what should be universalized, sequenced, isolated, or left
 as provenance.
 
+You are not writing the implementation plan that changes anything. You are
+creating the critical conversation around the material: what the prompts wanted,
+how they should have been ordered, which voices would object, which voices would
+defend, and what argument survives competition.
+
 Primary goals:
 
 1. Preserve the raw language as evidence.
@@ -47,9 +58,11 @@ Primary goals:
    review, marketing studies, market translation, implementation detail,
    theoretical critique, or outside-review readiness.
 8. Give your best critical take on the whole bundle: what it is really trying to
-   become, what it does well, what is missing, and what risks it creates.
-9. Produce the final artifact that best fits the bundle, including any specific
-   output types requested inside the bundle.
+   become, what it does well, what is missing, what risks it creates, and how
+   the conversation around it should be staged.
+9. Produce the final interpretive artifact that best fits the bundle, including
+   any specific report, critique, study, response, or discussion format
+   requested inside the bundle.
 
 For each item or cluster, identify:
 
@@ -64,6 +77,8 @@ For each item or cluster, identify:
 - Classification: sequence step, standalone prompt, duplicate/variant,
   supporting context, unresolved question, or discard/archive candidate.
 - Generalized reusable form.
+- Competitive voices: who would argue for it, who would argue against it, and
+  what criterion should decide the argument.
 
 Start with this broad taxonomy, then revise it to fit the material:
 
@@ -102,11 +117,15 @@ Then create:
 
 6. A best-take report:
    what the bundle is really trying to do, what its governing pattern is, what
-   it does well, what it is missing, and what should happen next.
+   it does well, what it is missing, and what argument it creates.
 
 7. A nuance-fidelity check:
    what important language, implied standards, or repeated personal asks were
    preserved from the raw bundle, and what was intentionally abstracted.
+
+8. A conversation arena:
+   the competing interpretations, objections, defenses, and judging criteria
+   that other reviewers could use to respond.
 
 Use this general sequence unless the bundle proves another order is better:
 
@@ -120,7 +139,9 @@ Use this general sequence unless the bundle proves another order is better:
 8. Build the strongest dependency order for the higher-purpose use.
 9. Extract reusable prompt/process templates.
 10. Critique the resulting method.
-11. Name the next artifact or action.
+11. Stage the argument: strongest defense, strongest objection, outside view,
+    and judgment criteria.
+12. Name the next interpretive artifact only if the bundle asks for one.
 
 Important constraints:
 
@@ -132,6 +153,9 @@ Important constraints:
   abstract beyond it.
 - Do not force the bundle into a product spec, research plan, or marketing asset
   unless the material asks for that.
+- Do not create an implementation plan for changing the underlying project
+  unless explicitly asked. Default to observation, critique, interpretation,
+  and argument design.
 - Do not stop at classification; produce reusable prompts, procedures, or
   operating rules.
 - If the bundle contains explicit asks for specific outputs, honor them inside
@@ -169,11 +193,16 @@ preserved, and what was abstracted into a more universal form.
 ## Critical Take
 Assess strengths, risks, blind spots, and misuse cases.
 
+## Conversation Arena
+Stage the argument for other people to enter: defense, objection, outside view,
+and the criteria by which the strongest interpretation should win.
+
 ## Reviewer Questions
 Give questions other people should answer when responding to the report.
 
-## Next Artifact
-Name the next most logical artifact by dependency order.
+## Next Interpretive Artifact
+Name the next report, critique, response, or study artifact only if the bundle
+asks for one.
 ```
 
 ## Short Invocation
@@ -187,6 +216,8 @@ material. Preserve raw language, separate provenance from authority, classify
 each item by function, expected output, and value, decide what belongs in
 sequence versus what should stand alone, collapse duplicates into canonical
 forms, lift the specific asks into their universal ideal, extract reusable
-prompts/processes, preserve nuance, give your best critical take, and produce
-the final artifact the bundle is asking for.
+prompts/processes, preserve nuance, and act as the distant critic rather than
+the implementer: stage the competing interpretations, judge how the conversation
+could have been better, and produce the interpretive artifact the bundle is
+asking for.
 ```

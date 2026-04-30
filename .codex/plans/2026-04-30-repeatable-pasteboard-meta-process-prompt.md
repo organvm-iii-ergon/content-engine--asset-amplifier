@@ -7,6 +7,10 @@ a bundle of prompt-like information and needs it sorted, interpreted, sequenced,
 soloed out, generalized, and turned into the best final artifact implied by the
 bundle.
 
+The prompt must make the agent a distant critic and moderator, not the
+implementer of change. It should stage the argument around the material and
+invite competing voices rather than defaulting to an execution plan.
+
 ## Deliverable
 
 Create `docs/genesis-project/repeatable-pasteboard-meta-process-prompt.md`.
@@ -25,6 +29,9 @@ Create `docs/genesis-project/repeatable-pasteboard-meta-process-prompt.md`.
   implementation detail, and theoretical critique.
 - Produce repeatable prompt/process templates from recurring asks or patterns.
 - Include a critical best-take/report mode for outside review.
+- Include a conversation-arena mode: defense, objection, outside view, and
+  judging criteria.
+- Explicitly prohibit implementation planning unless the user asks for it.
 
 ## Verification
 
@@ -35,3 +42,5 @@ Create `docs/genesis-project/repeatable-pasteboard-meta-process-prompt.md`.
   canonicalization, critical take, and replicable process.
 - The prompt should include a nuance-fidelity check so the user's raw asks are
   not over-flattened during abstraction.
+- The prompt should preserve the voyeur/critic stance: observe, interpret,
+  stage the argument, and let other voices compete.
