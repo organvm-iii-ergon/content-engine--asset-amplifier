@@ -9,6 +9,10 @@ prompt-like material. Figure out what it is trying to do, what should be run
 together, what should stand alone, what should be generalized, and what final
 artifact best serves the whole bundle."
 
+The deeper point is to move from the accidental collection to the universal
+ideal behind it. The bundle should be considered, chopped, diced, sorted, and
+recomposed into the sequence that best serves its higher-purpose use.
+
 ```text
 I am giving you a bundle of information. Much of it is prompts, prompt
 fragments, repeated asks, notes-to-self, intended outputs, or commands I have
@@ -23,6 +27,9 @@ market artifact, an experiment, or something else.
 Your job is to infer the best use of the bundle, not merely summarize it.
 Sort it, give your best take, identify what each piece is trying to make happen,
 and turn the recurring parts into repeatable processes that can be reused later.
+Do not narrow too early. First understand the whole field of asks inside the
+bundle, then decide what should be universalized, sequenced, isolated, or left
+as provenance.
 
 Primary goals:
 
@@ -36,9 +43,12 @@ Primary goals:
    merged with another item, or should be treated as context only.
 6. Generalize repeated asks into reusable prompt templates, processes, or
    operating rules.
-7. Give your best critical take on the whole bundle: what it is really trying to
+7. Identify recurring quality demands, such as academic rigor, canonical source
+   review, marketing studies, market translation, implementation detail,
+   theoretical critique, or outside-review readiness.
+8. Give your best critical take on the whole bundle: what it is really trying to
    become, what it does well, what is missing, and what risks it creates.
-8. Produce the final artifact that best fits the bundle, including any specific
+9. Produce the final artifact that best fits the bundle, including any specific
    output types requested inside the bundle.
 
 For each item or cluster, identify:
@@ -49,6 +59,7 @@ For each item or cluster, identify:
 - Expected output.
 - Value created.
 - Quality standard or implied bar.
+- Repeated-use pattern: why this item might appear again in future projects.
 - Dependencies and downstream artifacts.
 - Classification: sequence step, standalone prompt, duplicate/variant,
   supporting context, unresolved question, or discard/archive candidate.
@@ -60,6 +71,7 @@ Start with this broad taxonomy, then revise it to fit the material:
 - Purpose / intent.
 - Research / source grounding.
 - Academic rigor / proof / method.
+- Marketing research / market study.
 - Critique / review / response.
 - Planning / sequencing.
 - Implementation / architecture.
@@ -92,6 +104,10 @@ Then create:
    what the bundle is really trying to do, what its governing pattern is, what
    it does well, what it is missing, and what should happen next.
 
+7. A nuance-fidelity check:
+   what important language, implied standards, or repeated personal asks were
+   preserved from the raw bundle, and what was intentionally abstracted.
+
 Use this general sequence unless the bundle proves another order is better:
 
 1. Identify what the bundle is.
@@ -100,10 +116,11 @@ Use this general sequence unless the bundle proves another order is better:
 4. Infer each cluster's function and expected output.
 5. Separate sequence items from standalone items.
 6. Collapse duplicates and variants.
-7. Build the strongest dependency order.
-8. Extract reusable prompt/process templates.
-9. Critique the resulting method.
-10. Name the next artifact or action.
+7. Lift the specific examples into their universal ideal form.
+8. Build the strongest dependency order for the higher-purpose use.
+9. Extract reusable prompt/process templates.
+10. Critique the resulting method.
+11. Name the next artifact or action.
 
 Important constraints:
 
@@ -111,6 +128,8 @@ Important constraints:
   Preserve it in the raw layer, then explain its function.
 - Do not assume every item should become part of one long sequence.
 - Do not let source order control ideal order.
+- Do not let provenance disappear either; use it to understand the bundle, then
+  abstract beyond it.
 - Do not force the bundle into a product spec, research plan, or marketing asset
   unless the material asks for that.
 - Do not stop at classification; produce reusable prompts, procedures, or
@@ -143,6 +162,10 @@ Collapse repeated asks into canonical forms.
 ## Repeatable Process Library
 Provide reusable prompt templates, procedures, or rules for future use.
 
+## Nuance Fidelity Check
+State which phrases, standards, repeated asks, and implied outputs were
+preserved, and what was abstracted into a more universal form.
+
 ## Critical Take
 Assess strengths, risks, blind spots, and misuse cases.
 
@@ -163,6 +186,7 @@ Treat this information bundle as a meta-assignment. Most of it is prompt-like
 material. Preserve raw language, separate provenance from authority, classify
 each item by function, expected output, and value, decide what belongs in
 sequence versus what should stand alone, collapse duplicates into canonical
-forms, extract reusable prompts/processes, give your best critical take, and
-produce the final artifact the bundle is asking for.
+forms, lift the specific asks into their universal ideal, extract reusable
+prompts/processes, preserve nuance, give your best critical take, and produce
+the final artifact the bundle is asking for.
 ```

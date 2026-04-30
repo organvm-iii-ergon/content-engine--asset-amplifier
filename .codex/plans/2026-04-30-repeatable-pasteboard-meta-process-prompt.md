@@ -17,8 +17,12 @@ Create `docs/genesis-project/repeatable-pasteboard-meta-process-prompt.md`.
 - Preserve raw language as evidence.
 - Separate provenance from ordering authority.
 - Classify items by function, expected output, and value.
+- Represent the higher-purpose / universal-ideal layer, not only the literal
+  source examples.
 - Decide which items belong in a sequence, which stand alone, and which are
   duplicate/supporting/context-only.
+- Preserve recurring quality demands such as academic rigor, marketing study,
+  implementation detail, and theoretical critique.
 - Produce repeatable prompt/process templates from recurring asks or patterns.
 - Include a critical best-take/report mode for outside review.
 
@@ -29,3 +33,5 @@ Create `docs/genesis-project/repeatable-pasteboard-meta-process-prompt.md`.
   or pasteboard-specific assumptions.
 - The prompt should explicitly ask for sequence, standalone items, value,
   canonicalization, critical take, and replicable process.
+- The prompt should include a nuance-fidelity check so the user's raw asks are
+  not over-flattened during abstraction.
