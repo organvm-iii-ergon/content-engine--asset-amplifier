@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+      - "/apps/api"
+      - "/apps/cli"
+      - "/apps/dashboard"
+      - "/packages/config"
+      - "/packages/db"
+      - "/packages/domain"
+      - "/packages/logger"
+      - "/packages/queue"
+      - "/packages/storage"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    groups:
+      npm-deps:
+        patterns: ["*"]
+  - package-ecosystem: "docker"
+    directories:
+      - "/infra/docker"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    groups:
+      docker-deps:
+        patterns: ["*"]
