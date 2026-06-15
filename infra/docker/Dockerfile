@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:25-slim AS builder
+FROM node:26-slim AS builder
 WORKDIR /app
 
 # Install pnpm
@@ -36,7 +36,7 @@ COPY . .
 RUN pnpm build
 
 # Stage 2: Runtime
-FROM node:25-slim AS runner
+FROM node:26-slim AS runner
 WORKDIR /app
 
 # Install production dependencies for apps/api
